@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  display: flex;
 }
 
 .App-logo {
@@ -32,7 +33,199 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 5px;
+  margin: auto;
+  width: 50%;
+}
+
+.right-panel, .left-panel {
+  width: 25%;
+}
+
+.grid-item {
+  background-color: #696969;
+  /* Background color */
+  width: 80px;
+  height: 80px;
+  font-size: 20px;
+  text-align: center;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.grid-item .path {
+  position: absolute;
+}
+
+.grid-item .path.show {
+  display: block;
+}
+
+.grid-item .path.path-top {
+  width: 40px;
+  height: 72px;
+  top: -3px;
+  background-color: #000000;
+}
+
+.grid-item .path.path-bottom {
+  width: 40px;
+  height: 72px;
+  bottom: -3px;
+  background-color: #000000;
+}
+
+.grid-item .path.path-left {
+  width: 72px;
+  height: 40px;
+  left: -3px;
+  background-color: #000000;
+}
+
+.grid-item .path.path-right {
+  width: 72px;
+  height: 40px;
+  right: -3px;
+  background-color: #000000;
+}
+
+.grid-item .path.middle {
+  width: 70px;
+  height: 70px;
+  background-color: #000000;
+  border-radius: 20px;
+}
+
+.grid-item.prompt-rotate .rotate-button,
+.grid-item.prompt-rotate .confirm-rotate-button {
+  display: block;
+}
+
+.grid-item .rotate-button {
+  top: 10px
+}
+
+.grid-item .rotate-button,
+.grid-item .confirm-rotate-button {
+  position: absolute;
+}
+
+.grid-item .room-name {
+  font-size: 12px;
+  color: #cccccc;
+  position: relative;
+}
+
+.grid-item.disable {
+  background-color: #c0c0c0;
+}
+
+.grid-item.enable {
+  background-color: green;
+}
+
+.grid-item.revealed {
+  background-color: #ffffff;
+}
+
+.grid-item.top {
+  border-top-color: #ff0000;
+}
+
+.grid-item.bottom {
+  border-bottom-color: #ff0000;
+}
+
+.grid-item.right {
+  border-right-color: #ff0000;
+}
+
+.grid-item.left {
+  border-left-color: #ff0000;
+}
+
+#grid-item-3-3 {
+  background-color: #000000;
+  border-radius: 30px;
+}
+
+.grid-item .icon {
+  position: absolute;
+  display: block;
+}
+
+.grid-item .icon.icon-goblin {
+  width: 30px;
+  height: 30px;
+  left: 45px;
+  top: 45px;
+  background: url('./Assets/images/goblin.png') no-repeat top left;
+  background-size: cover;
+}
+
+.grid-item .icon.icon-viking {
+  width: 50px;
+  height: 50px;
+  left: 1px;
+  top: 1px;
+  background: url('./Assets/images/viking.png') no-repeat top left;
+  background-size: cover;
+}
+
+.grid-item .icon.icon-trap {
+  width: 50px;
+  height: 50px;
+  background: url('./Assets/images/trap.png') no-repeat top left;
+  background-size: cover;
+}
+
+.grid-item .icon.icon-treasure {
+  width: 40px;
+  height: 40px;
+  background: url('./Assets/images/chest.png') no-repeat top left;
+  background-size: cover;
+}
+
+.modal-overlay {
+  position: fixed;
+  /* Overlay the entire screen */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  /* Semi-transparent background */
+  z-index: 100;
+  /* Ensure it's on top of the page content */
+}
+
+.modal {
+  background-color: white;
+  margin: 10% auto;
+  /* Center the modal */
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 80%;
+  /* Responsive width */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.close-button {
+  width: auto;
+  POSITION: absolute;
+  top: 3px;
+  right: 3px;
 }

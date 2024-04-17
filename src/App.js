@@ -1,24 +1,73 @@
-import logo from './logo.svg';
 import './App.css';
+import RoomComponent from './Components/Room.component.try';
+import ControllerComponent from './Components/Controller.component';
+import RoomDisplayComponent from './Components/RoomDisplay.component';
+import roomStore from './Store/Room.store';
+
+import React, { useEffect, useState, useStore } from 'react';
 
 function App() {
+  const [isShowPopup, setIsShowPopup] = useState(false);
+  const [isTrapRoomPopup, setIsTrapRoomPopup] = useState(false);
+  const [isShowTreasurePopup, setIsShowTreasurePopup] = useState(false);
+  const [vikingPosition, setVikingPosition] = useState('3-3');
+  const [isRoomRotating, setIsRoomRotating] = useState(false);
+
+  const rooms = roomStore((state) => state.rooms);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className='left-panel'>
+        <RoomDisplayComponent
+        />
+        <ControllerComponent
+          vikingPosition={vikingPosition}
+          setVikingPosition={setVikingPosition}
+        />
+      </div>
+      <div className="grid-container">
+        {[...Array(7)].map((_, rowIndex) => (
+          [...Array(7)].map((_, columnIndex) => (
+            <RoomComponent
+              key={`room-number-${rowIndex}-${columnIndex}`}
+              roomNumber={[rowIndex, columnIndex]}
+              isRoomRotating={isRoomRotating}
+              setIsRoomRotating={setIsRoomRotating}
+            />
+          ))
+        ))}
+      </div>
+      <div className='right-panel'>
+
+      </div>
+      {
+        isShowPopup &&
+        <div className="modal-overlay">
+          <div className="modal">
+            <span>!!YOU FOUND A GOBLIN!!</span>
+            <button className="close-button" onClick={() => setIsShowPopup(false)}>X</button>
+          </div>
+        </div>
+      }
+      {
+        isTrapRoomPopup &&
+        <div className="modal-overlay">
+          <div className="modal">
+            <span>!!YOU'VE BEEN TRAPPED!!</span>
+            <button className="close-button" onClick={() => setIsTrapRoomPopup(false)}>X</button>
+          </div>
+        </div>
+      }
+      {
+        isShowTreasurePopup &&
+        <div className="modal-overlay">
+          <div className="modal">
+            <span>$$ Treasure Room $$. RUN</span>
+            <button className="close-button" onClick={() => setIsShowTreasurePopup(false)}>X</button>
+          </div>
+        </div>
+      }
+    </div >
   );
 }
 
