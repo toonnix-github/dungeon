@@ -167,9 +167,11 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
       {roomData?.exist?.left && <div className='path path-left'></div>}
       {roomData?.exist?.right && <div className='path path-right'></div>}
       {roomData.name && <span className='room-name'>{roomData.name}</span>}
-      {roomStatus === 'prompt-rotate' && <button className='rotate-button' onClick={() => rotateRoomExist()}>Rotate</button>}
       {roomStatus === 'prompt-rotate' &&
-        <button className='confirm-rotate-button' disabled={!confirmButtonState} onClick={() => { setRoomStatus('revealed'); setIsRoomRotating(false); }}>Confirm</button>
+        <div className='rotation-button-container'>
+          <button className='rotate-button' onClick={() => rotateRoomExist()}>Rotate</button>
+          <button className='confirm-rotate-button' disabled={!confirmButtonState} onClick={() => { setRoomStatus('revealed'); setIsRoomRotating(false); }}>Confirm</button>
+        </div>
       }
 
       {/* {isGoblin && <span className='icon icon-goblin'></span>}
