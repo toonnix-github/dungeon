@@ -43,17 +43,19 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-gap: 5px;
-  margin: auto;
+  margin: 5px auto;
   width: 50%;
 }
 
-.right-panel, .left-panel {
+.right-panel,
+.left-panel {
   width: 25%;
 }
 
 .grid-item {
-  background-color: #696969;
-  /* Background color */
+  background-color: transparent;
+  border: #f1f1f1 dashed;
+  border-radius: 5px;
   width: 80px;
   height: 80px;
   font-size: 20px;
@@ -63,6 +65,11 @@
   align-items: center;
   justify-content: center;
   position: relative;
+}
+
+.grid-item.ready-to-explore {
+  background: url('./Assets/images/cover.png') no-repeat top left;
+  background-size: cover;
 }
 
 .grid-item .path {
@@ -76,28 +83,28 @@
 .grid-item .path.path-top {
   width: 40px;
   height: 72px;
-  top: -3px;
+  top: -4px;
   background-color: #000000;
 }
 
 .grid-item .path.path-bottom {
   width: 40px;
   height: 72px;
-  bottom: -3px;
+  bottom: -4px;
   background-color: #000000;
 }
 
 .grid-item .path.path-left {
   width: 72px;
   height: 40px;
-  left: -3px;
+  left: -4px;
   background-color: #000000;
 }
 
 .grid-item .path.path-right {
   width: 72px;
   height: 40px;
-  right: -3px;
+  right: -4px;
   background-color: #000000;
 }
 
@@ -115,6 +122,10 @@
 
 .grid-item .rotate-button {
   top: 10px
+}
+
+.button-container {
+  display: contents;
 }
 
 .grid-item .rotate-button,
@@ -159,6 +170,12 @@
 #grid-item-3-3 {
   background-color: #000000;
   border-radius: 30px;
+  border-style: solid;
+}
+
+#grid-item-3-3.grid-item .path.middle {
+  background: url('./Assets/images/entrance.png') no-repeat center;
+  background-size: 70%;
 }
 
 .grid-item .icon {
