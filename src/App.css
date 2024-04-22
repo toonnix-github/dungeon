@@ -56,8 +56,7 @@
   background-color: transparent;
   border: #f1f1f1 dashed;
   border-radius: 5px;
-  width: 80px;
-  height: 80px;
+  aspect-ratio: 1/1;
   font-size: 20px;
   text-align: center;
   padding: 5px;
@@ -74,6 +73,7 @@
 
 .grid-item .path {
   position: absolute;
+  background-color: #000000;
 }
 
 .grid-item .path.show {
@@ -83,35 +83,30 @@
 .grid-item .path.path-top {
   width: 40px;
   height: 72px;
-  top: -4px;
-  background-color: #000000;
+  top: -5px;
 }
 
 .grid-item .path.path-bottom {
   width: 40px;
   height: 72px;
-  bottom: -4px;
-  background-color: #000000;
+  bottom: -5px;
 }
 
 .grid-item .path.path-left {
   width: 72px;
   height: 40px;
-  left: -4px;
-  background-color: #000000;
+  left: -5px;
 }
 
 .grid-item .path.path-right {
   width: 72px;
   height: 40px;
-  right: -4px;
-  background-color: #000000;
+  right: -5px;
 }
 
 .grid-item .path.middle {
   width: 70px;
   height: 70px;
-  background-color: #000000;
   border-radius: 20px;
 }
 
@@ -192,13 +187,19 @@
   background-size: cover;
 }
 
-.grid-item .icon.icon-viking {
+.icon {
+  display: block;
+}
+
+.icon.icon-viking {
   width: 50px;
   height: 50px;
   left: 1px;
   top: 1px;
   background: url('./Assets/images/viking.png') no-repeat top left;
   background-size: cover;
+  position: absolute;
+  transition: all 0.5s linear;
 }
 
 .grid-item .icon.icon-trap {

@@ -1,12 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import roomStore from '../Store/Room.store';
+import VikingStore from '../Store/Viking.store';
 import RoomUtil from '../Util/Room.Util';
-const _ = require('lodash');
+import _ from 'lodash';
 
 function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
   const roomRef = useRef()
   const [roomNumberString, setRoomNumberString] = useState();
   const roomsData = roomStore((state) => state.rooms);
+  const vikingPosition = VikingStore((state) => state.position);
+  const setVikingOffset = VikingStore((state) => state.setOffset);
   const [adjacentRoomsData, setAdjacentRoomsData] = useState({
     top: null,
     right: null,
@@ -22,6 +25,8 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
   const [isFoundGoblin, setIsFoundGoblin] = useState(false);
   const [isTreasureRoom, setIsTreasureRoom] = useState(false);
   const [isTrapRoom, setIsTrapRoom] = useState(false);
+  const setIsMoveDone = VikingStore((state) => state.setIsMoveDone);
+
 
   useEffect(() => {
     if (roomNumber) {
@@ -46,25 +51,26 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
     if (roomData.isTreasureRoom) setIsTreasureRoom(true);
   }, [roomData]);
 
-  useEffect(() => {
-    const checkExploreStatusButton = () => {
-      if (roomStatus !== 'revealed' || roomStatus !== 'readyToExplore') {
-        let _isReadyToExplore = false;
-        if (adjacentRoomsData.top?.exist?.bottom) {
-          _isReadyToExplore = true
-        }
-        if (adjacentRoomsData.bottom?.exist?.top) {
-          _isReadyToExplore = true
-        }
-        if (adjacentRoomsData.left?.exist?.right) {
-          _isReadyToExplore = true
-        }
-        if (adjacentRoomsData.right?.exist?.left) {
-          _isReadyToExplore = true
-        }
-        setIsReadyToExplore(_isReadyToExplore);
+  const checkExploreStatusButton = () => {
+    if (roomStatus !== 'revealed' || roomStatus !== 'readyToExplore') {
+      let _isReadyToExplore = false;
+      if (adjacentRoomsData.top?.exist?.bottom) {
+        _isReadyToExplore = true
       }
+      if (adjacentRoomsData.bottom?.exist?.top) {
+        _isReadyToExplore = true
+      }
+      if (adjacentRoomsData.left?.exist?.right) {
+        _isReadyToExplore = true
+      }
+      if (adjacentRoomsData.right?.exist?.left) {
+        _isReadyToExplore = true
+      }
+      setIsReadyToExplore(_isReadyToExplore);
     }
+  }
+
+  useEffect(() => {
     checkExploreStatusButton();
   }, [adjacentRoomsData])
 
@@ -72,11 +78,15 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
     assignRoom(roomNumber[0], roomNumber[1], RoomUtil.getRandomRoom());
     setRoomStatus('prompt-rotate');
     setIsRoomRotating(true)
+    checkExploreStatusButton();
   };
 
-  // useEffect(() => {
-  //   setIsVikingPosition(vikingPosition === roomNumber);
-  // }, [vikingPosition])
+  useEffect(() => {
+    if (_.isEqual(vikingPosition, roomNumber)) {
+      setVikingOffset(roomRef.current.offsetTop, roomRef.current.offsetLeft)
+      if (isReadyToExplore && !roomData.id && !isEntranceRoom) { selectBlankRoom() }
+    }
+  }, [vikingPosition])
 
   // useEffect(() => {
   //   if (roomState !== 'revealed' && roomNumber !== '3-3' && isVikingPosition) {
@@ -132,8 +142,9 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
   }
 
   const confirmRoom = () => {
-    setRoomStatus('revealed'); 
+    setRoomStatus('revealed');
     setIsRoomRotating(false);
+    setIsMoveDone();
   }
 
   return (
@@ -154,8 +165,6 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
           <span>{!confirmButtonState}</span>
         </div>
       }
-
-      {/* {isVikingPosition && <span className='icon icon-viking'></span>} */}
     </div>
   )
 }

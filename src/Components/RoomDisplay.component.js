@@ -1,13 +1,9 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 
-function RoomDisplayComponent({ currentRoom }) {
-    useEffect(() => {
-        console.log(currentRoom);
-    }, [currentRoom])
-
+function RoomDisplayComponent({ }) {
     return (
         <div>
-            room type: {currentRoom?.name}
+            room type: 
         </div>
     )
 }

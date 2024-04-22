@@ -1,54 +1,39 @@
 import React, { useState, useEffect } from 'react';
+import VikingStore from '../Store/Viking.store';
+import roomStore from '../Store/Room.store';
 
-function ControllerComponent({ vikingPosition, setVikingPosition, roomData, isPromptState, currentRoom, setCurrentRoom }) {
-    const [currentPosition, setCurrentPosition] = useState();
+function ControllerComponent({ }) {
     const [upButtonState, setUpButtonState] = useState(true);
     const [rightButtonState, setRightButtonState] = useState(true);
     const [bottomButtonState, setBottomButtonState] = useState(true);
     const [leftButtonState, setLeftButtonState] = useState(true);
 
-    useEffect(() => {
-        setCurrentPosition(vikingPosition.split('-'));
-        if (currentPosition) setCurrentRoom(roomData[currentPosition[0]][currentPosition[1]]);
-    }, [vikingPosition]);
+    const roomsData = roomStore((state) => state.rooms);
+    const moveVikingUp = VikingStore((state) => state.moveUp);
+    const moveVikingRight = VikingStore((state) => state.moveRight);
+    const moveVikingBottom = VikingStore((state) => state.moveBottom);
+    const moveVikingLeft = VikingStore((state) => state.moveLeft);
+    const vikingPosition = VikingStore((state) => state.position);
+    const isMoveDone = VikingStore((state) => state.isMoveDone);
+    const setIsMoving = VikingStore((state) => state.setIsMoving);
 
     useEffect(() => {
-        if (currentRoom?.exist && currentPosition) {
-            setUpButtonState(currentRoom?.exist?.top && currentPosition[0] > 0);
-            setRightButtonState(currentRoom?.exist?.right && currentPosition[1] < 6);
-            setBottomButtonState(currentRoom?.exist?.bottom && currentPosition[0] < 6);
-            setLeftButtonState(currentRoom?.exist?.left && currentPosition[1] > 0);
-        }
-    }, [currentRoom, isPromptState]);
+        const currentRoom = roomsData[vikingPosition[0]][vikingPosition[1]]
+        console.log(currentRoom);
+        console.log(currentRoom.exist);
+        setUpButtonState(currentRoom?.exist?.top)
+        setRightButtonState(currentRoom?.exist?.right)
+        setBottomButtonState(currentRoom?.exist?.bottom)
+        setLeftButtonState(currentRoom?.exist?.left)
+    }, [isMoveDone]);
 
-    const moveViking = (direction) => {
-        let newVikingPosition = '';
-        switch (direction) {
-            case 'up':
-                newVikingPosition = `${--currentPosition[0]}-${currentPosition[1]}`
-                break;
-            case 'right':
-                newVikingPosition = `${currentPosition[0]}-${++currentPosition[1]}`
-                break;
-            case 'bottom':
-                newVikingPosition = `${++currentPosition[0]}-${currentPosition[1]}`
-                break;
-            case 'left':
-                newVikingPosition = `${currentPosition[0]}-${--currentPosition[1]}`
-                break;
-
-            default:
-                break;
-        }
-        setVikingPosition(newVikingPosition);
-    }
     return (
         <div className='controller-container'>
-            <button disabled={!upButtonState} onClick={() => moveViking('up')}>Up</button>
-            <button disabled={!rightButtonState} onClick={() => moveViking('right')}>Right</button>
-            <button disabled={!bottomButtonState} onClick={() => moveViking('bottom')}>Bottom</button>
-            <button disabled={!leftButtonState} onClick={() => moveViking('left')}>Left</button>
-        </div>
+            <button disabled={!upButtonState} onClick={() => { setIsMoving(); moveVikingUp(); }}>Up</button>
+            <button disabled={!rightButtonState} onClick={() => { setIsMoving(); moveVikingRight(); }}>Right</button>
+            <button disabled={!bottomButtonState} onClick={() => { setIsMoving(); moveVikingBottom(); }}>Bottom</button>
+            <button disabled={!leftButtonState} onClick={() => { setIsMoving(); moveVikingLeft(); }}>Left</button>
+        </div >
     )
 }
 

@@ -2,28 +2,21 @@ import './App.css';
 import RoomComponent from './Components/Room.component.try';
 import ControllerComponent from './Components/Controller.component';
 import RoomDisplayComponent from './Components/RoomDisplay.component';
-import roomStore from './Store/Room.store';
 
-import React, { useEffect, useState, useStore } from 'react';
+import React, { useState } from 'react';
+import VikingComponent from './Components/Viking.component';
 
 function App() {
   const [isShowPopup, setIsShowPopup] = useState(false);
   const [isTrapRoomPopup, setIsTrapRoomPopup] = useState(false);
   const [isShowTreasurePopup, setIsShowTreasurePopup] = useState(false);
-  const [vikingPosition, setVikingPosition] = useState('3-3');
   const [isRoomRotating, setIsRoomRotating] = useState(false);
-
-  const rooms = roomStore((state) => state.rooms);
 
   return (
     <div className="App">
       <div className='left-panel'>
-        <RoomDisplayComponent
-        />
-        <ControllerComponent
-          vikingPosition={vikingPosition}
-          setVikingPosition={setVikingPosition}
-        />
+        <RoomDisplayComponent />
+        <ControllerComponent />
       </div>
       <div className="grid-container">
         {[...Array(7)].map((_, rowIndex) => (
@@ -36,6 +29,7 @@ function App() {
             />
           ))
         ))}
+        <VikingComponent />
       </div>
       <div className='right-panel'>
 
