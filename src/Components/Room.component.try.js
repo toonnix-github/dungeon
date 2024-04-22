@@ -84,7 +84,7 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
   useEffect(() => {
     if (_.isEqual(vikingPosition, roomNumber)) {
       setVikingOffset(roomRef.current.offsetTop, roomRef.current.offsetLeft)
-      if (isReadyToExplore && !roomData.id && !isEntranceRoom) { selectBlankRoom() }
+      if (isReadyToExplore && !roomData.id && !isEntranceRoom) { selectBlankRoom(); } else { setIsMoveDone(); }
     }
   }, [vikingPosition])
 

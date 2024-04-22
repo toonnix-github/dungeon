@@ -18,9 +18,8 @@ function ControllerComponent({ }) {
     const setIsMoving = VikingStore((state) => state.setIsMoving);
 
     useEffect(() => {
+        console.log(isMoveDone);
         const currentRoom = roomsData[vikingPosition[0]][vikingPosition[1]]
-        console.log(currentRoom);
-        console.log(currentRoom.exist);
         setUpButtonState(currentRoom?.exist?.top)
         setRightButtonState(currentRoom?.exist?.right)
         setBottomButtonState(currentRoom?.exist?.bottom)
