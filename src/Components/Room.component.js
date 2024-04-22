@@ -1,107 +1,106 @@
-import roomInformationList from '../Assets/Room';
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import roomStore from '../Store/Room.store';
+import VikingStore from '../Store/Viking.store';
+import RoomUtil from '../Util/Room.Util';
+import _ from 'lodash';
 
-function RoomComponent({
-  rowIndex, columnIndex, roomsDeck,
-  setRoomsDeck, roomData, setRoomData,
-  roomCount, setRoomCount, setIsShowPopup,
-  setIsTrapRoomPopup, setIsShowTreasurePopup, vikingPosition,
-  ...props
-}) {
+function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
   const roomRef = useRef()
-  const [roomInformation, setRoomInformation] = useState({ exist: {} });
-  const [roomState, setRoomState] = useState("cover");
-  const [finalizeRoomRotate, setFinalizeRoomRotate] = useState();
-  const [confirmButtonState, setConfirmButtonState] = useState(false);
-  const [isGoblin, setIsGoblin] = useState(false)
-  const [isTrapRoom, setIsTrapRoom] = useState(false);
+  const [roomNumberString, setRoomNumberString] = useState();
+  const roomsData = roomStore((state) => state.rooms);
+  const vikingPosition = VikingStore((state) => state.position);
+  const setVikingOffset = VikingStore((state) => state.setOffset);
+  const [adjacentRoomsData, setAdjacentRoomsData] = useState({
+    top: null,
+    right: null,
+    bottom: null,
+    left: null,
+  });
+  const roomData = roomStore((state) => state.rooms[roomNumber[0]][roomNumber[1]]);
+  const assignRoom = roomStore((state) => state.assignRoom);
+  const [isEntranceRoom, setIsEntranceRoom] = useState(false);
+  const [roomStatus, setRoomStatus] = useState('');
+  const [isReadyToExplore, setIsReadyToExplore] = useState(false);
+  const [confirmButtonState, setConfirmButtonState] = useState();
+  const [isFoundGoblin, setIsFoundGoblin] = useState(false);
   const [isTreasureRoom, setIsTreasureRoom] = useState(false);
-  const [isVikingPosition, setIsVikingPosition] = useState(false);
-  let updateRoomData = roomData;
+  const [isTrapRoom, setIsTrapRoom] = useState(false);
+  const [isOperatingRoom, setIsOperatingRoom] = useState(false);
+  const setIsMoveDone = VikingStore((state) => state.setIsMoveDone);
 
-  const roomNumber = useMemo(() => {
-    return `${rowIndex}-${columnIndex}`;
-  }, [rowIndex, columnIndex]);
 
-  const getRandomRoom = () => {
-    if (roomsDeck.length > 0) {
-      const randomIndex = Math.floor(Math.random() * roomsDeck.length);
-      const randomNum = roomsDeck[randomIndex];
-
-      const updateRoomsDeck = roomsDeck.filter((num) => num !== randomNum);
-      setRoomsDeck(updateRoomsDeck);
-      setRoomInformation(roomInformationList[randomNum]);
+  useEffect(() => {
+    if (roomNumber) {
+      setRoomNumberString(`${roomNumber[0]}-${roomNumber[1]}`);
     }
-  };
+  }, [roomNumber]);
+
+  useEffect(() => {
+    setAdjacentRoomsData({
+      top: roomNumber[0] > 0 ? roomsData[roomNumber[0] - 1][roomNumber[1]] : null,
+      right: roomNumber[1] + 1 <= 6 ? roomsData[roomNumber[0]][roomNumber[1] + 1] : null,
+      bottom: roomNumber[0] + 1 <= 6 ? roomsData[roomNumber[0] + 1][roomNumber[1]] : null,
+      left: roomNumber[1] > 0 ? roomsData[roomNumber[0]][roomNumber[1] - 1] : null
+    })
+  }, [roomsData]);
+
+  useEffect(() => {
+    checkConfirmButtonState();
+    if (roomData.id === 0) setIsEntranceRoom(true);
+    if (roomData.foundGoblin) setIsFoundGoblin(true);
+    if (roomData.isTrapRoom) setIsTrapRoom(true);
+    if (roomData.isTreasureRoom) setIsTreasureRoom(true);
+  }, [roomData]);
+
+  const checkExploreStatusButton = () => {
+    if (roomStatus !== 'revealed' || roomStatus !== 'readyToExplore') {
+      let _isReadyToExplore = false;
+      if (adjacentRoomsData.top?.exist?.bottom) {
+        _isReadyToExplore = true
+      }
+      if (adjacentRoomsData.bottom?.exist?.top) {
+        _isReadyToExplore = true
+      }
+      if (adjacentRoomsData.left?.exist?.right) {
+        _isReadyToExplore = true
+      }
+      if (adjacentRoomsData.right?.exist?.left) {
+        _isReadyToExplore = true
+      }
+      setIsReadyToExplore(_isReadyToExplore);
+    }
+  }
+
+  useEffect(() => {
+    checkExploreStatusButton();
+  }, [adjacentRoomsData])
 
   const selectBlankRoom = () => {
-    getRandomRoom();
-    setRoomState("revealed");
-    roomRef.current.classList.add('prompt-rotate');
+    assignRoom(roomNumber[0], roomNumber[1], RoomUtil.getRandomRoom());
+    setRoomStatus('prompt-rotate');
+    setIsRoomRotating(true)
+    setIsOperatingRoom(true);
+    checkExploreStatusButton();
   };
 
-  useEffect(() => {
-    if (roomNumber === '3-3') {
-      roomRef.current.classList.add('top', 'bottom', 'left', 'right');
-    }
-  }, [])
+  const isCurrentRoom = () => {
+    return _.isEqual(vikingPosition, roomNumber);
+  }
 
   useEffect(() => {
-    if (roomState === 'revealed') {
-      roomRef.current.classList.toggle("revealed");
-    } else if (roomState === 'enable') {
-      roomRef.current.classList.toggle("enable");
-      roomRef.current.classList.toggle("dsiable");
+    if (isCurrentRoom()) {
+      setVikingOffset(roomRef.current.offsetTop, roomRef.current.offsetLeft)
+      if (isReadyToExplore && !roomData.id && !isEntranceRoom) { selectBlankRoom(); } else { setIsMoveDone(); }
     }
-  }, [roomState])
-
-  useEffect(() => {
-    setIsVikingPosition(vikingPosition === roomNumber);
+    checkExploreStatusButton();
   }, [vikingPosition])
-
-  useEffect(() => {
-    if (roomState !== 'revealed' && roomNumber !== '3-3' && isVikingPosition) {
-      selectBlankRoom();
-    }
-  }, [isVikingPosition]);
-
-  useEffect(() => {
-    if (roomState !== 'revealed' && roomNumber !== '3-3') {
-      let updateRoomState = 'disable';
-      if (rowIndex - 1 >= 0) {
-        if (roomData[rowIndex - 1][columnIndex] && roomData[rowIndex - 1][columnIndex]?.exist?.bottom === true) {
-          updateRoomState = 'enable'
-        }
-      }
-      if (rowIndex + 1 <= 6) {
-        if (roomData[rowIndex + 1][columnIndex] && roomData[rowIndex + 1][columnIndex]?.exist?.top === true) {
-          updateRoomState = 'enable'
-        }
-      }
-      if (columnIndex - 1 >= 0) {
-        if (roomData[rowIndex][columnIndex - 1] && roomData[rowIndex][columnIndex - 1]?.exist?.right === true) {
-          updateRoomState = 'enable'
-        }
-      }
-      if (columnIndex + 1 <= 6) {
-        if (roomData[rowIndex][columnIndex + 1] && roomData[rowIndex][columnIndex + 1]?.exist?.left === true) {
-          updateRoomState = 'enable'
-        }
-      }
-      setRoomState(updateRoomState);
-    }
-  }, [roomCount]);
-
-  useEffect(() => {
-    assignRoomExist();
-  }, [roomInformation]);
 
   const rotateRoomExist = () => {
     let tempArray = [];
-    tempArray.push(roomInformation.exist.top);
-    tempArray.push(roomInformation.exist.right);
-    tempArray.push(roomInformation.exist.bottom);
-    tempArray.push(roomInformation.exist.left);
+    tempArray.push(roomData.exist.top);
+    tempArray.push(roomData.exist.right);
+    tempArray.push(roomData.exist.bottom);
+    tempArray.push(roomData.exist.left);
     const lastElement = tempArray.pop();
     tempArray.unshift(lastElement);
     let tempExist = {
@@ -114,80 +113,68 @@ function RoomComponent({
     tempExist.right = tempArray[1];
     tempExist.bottom = tempArray[2];
     tempExist.left = tempArray[3];
-    roomInformation.exist = tempExist;
-    assignRoomExist();
+    roomData.exist = tempExist;
+    assignRoom(roomNumber[0], roomNumber[1], roomData);
   }
 
-  const assignRoomExist = () => {
-    if (roomInformation !== null && roomNumber !== '3-3') {
-      roomRef.current.classList.remove('top', 'bottom', 'left', 'right');
-      for (const direction in roomInformation.exist) {
-        if (roomInformation.exist[direction]) {
-          roomRef.current.classList.add(direction);
-        }
-      }
-    }
+  const checkConfirmButtonState = () => {
     let confirmButtonState = false;
-    if (rowIndex - 1 >= 0) {
-      if (roomData[rowIndex - 1][columnIndex] && roomData[rowIndex - 1][columnIndex]?.exist?.bottom === true) {
-        if (roomInformation.exist.top) confirmButtonState = true
+    if (roomNumber[0] - 1 >= 0) {
+      if (adjacentRoomsData.top?.exist?.bottom && roomData?.exist?.top) {
+        confirmButtonState = true
       }
     }
-    if (rowIndex + 1 <= 6) {
-      if (roomData[rowIndex + 1][columnIndex] && roomData[rowIndex + 1][columnIndex]?.exist?.top === true) {
-        if (roomInformation.exist.bottom) confirmButtonState = true
+    if (roomNumber[0] + 1 <= 6) {
+      if (adjacentRoomsData.bottom?.exist?.top && roomData?.exist?.bottom) {
+        confirmButtonState = true
       }
     }
-    if (columnIndex - 1 >= 0) {
-      if (roomData[rowIndex][columnIndex - 1] && roomData[rowIndex][columnIndex - 1]?.exist?.right === true) {
-        if (roomInformation.exist.left) confirmButtonState = true
+    if (roomNumber[1] - 1 >= 0) {
+      if (adjacentRoomsData.left?.exist?.right && roomData?.exist?.left) {
+        confirmButtonState = true
       }
     }
-    if (columnIndex + 1 <= 6) {
-      if (roomData[rowIndex][columnIndex + 1] && roomData[rowIndex][columnIndex + 1]?.exist?.left === true) {
-        if (roomInformation.exist.right) confirmButtonState = true
+    if (roomNumber[1] + 1 <= 6) {
+      if (adjacentRoomsData.right?.exist?.left && roomData?.exist?.right) {
+        confirmButtonState = true
       }
     }
     setConfirmButtonState(confirmButtonState)
   }
 
-  const confirmRotation = () => {
-    setFinalizeRoomRotate(true);
-    setIsGoblin(roomInformation.foundGoblin);
-    setIsShowPopup(roomInformation.foundGoblin);
-    setIsTrapRoom(roomInformation.isTrapRoom);
-    setIsTrapRoomPopup(roomInformation.isTrapRoom);
-    setIsTreasureRoom(roomInformation.isTreasureRoom);
-    setIsShowTreasurePopup(roomInformation.isTreasureRoom);
-    roomRef.current.classList.remove('prompt-rotate');
-  };
-
-  useEffect(() => {
-    if (finalizeRoomRotate) {
-      updateRoomData[rowIndex][columnIndex] = { ...updateRoomData[rowIndex][columnIndex], ...roomInformation };
-      setRoomData(updateRoomData);
-      setRoomCount(roomCount + 1);
-    }
-  }, [finalizeRoomRotate]);
+  const confirmRoom = () => {
+    setRoomStatus('revealed');
+    setIsRoomRotating(false);
+    setIsOperatingRoom(false);
+    setIsMoveDone();
+    checkExploreStatusButton();
+  }
 
   return (
-    <div ref={roomRef} className="grid-item disable" id={`grid-item-${roomNumber}`}>
-      {(roomNumber !== '3-3' && roomState !== 'revealed' && roomState === 'enable') &&
-        <button className='reveal-button' onClick={() => selectBlankRoom()}>Explore</button>
+    <div ref={roomRef}
+      className={"grid-item" +
+        ((!(roomStatus === 'revealed' || isRoomRotating || isEntranceRoom) && isReadyToExplore) ? " ready-to-explore" : "") +
+        (roomStatus === 'revealed' ? " revealed" : "") +
+        (isRoomRotating && !isOperatingRoom ? ' room-is-rotating' : "")
       }
-      {roomState === 'revealed' && <span className='room-name'>{roomInformation.name}</span>}
-      <div className='path middle'></div>
-      <div className='path path-top'></div>
-      <div className='path path-bottom'></div>
-      <div className='path path-left'></div>
-      <div className='path path-right'></div>
-      <button className='rotate-button' onClick={() => rotateRoomExist()}>Rotate</button>
-      <button className='confirm-rotate-button' disabled={!confirmButtonState} onClick={() => confirmRotation()}>Confirm</button>
-
-      {isGoblin && <span className='icon icon-goblin'></span>}
+      id={`grid-item-${roomNumberString}`}
+    >
+      {(!(roomStatus === 'revealed' || isRoomRotating || isEntranceRoom) && isReadyToExplore) && <button className='explore-button' onClick={() => selectBlankRoom()}>Explore</button>}
+      {roomData?.exist?.top && <div className='path path-top'></div>}
+      {roomData?.exist?.bottom && <div className='path path-bottom'></div>}
+      {roomData?.exist?.left && <div className='path path-left'></div>}
+      {roomData?.exist?.right && <div className='path path-right'></div>}
+      {roomData.name && <div className='path middle'></div>}
+      {isFoundGoblin && <span className='icon icon-goblin'></span>}
       {isTrapRoom && <span className='icon icon-trap'></span>}
       {isTreasureRoom && <span className='icon icon-treasure'></span>}
-      {isVikingPosition && <span className='icon icon-viking'></span>}
+      {roomStatus === 'prompt-rotate' &&
+        <div className='button-container'>
+          <button className='rotate-button' onClick={() => rotateRoomExist()}></button>
+          <button className='confirm-rotate-button' disabled={!confirmButtonState} onClick={() => { confirmRoom() }}></button>
+          <span>{!confirmButtonState}</span>
+        </div>
+      }
     </div>
   )
 }

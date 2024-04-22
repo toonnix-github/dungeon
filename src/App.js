@@ -1,5 +1,5 @@
 import './App.css';
-import RoomComponent from './Components/Room.component.try';
+import RoomComponent from './Components/Room.component';
 import ControllerComponent from './Components/Controller.component';
 import RoomDisplayComponent from './Components/RoomDisplay.component';
 
@@ -16,7 +16,6 @@ function App() {
     <div className="App">
       <div className='left-panel'>
         <RoomDisplayComponent />
-        <ControllerComponent />
       </div>
       <div className="grid-container">
         {[...Array(7)].map((_, rowIndex) => (
@@ -32,7 +31,7 @@ function App() {
         <VikingComponent />
       </div>
       <div className='right-panel'>
-
+        <ControllerComponent />
       </div>
       {
         isShowPopup &&

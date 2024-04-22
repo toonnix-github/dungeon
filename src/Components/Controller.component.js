@@ -18,20 +18,25 @@ function ControllerComponent({ }) {
     const setIsMoving = VikingStore((state) => state.setIsMoving);
 
     useEffect(() => {
-        console.log(isMoveDone);
         const currentRoom = roomsData[vikingPosition[0]][vikingPosition[1]]
-        setUpButtonState(currentRoom?.exist?.top)
-        setRightButtonState(currentRoom?.exist?.right)
-        setBottomButtonState(currentRoom?.exist?.bottom)
-        setLeftButtonState(currentRoom?.exist?.left)
+        const adjacentRoomsData = {
+            top: vikingPosition[0] > 0 ? roomsData[vikingPosition[0] - 1][vikingPosition[1]] : null,
+            right: vikingPosition[1] + 1 <= 6 ? roomsData[vikingPosition[0]][vikingPosition[1] + 1] : null,
+            bottom: vikingPosition[0] + 1 <= 6 ? roomsData[vikingPosition[0] + 1][vikingPosition[1]] : null,
+            left: vikingPosition[1] > 0 ? roomsData[vikingPosition[0]][vikingPosition[1] - 1] : null
+        }
+        setUpButtonState(vikingPosition[0] > 0 && currentRoom?.exist?.top && (!adjacentRoomsData?.top?.id || adjacentRoomsData?.top?.exist?.bottom))
+        setRightButtonState(vikingPosition[1] + 1 <= 6 && currentRoom?.exist?.right && (!adjacentRoomsData?.right?.id || adjacentRoomsData?.right?.exist?.left))
+        setBottomButtonState(vikingPosition[0] + 1 <= 6 && currentRoom?.exist?.bottom && (!adjacentRoomsData?.bottom?.id || adjacentRoomsData?.bottom?.exist?.top))
+        setLeftButtonState(vikingPosition[1] > 0 && currentRoom?.exist?.left && (!adjacentRoomsData?.left?.id || adjacentRoomsData?.left?.exist?.right))
     }, [isMoveDone]);
 
     return (
         <div className='controller-container'>
-            <button disabled={!upButtonState} onClick={() => { setIsMoving(); moveVikingUp(); }}>Up</button>
-            <button disabled={!rightButtonState} onClick={() => { setIsMoving(); moveVikingRight(); }}>Right</button>
-            <button disabled={!bottomButtonState} onClick={() => { setIsMoving(); moveVikingBottom(); }}>Bottom</button>
-            <button disabled={!leftButtonState} onClick={() => { setIsMoving(); moveVikingLeft(); }}>Left</button>
+            <button className='up' disabled={!upButtonState} onClick={() => { setIsMoving(); moveVikingUp(); }}></button>
+            <button className='right' disabled={!rightButtonState} onClick={() => { setIsMoving(); moveVikingRight(); }}></button>
+            <button className='bottom' disabled={!bottomButtonState} onClick={() => { setIsMoving(); moveVikingBottom(); }}></button>
+            <button className='left' disabled={!leftButtonState} onClick={() => { setIsMoving(); moveVikingLeft(); }}></button>
         </div >
     )
 }

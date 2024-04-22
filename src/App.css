@@ -1,6 +1,6 @@
 .App {
-  text-align: center;
-  display: flex;
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
 }
 
 .App-logo {
@@ -44,16 +44,15 @@
   grid-template-columns: repeat(7, 1fr);
   grid-gap: 5px;
   margin: 5px auto;
-  width: 50%;
 }
 
 .right-panel,
 .left-panel {
-  width: 25%;
+  display: block;
 }
 
 .grid-item {
-  background-color: transparent;
+  background-color: #fff0df;
   border: #f1f1f1 dashed;
   border-radius: 5px;
   aspect-ratio: 1/1;
@@ -64,11 +63,20 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  min-width: 60px;
+}
+
+.grid-item .explore-button {
+  font-size: 10px;
 }
 
 .grid-item.ready-to-explore {
   background: url('./Assets/images/cover.png') no-repeat top left;
   background-size: cover;
+}
+
+.grid-item.room-is-rotating {
+  opacity: 0.3;
 }
 
 .grid-item .path {
@@ -82,31 +90,31 @@
 
 .grid-item .path.path-top {
   width: 40px;
-  height: 72px;
+  height: 60px;
   top: -5px;
 }
 
 .grid-item .path.path-bottom {
   width: 40px;
-  height: 72px;
+  height: 60px;
   bottom: -5px;
 }
 
 .grid-item .path.path-left {
-  width: 72px;
+  width: 60px;
   height: 40px;
   left: -5px;
 }
 
 .grid-item .path.path-right {
-  width: 72px;
+  width: 60px;
   height: 40px;
   right: -5px;
 }
 
 .grid-item .path.middle {
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   border-radius: 20px;
 }
 
@@ -116,7 +124,29 @@
 }
 
 .grid-item .rotate-button {
-  top: 10px
+  top: 0;
+  right: -25px;
+  background: url(../src/Assets/images/rotate-arrow.png) no-repeat;
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+  z-index: 10;
+  border: none;
+}
+
+.grid-item .confirm-rotate-button {
+  top: 0px;
+  right: -55px;
+  background: url(../src/Assets/images/check.png) no-repeat;
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+  z-index: 10;
+  border: none;
+}
+
+.grid-item .confirm-rotate-button:disabled {
+  opacity: 0.3;
 }
 
 .button-container {
@@ -128,38 +158,9 @@
   position: absolute;
 }
 
-.grid-item .room-name {
-  font-size: 12px;
-  color: #cccccc;
-  position: relative;
-}
-
-.grid-item.disable {
-  background-color: #c0c0c0;
-}
-
-.grid-item.enable {
-  background-color: green;
-}
-
 .grid-item.revealed {
-  background-color: #ffffff;
-}
-
-.grid-item.top {
-  border-top-color: #ff0000;
-}
-
-.grid-item.bottom {
-  border-bottom-color: #ff0000;
-}
-
-.grid-item.right {
-  border-right-color: #ff0000;
-}
-
-.grid-item.left {
-  border-left-color: #ff0000;
+  background-color: transparent;
+  border: none;
 }
 
 #grid-item-3-3 {
@@ -171,6 +172,8 @@
 #grid-item-3-3.grid-item .path.middle {
   background: url('./Assets/images/entrance.png') no-repeat center;
   background-size: 70%;
+  width: 70px;
+  height: 70px;
 }
 
 .grid-item .icon {
@@ -181,8 +184,8 @@
 .grid-item .icon.icon-goblin {
   width: 30px;
   height: 30px;
-  left: 45px;
-  top: 45px;
+  left: 40px;
+  top: 35px;
   background: url('./Assets/images/goblin.png') no-repeat top left;
   background-size: cover;
 }
@@ -246,4 +249,48 @@
   POSITION: absolute;
   top: 3px;
   right: 3px;
+}
+
+.controller-container {
+  position: relative;
+  width: 105px;
+  height: 120px;
+}
+
+.controller-container button {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  border: .5px solid;
+  position: absolute;
+  background: url(../src/Assets/images/play.png) no-repeat;
+  background-size: cover;
+}
+
+.controller-container button:disabled {
+  opacity: 0.3;
+}
+
+.controller-container button.up {
+  transform: rotate(270deg);
+  left: 35px;
+}
+
+.controller-container button.bottom {
+  transform: rotate(90deg);
+  left: 35px;
+  top: 70px;
+}
+
+.controller-container button.left,
+.controller-container button.right {
+  top: 35px;
+}
+
+.controller-container button.left {
+  transform: rotate(180deg);
+}
+
+.controller-container button.right {
+  left: 70px;
 }
