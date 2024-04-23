@@ -29,7 +29,8 @@
 }
 
 .grid-item {
-  background-color: #fff0df;
+  background: url(../src/Assets/images/soil.png) no-repeat center;
+  background-size: cover;
   border: 1px solid #1f2135;
   border-radius: 5px;
   aspect-ratio: 1/1;
@@ -43,7 +44,16 @@
 }
 
 .grid-item .explore-button {
-  font-size: 10px;
+  background: url(../src/Assets/images/vision.png) no-repeat center;
+  background-size: cover;
+  width: 60px;
+  height: 60px;
+  border: none;
+  cursor: pointer;
+}
+
+.grid-item .explore-button:hover {
+  filter: drop-shadow(5px 5px 10px #413a00)
 }
 
 .grid-item.ready-to-explore {
@@ -168,7 +178,8 @@
   position: absolute;
 }
 
-.grid-item.revealed, #grid-item-3-3.grid-item {
+.grid-item.revealed,
+#grid-item-3-3.grid-item {
   background: url(../src/Assets/images/dungeon-pattern.png) no-repeat center;
   background-size: cover;
   box-sizing: border-box;

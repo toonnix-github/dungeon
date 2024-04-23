@@ -30,6 +30,8 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
   const [isTreasureRoom, setIsTreasureRoom] = useState(false);
   const [isTrapRoom, setIsTrapRoom] = useState(false);
   const [isOperatingRoom, setIsOperatingRoom] = useState(false);
+  const [isRevealByHeroMove, setIsRevealByHeroMove] = useState(false);
+  const [isRevealByVision, setIsRevealByVision] = useState(false);
 
 
   useEffect(() => {
@@ -93,7 +95,10 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
   useEffect(() => {
     if (isCurrentRoom()) {
       setVikingOffset(roomRef.current.offsetTop, roomRef.current.offsetLeft)
-      if (isReadyToExplore && !roomData.id && !isEntranceRoom) { selectBlankRoom(); } else { setIsMoveDone(); }
+      if (isReadyToExplore && !roomData.id && !isEntranceRoom) {
+        setIsRevealByHeroMove(true);
+        selectBlankRoom();
+      } else { setIsMoveDone(); }
     }
     checkExploreStatusButton();
   }, [vikingPosition])
@@ -122,24 +127,36 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
 
   const checkConfirmButtonState = () => {
     let confirmButtonState = false;
-    if (roomNumber[0] - 1 >= 0) {
-      if (adjacentRoomsData.top?.exist?.bottom && roomData?.exist?.top) {
-        confirmButtonState = true
-      }
+
+    if (isRevealByVision) {
+      if (
+        (comeFromPath === 'up' && roomData?.exist?.top) ||
+        (comeFromPath === 'right' && roomData?.exist?.right) ||
+        (comeFromPath === 'bottom' && roomData?.exist?.bottom) ||
+        (comeFromPath === 'left' && roomData?.exist?.left)
+      ) { confirmButtonState = true }
     }
-    if (roomNumber[0] + 1 <= 6) {
-      if (adjacentRoomsData.bottom?.exist?.top && roomData?.exist?.bottom) {
-        confirmButtonState = true
+
+    if (isRevealByHeroMove) {
+      if (roomNumber[0] - 1 >= 0) {
+        if (adjacentRoomsData.top?.exist?.bottom && roomData?.exist?.top) {
+          confirmButtonState = true
+        }
       }
-    }
-    if (roomNumber[1] - 1 >= 0) {
-      if (adjacentRoomsData.left?.exist?.right && roomData?.exist?.left) {
-        confirmButtonState = true
+      if (roomNumber[0] + 1 <= 6) {
+        if (adjacentRoomsData.bottom?.exist?.top && roomData?.exist?.bottom) {
+          confirmButtonState = true
+        }
       }
-    }
-    if (roomNumber[1] + 1 <= 6) {
-      if (adjacentRoomsData.right?.exist?.left && roomData?.exist?.right) {
-        confirmButtonState = true
+      if (roomNumber[1] - 1 >= 0) {
+        if (adjacentRoomsData.left?.exist?.right && roomData?.exist?.left) {
+          confirmButtonState = true
+        }
+      }
+      if (roomNumber[1] + 1 <= 6) {
+        if (adjacentRoomsData.right?.exist?.left && roomData?.exist?.right) {
+          confirmButtonState = true
+        }
       }
     }
     setConfirmButtonState(confirmButtonState)
@@ -161,12 +178,14 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
     <div ref={roomRef}
       className={"grid-item" +
         ((!(roomStatus === 'revealed' || isRoomRotating || isEntranceRoom) && isReadyToExplore) ? " ready-to-explore" : "") +
-        (roomStatus === 'revealed' ? " revealed" : "") +
+        ((roomStatus === 'revealed' || isOperatingRoom) ? " revealed" : "") +
         (isRoomRotating && !isOperatingRoom && (previousPosition !== roomNumberString) ? ' room-is-rotating' : "")
       }
       id={`grid-item-${roomNumberString}`}
     >
-      {(!(roomStatus === 'revealed' || isRoomRotating || isEntranceRoom) && isReadyToExplore) && <button className='explore-button' onClick={() => selectBlankRoom()}>Explore</button>}
+      {(!(roomStatus === 'revealed' || isRoomRotating || isEntranceRoom) && isReadyToExplore) &&
+        <button className='explore-button' onClick={() => { setIsRevealByVision(true); selectBlankRoom(); }}></button>
+      }
       {roomData?.exist?.top && <div className='path path-top'>
         {isShowPreviousPath() && comeFromPath === 'bottom' && <div className='direction' />}
       </div>}
