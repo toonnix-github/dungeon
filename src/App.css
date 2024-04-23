@@ -84,6 +84,40 @@
   background-color: #000000;
 }
 
+.grid-item .path .direction {
+  background: url(../src/Assets/images/arrow-path.png) no-repeat center;
+  background-size: 50%;
+  position: absolute;
+  z-index: 9;
+}
+
+.grid-item .path.path-top .direction {
+  transform: rotate(270deg);
+  width: 100%;
+  height: 25px;
+  top: -10px;
+}
+
+.grid-item .path.path-bottom .direction {
+  transform: rotate(90deg);
+  width: 100%;
+  height: 25px;
+  bottom: -10px;
+}
+
+.grid-item .path.path-left .direction {
+  transform: rotate(180deg);
+  width: 45px;
+  height: 100%;
+  left: -20px;
+}
+
+.grid-item .path.path-right .direction {
+  width: 45px;
+  height: 100%;
+  right: -20px;
+}
+
 .grid-item .path.show {
   display: block;
 }

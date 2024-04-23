@@ -8,16 +8,20 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
   const roomRef = useRef()
   const [roomNumberString, setRoomNumberString] = useState();
   const roomsData = roomStore((state) => state.rooms);
+  const roomData = roomStore((state) => state.rooms[roomNumber[0]][roomNumber[1]]);
+  const assignRoom = roomStore((state) => state.assignRoom);
   const vikingPosition = VikingStore((state) => state.position);
   const setVikingOffset = VikingStore((state) => state.setOffset);
+  const setIsMoveDone = VikingStore((state) => state.setIsMoveDone);
+  const previousPosition = VikingStore((state) => state.previousPosition);
+  const comeFromPath = VikingStore((state) => state.comeFromPath);
+
   const [adjacentRoomsData, setAdjacentRoomsData] = useState({
     top: null,
     right: null,
     bottom: null,
     left: null,
   });
-  const roomData = roomStore((state) => state.rooms[roomNumber[0]][roomNumber[1]]);
-  const assignRoom = roomStore((state) => state.assignRoom);
   const [isEntranceRoom, setIsEntranceRoom] = useState(false);
   const [roomStatus, setRoomStatus] = useState('');
   const [isReadyToExplore, setIsReadyToExplore] = useState(false);
@@ -26,7 +30,6 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
   const [isTreasureRoom, setIsTreasureRoom] = useState(false);
   const [isTrapRoom, setIsTrapRoom] = useState(false);
   const [isOperatingRoom, setIsOperatingRoom] = useState(false);
-  const setIsMoveDone = VikingStore((state) => state.setIsMoveDone);
 
 
   useEffect(() => {
@@ -150,20 +153,32 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
     checkExploreStatusButton();
   }
 
+  const isShowPreviousPath = () => {
+    return (previousPosition === roomNumberString) && isRoomRotating;
+  }
+
   return (
     <div ref={roomRef}
       className={"grid-item" +
         ((!(roomStatus === 'revealed' || isRoomRotating || isEntranceRoom) && isReadyToExplore) ? " ready-to-explore" : "") +
         (roomStatus === 'revealed' ? " revealed" : "") +
-        (isRoomRotating && !isOperatingRoom ? ' room-is-rotating' : "")
+        (isRoomRotating && !isOperatingRoom && (previousPosition !== roomNumberString) ? ' room-is-rotating' : "")
       }
       id={`grid-item-${roomNumberString}`}
     >
       {(!(roomStatus === 'revealed' || isRoomRotating || isEntranceRoom) && isReadyToExplore) && <button className='explore-button' onClick={() => selectBlankRoom()}>Explore</button>}
-      {roomData?.exist?.top && <div className='path path-top'></div>}
-      {roomData?.exist?.bottom && <div className='path path-bottom'></div>}
-      {roomData?.exist?.left && <div className='path path-left'></div>}
-      {roomData?.exist?.right && <div className='path path-right'></div>}
+      {roomData?.exist?.top && <div className='path path-top'>
+        {isShowPreviousPath() && comeFromPath === 'bottom' && <div className='direction' />}
+      </div>}
+      {roomData?.exist?.bottom && <div className='path path-bottom'>
+        {isShowPreviousPath() && comeFromPath === 'up' && <div className='direction' />}
+      </div>}
+      {roomData?.exist?.left && <div className='path path-left'>
+        {isShowPreviousPath() && comeFromPath === 'right' && <div className='direction' />}
+      </div>}
+      {roomData?.exist?.right && <div className='path path-right'>
+        {isShowPreviousPath() && comeFromPath === 'left' && <div className='direction' />}
+      </div>}
       {roomData.name && <div className='path middle'></div>}
       {isFoundGoblin && <span className='icon icon-goblin'></span>}
       {isTrapRoom && <span className='icon icon-trap'></span>}
