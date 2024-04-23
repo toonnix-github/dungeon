@@ -3,17 +3,6 @@
   grid-template-columns: 25% 50% 25%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -25,25 +14,13 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .grid-container {
+  background-color: #1f2135;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-gap: 5px;
-  margin: 5px auto;
+  grid-gap: 0;
+  border: 5px solid #1f2135;
+  border-radius: 5px;
 }
 
 .right-panel,
@@ -53,17 +30,16 @@
 
 .grid-item {
   background-color: #fff0df;
-  border: #f1f1f1 dashed;
+  border: 1px solid #1f2135;
   border-radius: 5px;
   aspect-ratio: 1/1;
   font-size: 20px;
   text-align: center;
-  padding: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  min-width: 60px;
+  min-width: 80px;
 }
 
 .grid-item .explore-button {
@@ -125,25 +101,25 @@
 .grid-item .path.path-top {
   width: 40px;
   height: 60px;
-  top: -5px;
+  top: -1px;
 }
 
 .grid-item .path.path-bottom {
   width: 40px;
   height: 60px;
-  bottom: -5px;
+  bottom: -1px;
 }
 
 .grid-item .path.path-left {
   width: 60px;
   height: 40px;
-  left: -5px;
+  left: -1px;
 }
 
 .grid-item .path.path-right {
   width: 60px;
   height: 40px;
-  right: -5px;
+  right: -1px;
 }
 
 .grid-item .path.middle {
@@ -192,22 +168,19 @@
   position: absolute;
 }
 
-.grid-item.revealed {
-  background-color: transparent;
-  border: none;
+.grid-item.revealed, #grid-item-3-3.grid-item {
+  background: url(../src/Assets/images/dungeon-pattern.png) no-repeat center;
+  background-size: cover;
+  box-sizing: border-box;
 }
 
-#grid-item-3-3 {
-  background-color: #000000;
-  border-radius: 30px;
-  border-style: solid;
-}
 
 #grid-item-3-3.grid-item .path.middle {
   background: url('./Assets/images/entrance.png') no-repeat center;
   background-size: 70%;
-  width: 70px;
-  height: 70px;
+  width: 90px;
+  height: 90px;
+  background-color: black;
 }
 
 .grid-item .icon {
@@ -218,10 +191,11 @@
 .grid-item .icon.icon-goblin {
   width: 30px;
   height: 30px;
-  left: 40px;
-  top: 35px;
+  right: 15px;
+  bottom: 15px;
   background: url('./Assets/images/goblin.png') no-repeat top left;
   background-size: cover;
+  filter: drop-shadow(5px 5px 5px #222);
 }
 
 .icon {
@@ -237,6 +211,7 @@
   background-size: cover;
   position: absolute;
   transition: all 0.5s linear;
+  filter: drop-shadow(-5px -5px 5px #222);
 }
 
 .grid-item .icon.icon-trap {
