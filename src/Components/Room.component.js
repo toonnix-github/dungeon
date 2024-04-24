@@ -130,9 +130,7 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
 
   const checkConfirmButtonState = () => {
     let confirmButtonState = false;
-    console.log(roomData);
     if (roomData?.revealMethod === RevealMethodENUM.HERO_MOVE) {
-      console.log('move');
       if (
         (comeFromPath === 'up' && roomData?.exist?.top) ||
         (comeFromPath === 'right' && roomData?.exist?.right) ||
@@ -142,7 +140,6 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
     }
 
     if (roomData?.revealMethod === RevealMethodENUM.VISION) {
-      console.log('vision');
       if (roomNumber[0] - 1 >= 0) {
         if (adjacentRoomsData.top?.exist?.bottom && roomData?.exist?.top) {
           confirmButtonState = true
