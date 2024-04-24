@@ -30,9 +30,11 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
   const [isTreasureRoom, setIsTreasureRoom] = useState(false);
   const [isTrapRoom, setIsTrapRoom] = useState(false);
   const [isOperatingRoom, setIsOperatingRoom] = useState(false);
-  const [isRevealByHeroMove, setIsRevealByHeroMove] = useState(false);
-  const [isRevealByVision, setIsRevealByVision] = useState(false);
 
+  const RevealMethodENUM = {
+    VISION: 'byVision',
+    HERO_MOVE: 'byHeroMove'
+  }
 
   useEffect(() => {
     if (roomNumber) {
@@ -50,11 +52,11 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
   }, [roomsData]);
 
   useEffect(() => {
-    checkConfirmButtonState();
     if (roomData.id === 0) setIsEntranceRoom(true);
     if (roomData.foundGoblin) setIsFoundGoblin(true);
     if (roomData.isTrapRoom) setIsTrapRoom(true);
     if (roomData.isTreasureRoom) setIsTreasureRoom(true);
+    checkConfirmButtonState();
   }, [roomData]);
 
   const checkExploreStatusButton = () => {
@@ -80,8 +82,10 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
     checkExploreStatusButton();
   }, [adjacentRoomsData])
 
-  const selectBlankRoom = () => {
-    assignRoom(roomNumber[0], roomNumber[1], RoomUtil.getRandomRoom());
+  const selectBlankRoom = (revealMethod) => {
+    const randomRoom = RoomUtil.getRandomRoom();
+    randomRoom.revealMethod = revealMethod;
+    assignRoom(roomNumber[0], roomNumber[1], randomRoom);
     setRoomStatus('prompt-rotate');
     setIsRoomRotating(true)
     setIsOperatingRoom(true);
@@ -96,8 +100,7 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
     if (isCurrentRoom()) {
       setVikingOffset(roomRef.current.offsetTop, roomRef.current.offsetLeft)
       if (isReadyToExplore && !roomData.id && !isEntranceRoom) {
-        setIsRevealByHeroMove(true);
-        selectBlankRoom();
+        selectBlankRoom(RevealMethodENUM.HERO_MOVE);
       } else { setIsMoveDone(); }
     }
     checkExploreStatusButton();
@@ -127,8 +130,9 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
 
   const checkConfirmButtonState = () => {
     let confirmButtonState = false;
-
-    if (isRevealByVision) {
+    console.log(roomData);
+    if (roomData?.revealMethod === RevealMethodENUM.HERO_MOVE) {
+      console.log('move');
       if (
         (comeFromPath === 'up' && roomData?.exist?.top) ||
         (comeFromPath === 'right' && roomData?.exist?.right) ||
@@ -137,7 +141,8 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
       ) { confirmButtonState = true }
     }
 
-    if (isRevealByHeroMove) {
+    if (roomData?.revealMethod === RevealMethodENUM.VISION) {
+      console.log('vision');
       if (roomNumber[0] - 1 >= 0) {
         if (adjacentRoomsData.top?.exist?.bottom && roomData?.exist?.top) {
           confirmButtonState = true
@@ -184,7 +189,7 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
       id={`grid-item-${roomNumberString}`}
     >
       {(!(roomStatus === 'revealed' || isRoomRotating || isEntranceRoom) && isReadyToExplore) &&
-        <button className='explore-button' onClick={() => { setIsRevealByVision(true); selectBlankRoom(); }}></button>
+        <button className='explore-button' onClick={() => { selectBlankRoom(RevealMethodENUM.VISION); }}></button>
       }
       {roomData?.exist?.top && <div className='path path-top'>
         {isShowPreviousPath() && comeFromPath === 'bottom' && <div className='direction' />}
