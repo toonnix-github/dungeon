@@ -1,6 +1,6 @@
 import VikingStore from '../Store/Viking.store';
 
-function VikingComponent({ }) {
+function VikingComponent() {
     const vikingOffset = VikingStore((state) => state.offset);
     return (
         <>

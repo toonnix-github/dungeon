@@ -21,11 +21,13 @@
   grid-gap: 0;
   border: 5px solid #1f2135;
   border-radius: 5px;
+  margin: 2px 0;
 }
 
 .right-panel,
 .left-panel {
   display: block;
+  padding: 2px;
 }
 
 .grid-item {
@@ -189,8 +191,8 @@
 #grid-item-3-3.grid-item .path.middle {
   background: url('./Assets/images/entrance.png') no-repeat center;
   background-size: 70%;
-  width: 90px;
-  height: 90px;
+  width: 85%;
+  height: 85%;
   background-color: black;
 }
 

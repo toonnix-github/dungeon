@@ -18,6 +18,7 @@ function ControllerComponent({ }) {
     const setIsMoving = VikingStore((state) => state.setIsMoving);
     const setPreviousPosition = VikingStore((state) => state.setPreviousPosition);
     const setComeFromPath = VikingStore((state) => state.setComeFromPath);
+    const takeAction = VikingStore((state) => state.useAction);
 
     useEffect(() => {
         const currentRoom = roomsData[vikingPosition[0]][vikingPosition[1]]
@@ -39,24 +40,28 @@ function ControllerComponent({ }) {
 
     const moveUp = () => {
         setComeFromPath('bottom');
+        takeAction();
         setPreviousPosition(getRoomNumberString(vikingPosition));
         setIsMoving();
         moveVikingUp();
     }
     const moveRight = () => {
         setComeFromPath('left');
+        takeAction();
         setPreviousPosition(getRoomNumberString(vikingPosition));
         setIsMoving();
         moveVikingRight();
     }
     const moveBottom = () => {
         setComeFromPath('up');
+        takeAction();
         setPreviousPosition(getRoomNumberString(vikingPosition));
         setIsMoving();
         moveVikingBottom();
     }
     const moveLeft = () => {
         setComeFromPath('right');
+        takeAction();
         setPreviousPosition(getRoomNumberString(vikingPosition));
         setIsMoving();
         moveVikingLeft();

@@ -146,6 +146,8 @@ const roomInformationList = {
     13: {
         name: "Marquis Leraje",
         isTrapRoom: true,
+        requirement: { magic: 20, speed: 35 },
+        solved: false,
         exist: {
             top: true,
             bottom: false,
@@ -159,6 +161,8 @@ const roomInformationList = {
         name: "Duke Eligos",
         foundGoblin: false,
         isTrapRoom: true,
+        requirement: { magic: 30, speed: 25 },
+        solved: false,
         exist: {
             top: true,
             bottom: false,
@@ -172,6 +176,8 @@ const roomInformationList = {
         name: "Duke Zepar",
         foundGoblin: false,
         isTrapRoom: true,
+        requirement: { magic: 10, speed: 45 },
+        solved: false,
         exist: {
             top: true,
             bottom: true,
@@ -185,6 +191,8 @@ const roomInformationList = {
         name: "President Botis",
         foundGoblin: false,
         isTrapRoom: true,
+        requirement: { magic: 20, speed: 35 },
+        solved: false,
         exist: {
             top: true,
             bottom: false,
@@ -198,6 +206,8 @@ const roomInformationList = {
         name: "Duke Bathin",
         foundGoblin: false,
         isTrapRoom: true,
+        requirement: { magic: 20, speed: 35 },
+        solved: false,
         exist: {
             top: true,
             bottom: false,
@@ -211,6 +221,8 @@ const roomInformationList = {
         name: "Duke Sallos",
         foundGoblin: false,
         isTrapRoom: true,
+        requirement: { magic: 30, speed: 25 },
+        solved: false,
         exist: {
             top: false,
             bottom: true,
@@ -224,6 +236,8 @@ const roomInformationList = {
         name: "King Purson",
         foundGoblin: false,
         isTrapRoom: true,
+        requirement: { magic: 335, speed: 20 },
+        solved: false,
         exist: {
             top: true,
             bottom: true,
@@ -237,6 +251,8 @@ const roomInformationList = {
         name: "President Morax",
         foundGoblin: false,
         isTrapRoom: true,
+        requirement: { magic: 20, speed: 35 },
+        solved: false,
         exist: {
             top: false,
             bottom: false,
@@ -250,6 +266,8 @@ const roomInformationList = {
         name: "Prince Ipos",
         foundGoblin: false,
         isTrapRoom: true,
+        requirement: { magic: 10, speed: 45 },
+        solved: false,
         exist: {
             top: true,
             bottom: true,
@@ -263,6 +281,8 @@ const roomInformationList = {
         name: "Duke Aim",
         foundGoblin: false,
         isTrapRoom: true,
+        requirement: { magic: 20, speed: 35 },
+        solved: false,
         exist: {
             top: false,
             bottom: false,

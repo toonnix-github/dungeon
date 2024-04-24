@@ -1,16 +1,9 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
 import roomStore from '../Store/Room.store';
 import VikingStore from '../Store/Viking.store';
 
-function RoomDisplayComponent({ }) {
+function RoomDisplayComponent() {
     const vikingPosition = VikingStore((state) => state.position);
     const roomData = roomStore((state) => state.rooms[vikingPosition[0]][vikingPosition[1]]);
-
-    const writeCriteria = (criteria) => {
-        for (const [key, value] of criteria.entries(test)) {
-            console.log(key, value);
-        }
-    }
 
     return (
         <div>
@@ -19,10 +12,17 @@ function RoomDisplayComponent({ }) {
                 {roomData.isTrapRoom && ' Trap Room'}
                 {roomData.isTreasureRoom && ' Treasure Room'}
             </p>
-            <p>
+            <div>
                 {roomData.isTrapRoom && ` Criteria to solve Trap: `}
                 {roomData.isTreasureRoom && `Criteria to open Treasure Chest: `}
-            </p>
+                {roomData.requirement &&
+                    Object.keys(roomData.requirement).map((oneKey, i) => {
+                        return (
+                            <div key={`${roomData.name}-${i}`}>{oneKey}: {roomData.requirement[oneKey]}</div>
+                        )
+                    })
+                }
+            </div>
         </div>
     )
 }

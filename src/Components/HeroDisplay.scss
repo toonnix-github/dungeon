@@ -1,0 +1,61 @@
+.hero-container {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-image: url("../Assets/images/paper-pattern.png");
+    background-size: cover;
+
+    .label {
+        font-weight: bold
+    }
+
+    hr {
+        border: 1px solid #1f2135
+    }
+
+    .action-token-container {
+        float: right;
+
+        .action-token {
+            width: 25px;
+            height: 25px;
+            background-image: url("../Assets/images/flash-black.png");
+            background-size: cover;
+            display: inline-block;
+
+            &.active {
+                background-image: url('../Assets/images/flash.png');
+            }
+        }
+    }
+
+    .equipment-container, .artifact-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+        margin: 5px 0;
+
+        .equipment-item, .armor-item, .artifact-item {
+            aspect-ratio: 1/1;
+            border: 2px #1f2135 dashed;
+            background: url('../Assets/images/weapons-placeholder.png') no-repeat center;
+            background-size: 80%;
+            opacity: .5;
+        }
+
+        .armor-item {
+            background-image: url('../Assets/images/armor-placeholder.png');
+            background-size: 90%;
+        }
+
+        .artifact-item {
+            background-image: url('../Assets/images/artifact-placeholder.png'), url('../Assets/images/jewelry-placeholder.png');
+            background-size: 80%;
+        }
+    }
+
+    .artifact-container {
+        margin: 0;
+    }
+}
