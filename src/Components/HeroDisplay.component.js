@@ -1,6 +1,8 @@
 import VikingStore from "../Store/Viking.store";
 import "./HeroDisplay.scss";
+import 'react-tooltip/dist/react-tooltip.css'
 import _ from 'lodash';
+import { Tooltip } from 'react-tooltip'
 
 function HeroDisplayComponent({ }) {
     const vikingData = VikingStore((state) => state);
@@ -29,27 +31,149 @@ function HeroDisplayComponent({ }) {
                 <div><span className="label">Speed:</span> {vikingData.status.speed}</div>
                 <hr />
                 <div className="equipment-container">
-                    <div className="equipment-item"></div>
-                    <div className="equipment-item"></div>
+                    <FirstWeaponDisplay />
+                    <SecondWeaponDisplay />
                     <div className="armor-item"></div>
                 </div>
-                <div className="artifact-container">
-                    <div className="artifact-item"></div>
-                    <div className="artifact-item"></div>
-                    <div className="artifact-item"></div>
+                <div className="rune-container">
+                    <FirstRune />
+                    <SecondRune />
+                    <ThirdRune />
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
-const style = `
-width: 100%;
-background-color: gray;
-padding: 10px;
-border-radius: 5px;
-box-sizing: border-box;
-border: 6px solid black;
-`
+function FirstWeaponDisplay() {
+    const isVikingFirstWeaponExist = VikingStore((state) => state.weapon.length > 0);
+    const vikingFirstWeapon = VikingStore((state) => state.weapon[0]);
+    return (
+        <>
+            {isVikingFirstWeaponExist ?
+                <div
+                    data-tooltip-id="first-weapon-tooltip"
+                    className={`equipment-display ${vikingFirstWeapon.id}`}></div> :
+                <div className="equipment-item"></div>
+            }
+            {isVikingFirstWeaponExist &&
+                <Tooltip id="first-weapon-tooltip">
+                    <div><span className="label">Name: </span><i>{vikingFirstWeapon.name}</i></div>
+                    <div><span className="label">Description: </span><i>{vikingFirstWeapon.description}</i></div>
+                    <div>
+                        <span className="label">Attack: </span><i>{vikingFirstWeapon.attack}</i>
+                        <span className="label"> Defend: </span><i>{vikingFirstWeapon.defend}</i>
+                    </div>
+                </Tooltip>}
+        </>
+    )
+}
+
+function SecondWeaponDisplay() {
+    const isVikingSecondWeaponExist = VikingStore((state) => state.weapon.length > 1);
+    const vikingSecondWeapon = VikingStore((state) => state.weapon[1]);
+    return (
+        <>
+            {isVikingSecondWeaponExist ?
+                <div
+                    data-tooltip-id="second-weapon-tooltip"
+                    className={`equipment-display ${vikingSecondWeapon.id}`}></div> :
+                <div className="equipment-item"></div>
+            }
+            {isVikingSecondWeaponExist &&
+                <Tooltip id="second-weapon-tooltip">
+                    <div><span className="label">Name</span> <i>{vikingSecondWeapon.name}</i></div>
+                    <div><span className="label">Description: </span> <i>{vikingSecondWeapon.description}</i></div>
+                    <div>
+                        <span className="label">Attack: </span> <i>{vikingSecondWeapon.attack}</i>
+                        <span className="label"> Defend: </span> <i>{vikingSecondWeapon.defend}</i>
+                    </div>
+                </Tooltip>
+            }
+
+        </>
+    )
+}
+
+function FirstRune() {
+    const vikingFirstRuneExist = VikingStore((state) => state.rune.length > 0);
+    const vikingFirstRune = VikingStore((state) => state.rune[0]);
+    return (
+        <>
+            {vikingFirstRuneExist ?
+                <div
+                    data-tooltip-id="first-rune-tooltip"
+                    className={`rune-display ${vikingFirstRune.id}`}></div> :
+                <div className="rune-item"></div>
+            }
+            {vikingFirstRuneExist &&
+                <Tooltip id="first-rune-tooltip">
+                    <div><span className="label">Name: </span>{vikingFirstRune.name}</div>
+                    <div><span className="label">Description: </span>{vikingFirstRune.description}</div>
+                    <div>
+                        <span className="label">Attack: </span>{vikingFirstRune.attack || '-'}
+                        <span className="label"> Defend: </span>{vikingFirstRune.defend || '-'}
+                        <span className="label"> Magic: </span>{vikingFirstRune.magic || '-'}
+                        <span className="label"> Speed: </span>{vikingFirstRune.speed || '-'}
+                    </div>
+                </Tooltip>
+            }
+        </>
+    )
+}
+
+function SecondRune() {
+    const vikingSecondRuneExist = VikingStore((state) => state.rune.length > 1);
+    const vikingSecondRune = VikingStore((state) => state.rune[1]);
+    return (
+        <>
+            {vikingSecondRuneExist ?
+                <div
+                    data-tooltip-id="second-rune-tooltip"
+                    className={`rune-display ${vikingSecondRune.id}`}></div> :
+                <div className="rune-item"></div>
+            }
+            {vikingSecondRuneExist &&
+                <Tooltip id="second-rune-tooltip">
+                    <div><span className="label">Name: </span>{vikingSecondRune.name}</div>
+                    <div><span className="label">Description: </span>{vikingSecondRune.description}</div>
+                    <div>
+                        <span className="label">Attack: </span>{vikingSecondRune.attack || '-'}
+                        <span className="label"> Defend: </span>{vikingSecondRune.defend || '-'}
+                        <span className="label"> Magic: </span>{vikingSecondRune.magic || '-'}
+                        <span className="label"> Speed: </span>{vikingSecondRune.speed || '-'}
+                    </div>
+                </Tooltip>
+            }
+        </>
+    )
+}
+
+function ThirdRune() {
+    const vikingThirdRuneExist = VikingStore((state) => state.rune.length > 2);
+    const vikingThirdRune = VikingStore((state) => state.rune[2]);
+    return (
+        <>
+            {vikingThirdRuneExist ?
+                <div
+                    data-tooltip-id="third-rune-tooltip"
+                    className={`rune-display ${vikingThirdRune.id}`}></div> :
+                <div className="rune-item"></div>
+            }
+            {vikingThirdRuneExist &&
+                <Tooltip id="third-rune-tooltip">
+                    <div><span className="label">Name: </span>{vikingThirdRune.name}</div>
+                    <div><span className="label">Description: </span>{vikingThirdRune.description}</div>
+                    <div>
+                        <span className="label">Attack: </span>{vikingThirdRune.attack || '-'}
+                        <span className="label"> Defend: </span>{vikingThirdRune.defend || '-'}
+                        <span className="label"> Magic: </span>{vikingThirdRune.magic || '-'}
+                        <span className="label"> Speed: </span>{vikingThirdRune.speed || '-'}
+                    </div>
+                </Tooltip>
+            }
+        </>
+    )
+}
 
 export default HeroDisplayComponent;

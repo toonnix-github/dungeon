@@ -6,6 +6,7 @@ import RoomDisplayComponent from './Components/RoomDisplay.component';
 import React, { useState } from 'react';
 import VikingComponent from './Components/Viking.component';
 import HeroDisplayComponent from './Components/HeroDisplay.component';
+import HeroActionComponent from './Components/HeroAction.component';
 
 function App() {
   const [isShowPopup, setIsShowPopup] = useState(false);
@@ -33,6 +34,7 @@ function App() {
       </div>
       <div className='right-panel'>
         <HeroDisplayComponent />
+        <HeroActionComponent />
         <ControllerComponent />
       </div>
       {

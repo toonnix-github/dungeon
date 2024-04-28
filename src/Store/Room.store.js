@@ -49,6 +49,19 @@ const roomStore = create((set) => ({
         }
       }
     })),
+  solveRoomStatus: (roomRow, roomColumn) =>
+    set((state) => ({
+      rooms: {
+        ...state.rooms,
+        [roomRow]: {
+          ...state.rooms[roomRow],
+          [roomColumn]: {
+            ...state.rooms[roomRow][roomColumn],
+            solved: true
+          }
+        }
+      }
+    })),
 }))
 
 export default roomStore;

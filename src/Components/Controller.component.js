@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import VikingStore from '../Store/Viking.store';
 import roomStore from '../Store/Room.store';
+import treasureUtil from '../Util/Treasure.Util';
 
-function ControllerComponent({ }) {
+function ControllerComponent() {
     const [upButtonState, setUpButtonState] = useState(true);
     const [rightButtonState, setRightButtonState] = useState(true);
     const [bottomButtonState, setBottomButtonState] = useState(true);
     const [leftButtonState, setLeftButtonState] = useState(true);
 
     const roomsData = roomStore((state) => state.rooms);
+    const solveRoomStatus = roomStore((state) => state.solveRoomStatus);
     const moveVikingUp = VikingStore((state) => state.moveUp);
     const moveVikingRight = VikingStore((state) => state.moveRight);
     const moveVikingBottom = VikingStore((state) => state.moveBottom);
@@ -19,6 +21,10 @@ function ControllerComponent({ }) {
     const setPreviousPosition = VikingStore((state) => state.setPreviousPosition);
     const setComeFromPath = VikingStore((state) => state.setComeFromPath);
     const takeAction = VikingStore((state) => state.useAction);
+    const updateWeapon = VikingStore((state) => state.updateWeapon);
+    const updateRune = VikingStore((state) => state.updateRune);
+    const vikingWeapon = VikingStore((state) => state.weapon);
+    const vikingRunes = VikingStore((state) => state.rune);
 
     useEffect(() => {
         const currentRoom = roomsData[vikingPosition[0]][vikingPosition[1]]
@@ -32,7 +38,28 @@ function ControllerComponent({ }) {
         setRightButtonState(vikingPosition[1] + 1 <= 6 && currentRoom?.exist?.right && (!adjacentRoomsData?.right?.id || adjacentRoomsData?.right?.exist?.left))
         setBottomButtonState(vikingPosition[0] + 1 <= 6 && currentRoom?.exist?.bottom && (!adjacentRoomsData?.bottom?.id || adjacentRoomsData?.bottom?.exist?.top))
         setLeftButtonState(vikingPosition[1] > 0 && currentRoom?.exist?.left && (!adjacentRoomsData?.left?.id || adjacentRoomsData?.left?.exist?.right))
+
+        console.log(isMoveDone, currentRoom.isTreasureRoom, !currentRoom.solved);
+        console.log(isMoveDone && currentRoom.isTreasureRoom && !currentRoom.solved);
+        if (isMoveDone && currentRoom.isTreasureRoom && !currentRoom.solved) {
+            addRandomItemToHero();
+        }
     }, [isMoveDone]);
+
+    const addRandomItemToHero = () => {
+        const itemFromTreasure = treasureUtil.getRandomTreasure();
+        if (itemFromTreasure.type === 'weapon') {
+            const _heroWeapons = vikingWeapon;
+            _heroWeapons.push(itemFromTreasure);
+            updateWeapon(_heroWeapons);
+        } else if (itemFromTreasure.type === 'rune') {
+            const _heroRunes = vikingRunes;
+            _heroRunes.push(itemFromTreasure);
+            updateRune(_heroRunes);
+        }
+
+        solveRoomStatus(vikingPosition[0], vikingPosition[1]);
+    }
 
     const getRoomNumberString = (roomNumberArray) => {
         return `${roomNumberArray[0]}-${roomNumberArray[1]}`

@@ -57,6 +57,7 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
     if (roomData.isTrapRoom) setIsTrapRoom(true);
     if (roomData.isTreasureRoom) setIsTreasureRoom(true);
     checkConfirmButtonState();
+    console.log(roomData);
   }, [roomData]);
 
   const checkExploreStatusButton = () => {
@@ -203,7 +204,7 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
       {roomData.name && <div className='path middle'></div>}
       {isFoundGoblin && <span className='icon icon-goblin'></span>}
       {isTrapRoom && <span className='icon icon-trap'></span>}
-      {isTreasureRoom && <span className='icon icon-treasure'></span>}
+      {isTreasureRoom && <span className={'icon icon-treasure' + (roomData.solved ? ' solved':'')}></span>}
       {roomStatus === 'prompt-rotate' &&
         <div className='button-container'>
           <button className='rotate-button' onClick={() => rotateRoomExist()}></button>

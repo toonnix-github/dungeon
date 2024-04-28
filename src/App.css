@@ -1,6 +1,6 @@
 .App {
   display: grid;
-  grid-template-columns: 25% 50% 25%;
+  grid-template-columns: 10% 65% 25%;
 }
 
 .App-header {
@@ -22,6 +22,7 @@
   border: 5px solid #1f2135;
   border-radius: 5px;
   margin: 2px 0;
+  aspect-ratio: 1/1;
 }
 
 .right-panel,
@@ -239,6 +240,10 @@
   height: 40px;
   background: url('./Assets/images/chest.png') no-repeat top left;
   background-size: cover;
+}
+
+.grid-item .icon.icon-treasure.solved {
+  opacity: .3;
 }
 
 .modal-overlay {

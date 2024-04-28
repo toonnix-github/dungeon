@@ -1,0 +1,29 @@
+.action-container {
+    margin: 2px 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+
+    button {
+        aspect-ratio: 1/1;
+
+        &.disarm-trap-action {
+            background: url('../Assets//images/disarm-trap.jpg') no-repeat center;
+            background-size: 115%;
+        }
+        &.open-chest-action {
+            background: url('../Assets//images/lockpicking.jpg') no-repeat center;
+            background-size: 102%;
+        }
+
+        &.attack-action {
+            background: url('../Assets/images/weapon-attack.jpg') no-repeat center;
+            background-size: 110%;
+        }
+
+        &.magic-action {
+            background: url('../Assets/images/magic-attack.jpg') no-repeat center;
+            background-size: cover;
+        }
+    }
+}
