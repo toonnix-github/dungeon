@@ -1,4 +1,5 @@
 import './App.css';
+import './item.scss';
 import RoomComponent from './Components/Room.component';
 import ControllerComponent from './Components/Controller.component';
 import RoomDisplayComponent from './Components/RoomDisplay.component';

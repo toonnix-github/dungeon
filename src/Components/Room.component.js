@@ -57,7 +57,6 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
     if (roomData.isTrapRoom) setIsTrapRoom(true);
     if (roomData.isTreasureRoom) setIsTreasureRoom(true);
     checkConfirmButtonState();
-    console.log(roomData);
   }, [roomData]);
 
   const checkExploreStatusButton = () => {
