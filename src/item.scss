@@ -12,6 +12,11 @@
         background-size: cover;
     }
 
+    &.durandal {
+        background: url('./Assets/images/durandal.jpg') no-repeat;
+        background-size: cover;
+    }
+
     &.aegis {
         background: url('./Assets/images/aegis.jpg') no-repeat;
         background-size: cover;
@@ -29,11 +34,6 @@
 
     &.caduceus {
         background: url('./Assets/images/caduceus.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.durandal {
-        background: url('./Assets/images/durandal.jpg') no-repeat;
         background-size: cover;
     }
 

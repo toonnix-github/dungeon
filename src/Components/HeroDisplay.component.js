@@ -53,7 +53,7 @@ function FirstWeaponDisplay() {
             {isVikingFirstWeaponExist ?
                 <div
                     data-tooltip-id="first-weapon-tooltip"
-                    className={`equipment-display ${vikingFirstWeapon.id}`}></div> :
+                    className={`item-image equipment-display ${vikingFirstWeapon.id}`}></div> :
                 <div className="equipment-item"></div>
             }
             {isVikingFirstWeaponExist &&
@@ -77,7 +77,7 @@ function SecondWeaponDisplay() {
             {isVikingSecondWeaponExist ?
                 <div
                     data-tooltip-id="second-weapon-tooltip"
-                    className={`equipment-display ${vikingSecondWeapon.id}`}></div> :
+                    className={`item-image equipment-display ${vikingSecondWeapon.id}`}></div> :
                 <div className="equipment-item"></div>
             }
             {isVikingSecondWeaponExist &&
@@ -103,7 +103,7 @@ function FirstRune() {
             {vikingFirstRuneExist ?
                 <div
                     data-tooltip-id="first-rune-tooltip"
-                    className={`rune-display ${vikingFirstRune.id}`}></div> :
+                    className={`item-image rune-display ${vikingFirstRune.id}`}></div> :
                 <div className="rune-item"></div>
             }
             {vikingFirstRuneExist &&
@@ -130,7 +130,7 @@ function SecondRune() {
             {vikingSecondRuneExist ?
                 <div
                     data-tooltip-id="second-rune-tooltip"
-                    className={`rune-display ${vikingSecondRune.id}`}></div> :
+                    className={`item-image rune-display ${vikingSecondRune.id}`}></div> :
                 <div className="rune-item"></div>
             }
             {vikingSecondRuneExist &&
@@ -157,7 +157,7 @@ function ThirdRune() {
             {vikingThirdRuneExist ?
                 <div
                     data-tooltip-id="third-rune-tooltip"
-                    className={`rune-display ${vikingThirdRune.id}`}></div> :
+                    className={`item-image rune-display ${vikingThirdRune.id}`}></div> :
                 <div className="rune-item"></div>
             }
             {vikingThirdRuneExist &&

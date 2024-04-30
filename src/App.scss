@@ -1,6 +1,12 @@
 .App {
+  font-family: monospace;
   display: grid;
   grid-template-columns: 25% 50% 25%;
+
+  button {
+    cursor: pointer;
+    padding: 2px 15px;
+  }
 }
 
 .grid-container {
@@ -34,7 +40,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  min-width: 80px;
+  min-width: 6vw;
 }
 
 .grid-item .explore-button {
@@ -103,32 +109,32 @@
 }
 
 .grid-item .path.path-top {
-  width: 40px;
-  height: 60px;
+  width: 40%;
+  height: 60%;
   top: -1px;
 }
 
 .grid-item .path.path-bottom {
-  width: 40px;
-  height: 60px;
+  width: 40%;
+  height: 60%;
   bottom: -1px;
 }
 
 .grid-item .path.path-left {
-  width: 60px;
-  height: 40px;
+  width: 60%;
+  height: 40%;
   left: -1px;
 }
 
 .grid-item .path.path-right {
-  width: 60px;
-  height: 40px;
+  width: 60%;
+  height: 40%;
   right: -1px;
 }
 
 .grid-item .path.middle {
-  width: 60px;
-  height: 60px;
+  width: 85%;
+  height: 85%;
   border-radius: 20px;
 }
 
@@ -256,7 +262,7 @@
   /* Center the modal */
   padding: 20px;
   border-radius: 5px;
-  max-width: 80%;
+  max-width: 60%;
   /* Responsive width */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   position: relative;
