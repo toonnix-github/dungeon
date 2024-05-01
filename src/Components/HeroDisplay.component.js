@@ -26,7 +26,7 @@ function HeroDisplayComponent({ }) {
 
                 <hr />
                 <div><span className="label">Attack:</span> {vikingData.status.attack}</div>
-                <div><span className="label">Defence:</span> {vikingData.status.defence}</div>
+                <div><span className="label">Defend:</span> {vikingData.status.defend}</div>
                 <div><span className="label">Magic:</span> {vikingData.status.magic}</div>
                 <div><span className="label">Speed:</span> {vikingData.status.speed}</div>
                 <hr />

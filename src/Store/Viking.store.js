@@ -10,7 +10,8 @@ const VikingAxe = {
 }
 
 const VikingStore = create((set, get) => ({
-    status: { attack: 20, defence: 10, magic: 5, speed: 5 },
+    status: { attack: 20, defend: 10, magic: 5, speed: 5 },
+    dicePower: { attack: 4, defend: 2, magic: 1, speed: 1 },
     health: { current: 10, max: 10 },
     action: { current: 5, max: 5 },
     position: [3, 3],

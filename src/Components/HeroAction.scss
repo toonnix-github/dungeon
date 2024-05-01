@@ -19,6 +19,7 @@
             background: url('../Assets//images/disarm-trap.jpg') no-repeat center;
             background-size: 115%;
         }
+
         &.open-chest-action {
             background: url('../Assets//images/lockpicking.jpg') no-repeat center;
             background-size: 102%;
@@ -31,6 +32,35 @@
 
         &.magic-action {
             background: url('../Assets/images/magic-attack.jpg') no-repeat center;
+            background-size: cover;
+        }
+    }
+}
+
+.dice-action-container {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+
+    .dice-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 5px;
+        border-radius: 5px;
+        box-sizing: border-box;
+
+        .dice-frame {
+            width: 100%;
+            aspect-ratio: 1/1;
+            border: 1px dotted black;
+            box-sizing: border-box;
+        }
+
+        .dice-item {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background-image: url(../Assets/images/dice-placeholder.jpg);
             background-size: cover;
         }
     }
