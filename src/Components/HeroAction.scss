@@ -45,7 +45,7 @@
 
     .dice-container {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 5px;
         border-radius: 5px;
         box-sizing: border-box;
@@ -60,7 +60,7 @@
         .dice-item {
             width: 100%;
             aspect-ratio: 1/1;
-            background-image: url(../Assets/images/dice-placeholder.jpg);
+            background-image: url(../Assets/images/dice.png);
             background-size: cover;
         }
     }

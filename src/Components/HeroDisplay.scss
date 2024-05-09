@@ -11,15 +11,41 @@
     }
 
     hr {
-        border: 1px solid #1f2135
+        border: 1px solid #1f2135;
+        width: 100%;
     }
 
-    .action-token-container {
-        float: right;
+    .parameter-container {
+        display: grid;
+        grid-template-columns: 80% 10% 10%;
+        gap: 2px;
 
-        .action-token {
-            width: 25px;
-            height: 25px;
+        .status-container {
+            position: relative;
+        }
+
+        .defend-power {
+            background-image: url(../Assets/images/shield.png);
+            background-size: cover;
+            width: 50px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            aspect-ratio: 1 / 1;
+            text-align: center;
+            font-size: 20px;
+            line-height: 45px;
+        }
+    }
+
+    .action-token-container,
+    .move-token-container {
+        text-align: center;
+
+        .action-token,
+        .move-token {
+            width: 15px;
+            height: 15px;
             background-image: url("../Assets/images/flash-black.png");
             background-size: cover;
             display: inline-block;
@@ -28,6 +54,29 @@
                 background-image: url('../Assets/images/flash.png');
             }
         }
+
+        .move-token {
+            background-image: url("../Assets/images/boot-empty.png");
+            background-size: cover;
+
+            &.active {
+                background-image: url('../Assets/images/boot.png');
+            }
+        }
+    }
+
+    .power-span {
+        display: inline-block;
+        width: 40%;
+
+    }
+
+    .dice-power {
+        width: 10px;
+        aspect-ratio: 1/1;
+        background-image: url(../Assets/images/dice.png);
+        background-size: cover;
+        display: inline-block;
     }
 
     .equipment-container,
@@ -36,6 +85,7 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 5px;
         margin: 5px 0;
+        width: 100%;
 
         .equipment-item,
         .armor-item,

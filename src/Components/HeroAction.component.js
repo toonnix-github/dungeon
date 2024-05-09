@@ -9,6 +9,7 @@ import './ItemPopup.scss';
 function HeroActionComponent() {
     const vikingPosition = VikingStore((state) => state.position);
     const takeAction = VikingStore((state) => state.useAction);
+    const takeMove = VikingStore((state) => state.useMove);
     const heroDicePower = VikingStore((state) => state.dicePower);
 
     const roomData = roomStore((state) => state.rooms[vikingPosition[0]][vikingPosition[1]]);
@@ -18,14 +19,13 @@ function HeroActionComponent() {
     const [dicePower, setDicePower] = useState(0);
 
     const assignDicePower = (event) => {
-        console.log(heroDicePower[event.target.value]);
         setDicePower(heroDicePower[event.target.value]);
     }
 
     useEffect(() => { console.log(dicePower); }, [dicePower])
 
     const getRandomItemAndOpenPopup = () => {
-        takeAction();
+        takeMove();
         const itemFromTreasure = treasureUtil.getRandomTreasure();
         setNewFoundItem(itemFromTreasure);
         if (itemFromTreasure.type === 'weapon') {
@@ -45,7 +45,6 @@ function HeroActionComponent() {
                     {dicePower - 1 >= 0 ? <DiceItem /> : <div className="dice-frame"></div>}
                     {dicePower - 2 >= 0 ? <DiceItem /> : <div className="dice-frame"></div>}
                     {dicePower - 3 >= 0 ? <DiceItem /> : <div className="dice-frame"></div>}
-                    {dicePower - 4 >= 0 ? <DiceItem /> : <div className="dice-frame"></div>}
                 </div>
                 <hr />
                 <div>
