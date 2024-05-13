@@ -37,19 +37,20 @@
     }
 }
 
-.dice-action-container {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    box-sizing: border-box;
-    display: grid;
-    grid-template-columns: 60% 40%;
-    gap: 5px;
-    aspect-ratio: 5/3;
+.treasure-popup {
+    max-width: 50%;
 
-    &.treasure-popup {
+    .modal-content {
         background: url(../Assets/images/treasure-room.png) no-repeat center;
         background-size: cover;
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        box-sizing: border-box;
+        display: grid;
+        grid-template-columns: 60% 40%;
+        gap: 5px;
+        aspect-ratio: 5/3;
     }
 
     .action-panel {
@@ -107,5 +108,9 @@
                 transform: rotate(2deg);
             }
         }
+    }
+
+    .close-button {
+        width: 100%;
     }
 }

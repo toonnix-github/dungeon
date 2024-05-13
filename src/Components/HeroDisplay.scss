@@ -51,7 +51,6 @@
                 width: 100%;
                 border: 1px solid black;
                 border-radius: 10px;
-                font-size: 1.4em;
                 overflow: hidden;
                 box-sizing: border-box;
                 display: inline-flex;
@@ -59,8 +58,13 @@
                 padding: 3px 0;
                 background-color: rgba($color: #fff, $alpha: .4);
 
+                span {
+                    font-size: 1.4em;
+                    width: 40%;
+                }
+
                 i {
-                    width: 30%;
+                    width: 50%;
                     aspect-ratio: 1/1;
                     display: inline-block;
                 }
@@ -88,34 +92,6 @@
 
         .status-container {
             position: relative;
-        }
-    }
-
-    .action-token-container,
-    .move-token-container {
-        text-align: center;
-
-        .action-token,
-        .move-token {
-            width: 25px;
-            aspect-ratio: 1/1;
-            margin-right: 3px;
-            background-image: url("../Assets/images/flash-black.png");
-            background-size: cover;
-            display: inline-block;
-
-            &.active {
-                background-image: url('../Assets/images/flash.png');
-            }
-        }
-
-        .move-token {
-            background-image: url("../Assets/images/boot-empty.png");
-            background-size: cover;
-
-            &.active {
-                background-image: url('../Assets/images/boot.png');
-            }
         }
     }
 
@@ -315,5 +291,37 @@
             background: url('../Assets/images/yata-no-kagami.jpg') no-repeat;
             background-size: cover;
         }
+    }
+}
+
+.action-token-container,
+.move-token-container {
+    text-align: center;
+}
+
+.action-token,
+.move-token {
+    width: 25px;
+    aspect-ratio: 1/1;
+    margin-right: 3px;
+    background-image: url("../Assets/images/flash-black.png");
+    background-size: cover;
+    display: inline-block;
+
+    &.in-message {
+        margin-right: -5px;
+    }
+
+    &.active {
+        background-image: url('../Assets/images/flash.png');
+    }
+}
+
+.move-token {
+    background-image: url("../Assets/images/boot-empty.png");
+    background-size: cover;
+
+    &.active {
+        background-image: url('../Assets/images/boot.png');
     }
 }

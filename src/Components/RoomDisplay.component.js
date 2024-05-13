@@ -12,7 +12,7 @@ function RoomDisplayComponent() {
             <hr className='half' />
             <div>
                 {roomData.isTrapRoom && '!! Disarm a trap in this room !!'}
-                {roomData.isTreasureRoom && '!! Search for a treasure !!'}
+                {roomData.isTreasureRoom && '!! Search for the treasure !!'}
             </div>
             <div className='requirement-container'>
                 {(roomData.isTrapRoom || roomData.isTreasureRoom) &&

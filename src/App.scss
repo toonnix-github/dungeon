@@ -1,3 +1,5 @@
+@import "App-color";
+
 .App {
   font-family: monospace;
   display: grid;
@@ -5,7 +7,7 @@
 
   hr {
     width: 100%;
-    margin-top: 1px;
+    margin: 0 0 .4rem 0;
 
     &.half {
       width: 50%;
@@ -30,8 +32,16 @@
     padding: 0;
   }
 
+
+
   .modal {
     border: 5px solid #000;
+
+    .button-container {
+      display: inline-block;
+      width: 100%;
+      margin: 10px 0;
+    }
   }
 }
 
@@ -282,18 +292,6 @@
   /* Ensure it's on top of the page content */
 }
 
-.modal {
-  background-color: white;
-  margin: 10% auto;
-  /* Center the modal */
-  padding: 20px;
-  border-radius: 5px;
-  max-width: 60%;
-  /* Responsive width */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  position: relative;
-}
-
 .controller-container {
   position: relative;
   width: 105px;
@@ -336,4 +334,18 @@
 
 .controller-container button.right {
   left: 70px;
+}
+
+// Modal
+.fade.modal-backdrop.show {
+  opacity: 0.6;
+}
+
+.confirm-dialog {
+  text-align: center;
+
+  .button-row {
+    display: flex;
+    justify-content: space-between;
+  }
 }

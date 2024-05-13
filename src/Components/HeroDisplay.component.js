@@ -1,5 +1,4 @@
 import VikingStore from "../Store/Viking.store";
-import "./HeroDisplay.scss";
 import 'react-tooltip/dist/react-tooltip.css'
 import _ from 'lodash';
 import { Tooltip } from 'react-tooltip'

@@ -7,6 +7,8 @@ import "./HeroAction.scss";
 import './ItemPopup.scss';
 import DiceStore from "../Store/Dice.store";
 import RoomDisplayComponent from "./RoomDisplay.component";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 function HeroActionComponent() {
     const vikingPosition = VikingStore((state) => state.position);
@@ -23,12 +25,21 @@ function HeroActionComponent() {
     const [isShowWeaponPopup, setIsShowWeaponPopup] = useState(false);
     const [newFoundItem, setNewFoundItem] = useState();
     const [dicePower, setDicePower] = useState(0);
+    const [isShowDiceConfirmDialog, setIsShowDiceConfirmDialog] = useState(false);
 
     useEffect(() => {
         if (isShowDicePopup) {
             setDicePower(heroDicePower[roomData.requirePower]);
         }
     }, [isShowDicePopup]);
+
+    const openDiceConfirmDialog = () => {
+        setIsShowDiceConfirmDialog(true);
+    }
+
+    const closeDiceConfirmDialog = () => {
+        setIsShowDiceConfirmDialog(false);
+    }
 
     const getRandomItemAndOpenPopup = () => {
         // takeAction();
@@ -47,30 +58,24 @@ function HeroActionComponent() {
 
     return (
         <>
-            {isShowDicePopup &&
-                <div className="modal-overlay">
-                    <div className={
-                        `modal dice-action-container` +
-                        (roomData.isTreasureRoom && ' treasure-popup')
-                    }>
-                        <div />
-                        <div className="action-panel">
-                            <RoomDisplayComponent />
-                            <hr />
-                            <div className={`dice-container ${roomData.requirePower}-dice`}>
-                                {dicePower - 1 >= 0 ? <DiceItem /> : <div className="dice-frame"></div>}
-                                {dicePower - 2 >= 0 ? <DiceItem /> : <div className="dice-frame"></div>}
-                                {dicePower - 3 >= 0 ? <DiceItem /> : <div className="dice-frame"></div>}
-                                <button className="roll-button" />
-                            </div>
-                            <hr />
-                            <div>
-                                <button className="close-button" onClick={closeDicePopup}>X</button>
-                            </div>
-                        </div>
+            <Modal centered dialogClassName={
+                `dice-action-container` +
+                (roomData.isTreasureRoom && ' treasure-popup')
+            } show={isShowDicePopup}>
+                <div />
+                <div className="action-panel">
+                    <RoomDisplayComponent />
+                    <hr />
+                    <div className={`dice-container ${roomData.requirePower}-dice`}>
+                        {dicePower - 1 >= 0 ? <DiceItem /> : <div className="dice-frame"></div>}
+                        {dicePower - 2 >= 0 ? <DiceItem /> : <div className="dice-frame"></div>}
+                        {dicePower - 3 >= 0 ? <DiceItem /> : <div className="dice-frame"></div>}
+                        <button onClick={openDiceConfirmDialog} className="roll-button" />
                     </div>
+                    <hr />
+                    <Button variant="danger" className="close-button" onClick={closeDicePopup}>Close</Button>
                 </div>
-            }
+            </Modal>
 
             <div className="action-container">
                 {(roomData.isTreasureRoom && !roomData.solved) &&
@@ -86,6 +91,13 @@ function HeroActionComponent() {
                     />
                 }
             </div>
+            <Modal dialogClassName="confirm-dialog" size="sm" centered show={isShowDiceConfirmDialog} onHide={closeDiceConfirmDialog}>
+                <Modal.Body>
+                    <Button>Let's roll (<div className={'action-token active in-message'}></div>)</Button>
+                    <hr />
+                    <Button onClick={closeDiceConfirmDialog} variant="danger">Let me think again!!</Button>
+                </Modal.Body>
+            </Modal>
         </>
 
     )

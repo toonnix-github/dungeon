@@ -1,5 +1,7 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import './item.scss';
+import "../src/Components/HeroDisplay.scss";
 import RoomComponent from './Components/Room.component';
 import ControllerComponent from './Components/Controller.component';
 import RoomDisplayComponent from './Components/RoomDisplay.component';
