@@ -6,6 +6,7 @@ import WeaponPopup from './WeaponPopup.component';
 import "./HeroAction.scss";
 import './ItemPopup.scss';
 import DiceStore from "../Store/Dice.store";
+import RoomDisplayComponent from "./RoomDisplay.component";
 
 function HeroActionComponent() {
     const vikingPosition = VikingStore((state) => state.position);
@@ -23,9 +24,11 @@ function HeroActionComponent() {
     const [newFoundItem, setNewFoundItem] = useState();
     const [dicePower, setDicePower] = useState(0);
 
-    const assignDicePower = (event) => {
-        setDicePower(heroDicePower[event.target.value]);
-    }
+    useEffect(() => {
+        if (isShowDicePopup) {
+            setDicePower(heroDicePower[roomData.requirePower]);
+        }
+    }, [isShowDicePopup]);
 
     const getRandomItemAndOpenPopup = () => {
         // takeAction();
@@ -46,22 +49,24 @@ function HeroActionComponent() {
         <>
             {isShowDicePopup &&
                 <div className="modal-overlay">
-                    <div className="modal dice-action-container">
-                        <div className="dice-container">
-                            {dicePower - 1 >= 0 ? <DiceItem /> : <div className="dice-frame"></div>}
-                            {dicePower - 2 >= 0 ? <DiceItem /> : <div className="dice-frame"></div>}
-                            {dicePower - 3 >= 0 ? <DiceItem /> : <div className="dice-frame"></div>}
-                        </div>
-                        <hr />
-                        <div>
-                            <select onChange={assignDicePower} name="power" id="power">
-                                <option value="">pick your power</option>
-                                <option value="attack">Attack ({heroDicePower.attack})</option>
-                                <option value="magic">Magic ({heroDicePower.magic})</option>
-                                <option value="speed">Speed ({heroDicePower.speed})</option>
-                            </select>
-                            {dicePower > 0 && <button>roll</button>}
-                            <button onClick={closeDicePopup}>cancel</button>
+                    <div className={
+                        `modal dice-action-container` +
+                        (roomData.isTreasureRoom && ' treasure-popup')
+                    }>
+                        <div />
+                        <div className="action-panel">
+                            <RoomDisplayComponent />
+                            <hr />
+                            <div className={`dice-container ${roomData.requirePower}-dice`}>
+                                {dicePower - 1 >= 0 ? <DiceItem /> : <div className="dice-frame"></div>}
+                                {dicePower - 2 >= 0 ? <DiceItem /> : <div className="dice-frame"></div>}
+                                {dicePower - 3 >= 0 ? <DiceItem /> : <div className="dice-frame"></div>}
+                                <button className="roll-button" />
+                            </div>
+                            <hr />
+                            <div>
+                                <button className="close-button" onClick={closeDicePopup}>X</button>
+                            </div>
                         </div>
                     </div>
                 </div>

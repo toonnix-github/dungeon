@@ -146,7 +146,8 @@ const roomInformationList = {
     13: {
         name: "Marquis Leraje",
         isTrapRoom: true,
-        requirement: { magic: 20, speed: 35 },
+        requirePower: 'attack',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: true,
@@ -161,7 +162,8 @@ const roomInformationList = {
         name: "Duke Eligos",
         foundGoblin: false,
         isTrapRoom: true,
-        requirement: { magic: 30, speed: 25 },
+        requirePower: 'speed',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: true,
@@ -176,7 +178,8 @@ const roomInformationList = {
         name: "Duke Zepar",
         foundGoblin: false,
         isTrapRoom: true,
-        requirement: { magic: 10, speed: 45 },
+        requirePower: 'attack',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: true,
@@ -191,7 +194,8 @@ const roomInformationList = {
         name: "President Botis",
         foundGoblin: false,
         isTrapRoom: true,
-        requirement: { magic: 20, speed: 35 },
+        requirePower: 'magic',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: true,
@@ -206,7 +210,8 @@ const roomInformationList = {
         name: "Duke Bathin",
         foundGoblin: false,
         isTrapRoom: true,
-        requirement: { magic: 20, speed: 35 },
+        requirePower: 'attack',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: true,
@@ -221,7 +226,8 @@ const roomInformationList = {
         name: "Duke Sallos",
         foundGoblin: false,
         isTrapRoom: true,
-        requirement: { magic: 30, speed: 25 },
+        requirePower: 'attack',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: false,
@@ -236,7 +242,8 @@ const roomInformationList = {
         name: "King Purson",
         foundGoblin: false,
         isTrapRoom: true,
-        requirement: { magic: 335, speed: 20 },
+        requirePower: 'magic',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: true,
@@ -251,7 +258,8 @@ const roomInformationList = {
         name: "President Morax",
         foundGoblin: false,
         isTrapRoom: true,
-        requirement: { magic: 20, speed: 35 },
+        requirePower: 'speed',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: false,
@@ -266,7 +274,8 @@ const roomInformationList = {
         name: "Prince Ipos",
         foundGoblin: false,
         isTrapRoom: true,
-        requirement: { magic: 10, speed: 45 },
+        requirePower: 'attack',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: true,
@@ -281,7 +290,8 @@ const roomInformationList = {
         name: "Duke Aim",
         foundGoblin: false,
         isTrapRoom: true,
-        requirement: { magic: 20, speed: 35 },
+        requirePower: 'attack',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: false,
@@ -296,7 +306,8 @@ const roomInformationList = {
         name: "Marquis Naberius",
         foundGoblin: false,
         isTreasureRoom: true,
-        requirement: { attack: 25, magic: 20 },
+        requirePower: 'magic',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: false,
@@ -311,7 +322,8 @@ const roomInformationList = {
         name: "President Glasya-Labolas",
         foundGoblin: false,
         isTreasureRoom: true,
-        requirement: { attack: 20, magic: 25 },
+        requirePower: 'speed',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: true,
@@ -326,7 +338,8 @@ const roomInformationList = {
         name: "Duke Buné",
         foundGoblin: false,
         isTreasureRoom: true,
-        requirement: { attack: 40, magic: 10 },
+        requirePower: 'attack',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: true,
@@ -341,7 +354,8 @@ const roomInformationList = {
         name: "Marquis",
         foundGoblin: false,
         isTreasureRoom: true,
-        requirement: { attack: 25, magic: 20 },
+        requirePower: 'speed',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: true,
@@ -356,7 +370,8 @@ const roomInformationList = {
         name: "Duke Berith",
         foundGoblin: false,
         isTreasureRoom: true,
-        requirement: { attack: 25, magic: 20 },
+        requirePower: 'attack',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: true,
@@ -371,7 +386,8 @@ const roomInformationList = {
         name: "Duke Astaroth",
         foundGoblin: false,
         isTreasureRoom: true,
-        requirement: { attack: 25, magic: 20 },
+        requirePower: 'magic',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: false,
@@ -386,7 +402,8 @@ const roomInformationList = {
         name: "Marquis Forneus",
         foundGoblin: false,
         isTreasureRoom: true,
-        requirement: { attack: 25, magic: 20 },
+        requirePower: 'attack',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: false,
@@ -401,7 +418,8 @@ const roomInformationList = {
         name: "President Foras",
         foundGoblin: false,
         isTreasureRoom: true,
-        requirement: { attack: 25, magic: 20 },
+        requirePower: 'speed',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: true,
@@ -416,7 +434,8 @@ const roomInformationList = {
         name: "King Asmodeus",
         foundGoblin: false,
         isTreasureRoom: true,
-        requirement: { attack: 25, magic: 20 },
+        requirePower: 'attack',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: true,
@@ -431,7 +450,8 @@ const roomInformationList = {
         name: "President Gäap",
         foundGoblin: false,
         isTreasureRoom: true,
-        requirement: { attack: 25, magic: 20 },
+        requirePower: 'magic',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: false,
@@ -445,7 +465,8 @@ const roomInformationList = {
         name: "Count Furfur",
         foundGoblin: false,
         isTreasureRoom: true,
-        requirement: { attack: 25, magic: 20 },
+        requirePower: 'speed',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: true,
@@ -460,7 +481,8 @@ const roomInformationList = {
         name: "Marquis Marchosias",
         foundGoblin: false,
         isTreasureRoom: true,
-        requirement: { attack: 25, magic: 20 },
+        requirePower: 'magic',
+        requireAmount: 5,
         solved: false,
         exist: {
             top: true,

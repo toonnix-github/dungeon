@@ -42,13 +42,29 @@
     padding: 10px;
     border-radius: 5px;
     box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    gap: 5px;
+    aspect-ratio: 5/3;
+
+    &.treasure-popup {
+        background: url(../Assets/images/treasure-room.png) no-repeat center;
+        background-size: cover;
+    }
+
+    .action-panel {
+        background: rgba($color: #fff, $alpha: .7);
+        padding: 10px;
+        border-radius: 10px;
+    }
 
     .dice-container {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 5px;
         border-radius: 5px;
         box-sizing: border-box;
+        margin: 10px 0;
 
         .dice-frame {
             width: 100%;
@@ -57,11 +73,39 @@
             box-sizing: border-box;
         }
 
-        .dice-item {
+        &.attack-dice .dice-item {
+            background: url(../Assets/images/fist.png) no-repeat center center;
+            background-size: 80%;
+        }
+
+        &.magic-dice .dice-item {
+            background: url(../Assets/images/lightning.png) no-repeat center center;
+            background-size: 80%;
+        }
+
+        &.speed-dice .dice-item {
+            background: url(../Assets/images/arrows.png) no-repeat center center;
+            background-size: 80%;
+        }
+
+        .dice-item,
+        .roll-button {
             width: 100%;
+            padding: 0;
             aspect-ratio: 1/1;
-            background-image: url(../Assets/images/dice.png);
+            border: 1px solid black;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .roll-button {
+            background-image: url(../Assets/images/roll-action.png);
             background-size: cover;
+            filter: drop-shadow(.5px .5px 1px #000);
+
+            &:hover {
+                transform: rotate(2deg);
+            }
         }
     }
 }

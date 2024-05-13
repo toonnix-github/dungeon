@@ -17,9 +17,6 @@ function App() {
 
   return (
     <div className="App">
-      <div className='left-panel'>
-        <RoomDisplayComponent />
-      </div>
       <div className="grid-container">
         {[...Array(7)].map((_, rowIndex) => (
           [...Array(7)].map((_, columnIndex) => (

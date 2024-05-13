@@ -4,46 +4,47 @@ import 'react-tooltip/dist/react-tooltip.css'
 import _ from 'lodash';
 import { Tooltip } from 'react-tooltip'
 
-function HeroDisplayComponent({ }) {
+function HeroDisplayComponent() {
     const vikingData = VikingStore((state) => state);
     const vikingAction = VikingStore((state) => state.action);
     const vikingMove = VikingStore((state) => state.move);
 
     return (
         <div className="hero-container">
+            <span className="label">HP</span> {vikingData.health.current} / {vikingData.health.max}
+            <hr />
+            <div className="profile-container">
+                <div className="portrait">
+                    <div className="defend-power">{vikingData.status.defend}</div>
+                </div>
+                <div className="status">
+                    <div className="power">
+                        <span>{vikingData.status.attack}</span>
+                        <i className="attack-power" />
+                    </div>
+                    {[...Array(vikingData.dicePower.attack)].map((k, index) => (
+                        <i key={`attack-${index}`} className="dice-power"></i>
+                    ))}
+                    <hr />
+                    <div className="power">
+                        <span>{vikingData.status.magic}</span>
+                        <i className="magic-power" />
+                    </div>
+                    {[...Array(vikingData.dicePower.magic)].map((k, index) => (
+                        <i key={`magic-${index}`} className="dice-power"></i>
+                    ))}
+                    <hr />
+                    <div className="power">
+                        <span>{vikingData.status.speed}</span>
+                        <i className="speed-power" />
+                    </div>
+                    {[...Array(vikingData.dicePower.speed)].map((k, index) => (
+                        <i key={`speed-${index}`} className="dice-power"></i>
+                    ))}
+                </div>
+            </div>
             <div>
                 <div className="parameter-container">
-                    <div>
-                        <div>
-                            <span className="label">HP</span> {vikingData.health.current} / {vikingData.health.max}
-                        </div>
-                        <hr />
-                        <div className="status-container">
-                            <div className="power-span">
-                                <span className="label">Attack:</span> {vikingData.status.attack}
-                            </div>
-                            {[...Array(vikingData.dicePower.attack)].map((k, index) => (
-                                <i key={`attack-${index}`} className="dice-power"></i>
-                            ))}
-                            <div className="defend-power">{vikingData.status.defend}</div>
-                        </div>
-                        <div>
-                            <div className="power-span">
-                                <span className="label">Magic:</span> {vikingData.status.magic}
-                            </div>
-                            {[...Array(vikingData.dicePower.magic)].map((k, index) => (
-                                <i key={`magic-${index}`} className="dice-power"></i>
-                            ))}
-                        </div>
-                        <div>
-                            <div className="power-span">
-                                <span className="label">Speed:</span> {vikingData.status.speed}
-                            </div>
-                            {[...Array(vikingData.dicePower.speed)].map((k, index) => (
-                                <i key={`speed-${index}`} className="dice-power"></i>
-                            ))}
-                        </div>
-                    </div>
                     <span className="move-token-container">
                         {
                             _.times(vikingMove.max, (i) => {
@@ -53,6 +54,7 @@ function HeroDisplayComponent({ }) {
                             })
                         }
                     </span>
+                    <hr />
                     <span className="action-token-container">
                         {
                             _.times(vikingAction.max, (i) => {

@@ -1,26 +1,24 @@
 import roomStore from '../Store/Room.store';
 import VikingStore from '../Store/Viking.store';
+import './RoomDisplay.scss';
 
 function RoomDisplayComponent() {
     const vikingPosition = VikingStore((state) => state.position);
     const roomData = roomStore((state) => state.rooms[vikingPosition[0]][vikingPosition[1]]);
 
     return (
-        <div>
-            <p>room name: {roomData?.name}</p>
-            <p>room type:
-                {roomData.isTrapRoom && ' Trap Room'}
-                {roomData.isTreasureRoom && ' Treasure Room'}
-            </p>
+        <div className='room-display-container'>
+            <span className='room-title'>{roomData?.name}</span>
+            <hr className='half' />
             <div>
-                {roomData.isTrapRoom && ` Criteria to solve Trap: `}
-                {roomData.isTreasureRoom && `Criteria to open Treasure Chest: `}
-                {roomData.requirement &&
-                    Object.keys(roomData.requirement).map((oneKey, i) => {
-                        return (
-                            <div key={`${roomData.name}-${i}`}>{oneKey}: {roomData.requirement[oneKey]}</div>
-                        )
-                    })
+                {roomData.isTrapRoom && '!! Disarm a trap in this room !!'}
+                {roomData.isTreasureRoom && '!! Search for a treasure !!'}
+            </div>
+            <div className='requirement-container'>
+                {(roomData.isTrapRoom || roomData.isTreasureRoom) &&
+                    <>
+                        <span>{roomData.requireAmount}</span><i className={`power-icon ${roomData.requirePower}-icon`} />
+                    </>
                 }
             </div>
         </div>

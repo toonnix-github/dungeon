@@ -1,11 +1,37 @@
 .App {
   font-family: monospace;
   display: grid;
-  grid-template-columns: 25% 50% 25%;
+  grid-template-columns: 70% 30%;
+
+  hr {
+    width: 100%;
+    margin-top: 1px;
+
+    &.half {
+      width: 50%;
+    }
+  }
 
   button {
     cursor: pointer;
     padding: 2px 15px;
+  }
+
+  .close-button {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 20px;
+    aspect-ratio: 1 / 1;
+    border-radius: 20px;
+    text-align: center;
+    display: inline;
+    border: none;
+    padding: 0;
+  }
+
+  .modal {
+    border: 5px solid #000;
   }
 }
 
@@ -18,7 +44,7 @@
   border-radius: 5px;
   margin: 2px;
   aspect-ratio: 1/1;
-  max-height: 100vh; 
+  max-height: 100vh;
   box-sizing: border-box;
 }
 
@@ -266,13 +292,6 @@
   /* Responsive width */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   position: relative;
-}
-
-.close-button {
-  width: auto;
-  POSITION: absolute;
-  top: 3px;
-  right: 3px;
 }
 
 .controller-container {
