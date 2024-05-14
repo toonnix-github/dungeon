@@ -6,6 +6,7 @@ import WeaponPopup from './WeaponPopup.component';
 import "./HeroAction.scss";
 import './ItemPopup.scss';
 import DiceStore from "../Store/Dice.store";
+import DiceUtil from "../Util/Dice.Util";
 import RoomDisplayComponent from "./RoomDisplay.component";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -39,6 +40,14 @@ function HeroActionComponent() {
 
     const closeDiceConfirmDialog = () => {
         setIsShowDiceConfirmDialog(false);
+    }
+
+    const rollTheDice = () => {
+        let diceResult = [];
+        for (let index = 0; index < dicePower; index++) {
+            diceResult.push(DiceUtil.rollDice());
+        }
+        console.log(diceResult);
     }
 
     const getRandomItemAndOpenPopup = () => {
@@ -93,7 +102,7 @@ function HeroActionComponent() {
             </div>
             <Modal dialogClassName="confirm-dialog" size="sm" centered show={isShowDiceConfirmDialog} onHide={closeDiceConfirmDialog}>
                 <Modal.Body>
-                    <Button>Let's roll (<div className={'action-token active in-message'}></div>)</Button>
+                    <Button onClick={rollTheDice}>Let's roll (<div className={'action-token active in-message'}></div>)</Button>
                     <hr />
                     <Button onClick={closeDiceConfirmDialog} variant="danger">Let me think again!!</Button>
                 </Modal.Body>
