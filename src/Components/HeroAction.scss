@@ -38,7 +38,7 @@
 }
 
 .treasure-popup {
-    max-width: 50%;
+    max-width: 60%;
 
     .modal-content {
         background: url(../Assets/images/treasure-room.png) no-repeat center;
@@ -59,19 +59,44 @@
         border-radius: 10px;
     }
 
+    .roll-button {
+        width: 100%;
+    }
+
     .dice-container {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 5px;
         border-radius: 5px;
         box-sizing: border-box;
         margin: 10px 0;
 
-        .dice-frame {
+        .dice-frame,
+        .dice-face {
             width: 100%;
             aspect-ratio: 1/1;
             border: 1px dotted black;
             box-sizing: border-box;
+        }
+
+        .dice-face {
+            border: 1px double red;
+            grid-template-rows: 50% 50%;
+            display: grid;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 5px;
+
+            .dice-number {
+                font-size: 2cqw;
+            }
+
+            .action-token,
+            .health-token {
+                margin: 0;
+                height: 60%;
+                width: auto;
+            }
         }
 
         &.attack-dice .dice-item {
