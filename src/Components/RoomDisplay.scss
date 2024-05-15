@@ -22,6 +22,29 @@
         background-color: ivory;
     }
 
+    .challenge-container.win {
+        background: url(../Assets/images/success.png) no-repeat center;
+        background-size: cover;
+        background-size: 70%;
+    }
+
+    .challenge-result {
+        display: block;
+        width: 30%;
+        aspect-ratio: 1/1;
+        margin: 0 auto;
+
+        &.lose {
+            background: url(../Assets/images/treasure-icon-close.png);
+            background-size: cover;
+        }
+
+        &.win {
+            background: url(../Assets/images/treasure-icon-open.png);
+            background-size: cover;
+        }
+    }
+
     .power-icon {
         width: 1em;
         display: inline-block;
@@ -41,5 +64,11 @@
             background: url(../Assets/images/arrows.png);
             background-size: cover;
         }
+
+        &.key-icon {
+            background: url(../Assets/images/vintage-keys.png);
+            background-size: cover;
+        }
+
     }
 }

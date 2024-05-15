@@ -2,7 +2,7 @@ import roomStore from '../Store/Room.store';
 import VikingStore from '../Store/Viking.store';
 import './RoomDisplay.scss';
 
-function RoomDisplayComponent() {
+function RoomDisplayComponent({ diceScore }) {
     const vikingPosition = VikingStore((state) => state.position);
     const roomData = roomStore((state) => state.rooms[vikingPosition[0]][vikingPosition[1]]);
 
@@ -14,15 +14,23 @@ function RoomDisplayComponent() {
                 {roomData.isTrapRoom && '!! Disarm a trap in this room !!'}
                 {roomData.isTreasureRoom && '!! Search for the treasure !!'}
             </div>
-            <div className='requirement-container'>
-                {(roomData.isTrapRoom || roomData.isTreasureRoom) &&
-                    <>
-                        <span>{roomData.requireAmount}</span><i className={`power-icon ${roomData.requirePower}-icon`} />
-                    </>
-                }
-            </div>
+            {(roomData.isTrapRoom || roomData.isTreasureRoom) &&
+                <div className={'challenge-container ' + (diceScore >= roomData.requireAmount ? `win` : `lose`)}>
+                    <div className='requirement-container'>
+                        <>
+                            <span>{roomData.requireAmount}</span><i className={`power-icon key-icon`} />
+                        </>
+                    </div>
+                    <div className={`challenge-result ` + (diceScore >= roomData.requireAmount ? `win` : `lose`)} />
+                    <div className='requirement-container'>
+                        <>
+                            <span>{diceScore}</span><i className={`power-icon ${roomData.requirePower}-icon`} />
+                        </>
+                    </div>
+                </div>
+            }
         </div>
-    )
+    );
 }
 
 export default RoomDisplayComponent;

@@ -28,7 +28,7 @@ function HeroActionComponent() {
     const select2ndAddition = DiceStore((state) => state.select2ndAddition);
     const diceScore = DiceStore((state) => state.diceScore);
     const resetDiceScore = DiceStore((state) => state.resetDiceScore);
-    const totalDiceScore = DiceStore((state) => state.diceScore.main + state.diceScore.add1 + state.diceScore.add2)
+    const totalDiceScore = DiceStore((state) => state.diceScore.main + state.diceScore.add1 + state.diceScore.add2);
 
     const [isShowWeaponPopup, setIsShowWeaponPopup] = useState(false);
     const [newFoundItem, setNewFoundItem] = useState();
@@ -44,7 +44,7 @@ function HeroActionComponent() {
     useEffect(() => {
         console.log(rollResult);
         console.log(totalDiceScore);
-    }, [rollResult])
+    }, [rollResult]);
 
     const rollTheDice = () => {
         let diceResult = [];
@@ -52,21 +52,26 @@ function HeroActionComponent() {
             diceResult.push(DiceUtil.rollDice());
         }
         setRollResult(diceResult);
-    }
+    };
 
-    const selectAddition = (additionScore) => {
+    const selectDice = (diceOrder, score) => {
         console.log(diceScore);
-        if (diceScore.add1 === 0) {
-            select1stAddition(additionScore);
+        console.log(rollResult[diceOrder]);
+        rollResult[diceOrder].selected = true;
+        if (diceScore.main === 0) {
+            selectMainDice(score);
+        } else if (diceScore.add1 === 0) {
+            select1stAddition(score);
         } else if (diceScore.add2 === 0) {
-            select2ndAddition(additionScore);
+            select2ndAddition(score);
         }
-    }
+    };
 
     const resetDiceResult = () => {
         resetDiceScore();
         setRollResult([]);
-    }
+        console.log(rollResult);
+    };
 
     const getRandomItemAndOpenPopup = () => {
         // takeAction();
@@ -81,7 +86,7 @@ function HeroActionComponent() {
         //     // _heroRunes.push(itemFromTreasure);
         //     // updateRune(_heroRunes);
         // }
-    }
+    };
 
     return (
         <>
@@ -91,8 +96,7 @@ function HeroActionComponent() {
             } show={isShowDicePopup}>
                 <div />
                 <div className="action-panel">
-                    <RoomDisplayComponent />
-                    {totalDiceScore}
+                    <RoomDisplayComponent diceScore={totalDiceScore} />
                     <hr />
                     <div className={`dice-container ${roomData.requirePower}-dice`}>
                         {dicePower - 1 >= 0 ? <DiceItem diceNumber={1} diceFace={rollResult[0]} /> : <div className="dice-frame"></div>}
@@ -101,21 +105,9 @@ function HeroActionComponent() {
                     </div>
                     {rollResult.length > 0 &&
                         <div className={`dice-container action-dice`}>
-                            {rollResult.length > 0 &&
-                                (totalDiceScore === 0 && <Button
-                                    onClick={() => { rollResult[0].select = true; selectMainDice(rollResult[0].number) }} size="sm">main</Button>) ||
-                                (rollResult[0].type === 'add' ? <Button onClick={() => { selectAddition(rollResult[0].number) }} size="sm">add</Button> : <div></div>)
-                            }
-                            {rollResult.length > 1 &&
-                                (totalDiceScore === 0 && <Button
-                                    onClick={() => { rollResult[1].select = true; selectMainDice(rollResult[1].number) }} size="sm">main</Button>) ||
-                                (rollResult[1].type === 'add' ? <Button onClick={() => { selectAddition(rollResult[1].number) }} size="sm">add</Button> : <div></div>)
-                            }
-                            {rollResult.length > 2 &&
-                                (totalDiceScore === 0 && <Button
-                                    onClick={() => { rollResult[2].select = true; selectMainDice(rollResult[2].number) }} size="sm">main</Button>) ||
-                                (rollResult[2].type === 'add' ? <Button onClick={() => { selectAddition(rollResult[2].number) }} size="sm">add</Button> : <div></div>)
-                            }
+                            <DiceActionButton diceOrder={0} dice={rollResult[0]} selectDice={selectDice} totalDiceScore={totalDiceScore} />
+                            <DiceActionButton diceOrder={1} dice={rollResult[1]} selectDice={selectDice} totalDiceScore={totalDiceScore} />
+                            <DiceActionButton diceOrder={2} dice={rollResult[2]} selectDice={selectDice} totalDiceScore={totalDiceScore} />
                         </div>
                     }
                     {rollResult.length === 0 &&
@@ -149,16 +141,21 @@ function HeroActionComponent() {
             </div>
         </>
 
-    )
+    );
 }
 
 const DiceItem = ({ diceNumber, diceFace }) => {
+    useEffect(() => {
+        console.log(diceFace);
+    }, [diceFace]);
+
     return (
         <>
             {diceFace ?
                 <div className="dice-face">
                     <span className="dice-number">{diceFace.string}</span>
                     <span>
+                        <span>{JSON.stringify(diceFace.selected)}</span>
                         {diceFace.effect === 'action' &&
                             _.times(diceFace.effectPoint, (index) => <div key={`number_${diceNumber}_get${diceFace.number}point_effect_${diceFace.effectPoint}_index_${index}`} className={'action-token active'} />)
                         }
@@ -168,7 +165,25 @@ const DiceItem = ({ diceNumber, diceFace }) => {
                 <div className="dice-item"></div>
             }
         </>
-    )
-}
+    );
+};
+
+const DiceActionButton = ({ diceOrder, dice, totalDiceScore, selectDice }) => {
+    useEffect(() => {
+        console.log(dice);
+    }, [dice]);
+
+    return (
+        <>
+            {
+                (!_.isUndefined(dice) && !dice.selected && dice.type !== 'add') &&
+                < Button onClick={() => { selectDice(diceOrder, dice.number); }} size="sm">
+                    {totalDiceScore === 0 && 'Main'}
+                    {(totalDiceScore > 0 && dice.type === 'add') && 'Add'}
+                </Button >
+            }
+        </>
+    );
+};
 
 export default HeroActionComponent;
