@@ -301,7 +301,8 @@
 
 .action-token,
 .move-token,
-.health-token {
+.health-token,
+.non-token {
     width: 25px;
     aspect-ratio: 1/1;
     margin-right: 3px;
@@ -332,5 +333,10 @@
 
 .health-token {
     background-image: url("../Assets/images/heart.png");
+    background-size: cover;
+}
+
+.non-token {
+    background-image: url("../Assets/images/blank.png");
     background-size: cover;
 }

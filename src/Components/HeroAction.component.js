@@ -34,6 +34,7 @@ function HeroActionComponent() {
     const [newFoundItem, setNewFoundItem] = useState();
     const [dicePower, setDicePower] = useState(0);
     const [rollResult, setRollResult] = useState([]);
+    const [effectHeroGet, setEffectHeroGet] = useState({ action: 0, health: 0 });
 
     useEffect(() => {
         if (isShowDicePopup) {
@@ -41,22 +42,26 @@ function HeroActionComponent() {
         }
     }, [isShowDicePopup]);
 
-    useEffect(() => {
-        console.log(rollResult);
-        console.log(totalDiceScore);
-    }, [rollResult]);
+    const checkEffectHeroGet = () => {
+        let _effectHeroGet = { action: 0, health: 0 };
+        rollResult.forEach(dice => {
+            if (!dice.selected) {
+                if (dice.effect === 'action') { _effectHeroGet.action = _effectHeroGet.action + dice.effectPoint }
+                if (dice.effect === 'health') { _effectHeroGet.health = _effectHeroGet.health + dice.effectPoint }
+            }
+        });
+        setEffectHeroGet(_effectHeroGet);
+    }
 
     const rollTheDice = () => {
         let diceResult = [];
         for (let index = 0; index < dicePower; index++) {
-            diceResult.push(DiceUtil.rollDice());
+            diceResult.push({ ...DiceUtil.rollDice() });
         }
         setRollResult(diceResult);
     };
 
     const selectDice = (diceOrder, score) => {
-        console.log(diceScore);
-        console.log(rollResult[diceOrder]);
         rollResult[diceOrder].selected = true;
         if (diceScore.main === 0) {
             selectMainDice(score);
@@ -65,27 +70,37 @@ function HeroActionComponent() {
         } else if (diceScore.add2 === 0) {
             select2ndAddition(score);
         }
+        checkEffectHeroGet();
     };
 
     const resetDiceResult = () => {
         resetDiceScore();
         setRollResult([]);
-        console.log(rollResult);
+        checkEffectHeroGet();
     };
+
+    const resetDiceSelect = () => {
+        resetDiceScore();
+        rollResult.forEach((dice) => {
+            dice.selected = false;
+        })
+        checkEffectHeroGet();
+    }
 
     const getRandomItemAndOpenPopup = () => {
         // takeAction();
-        showDicePopup();
-        // const itemFromTreasure = treasureUtil.getRandomTreasure();
-        // setNewFoundItem(itemFromTreasure);
-        // if (itemFromTreasure.type === 'weapon') {
-        //     setIsShowWeaponPopup(true);
-        //     // _heroWeapons.push(itemFromTreasure);
-        //     // updateWeapon(_heroWeapons);
-        // } else if (itemFromTreasure.type === 'rune') {
-        //     // _heroRunes.push(itemFromTreasure);
-        //     // updateRune(_heroRunes);
-        // }
+        // showDicePopup();
+        const itemFromTreasure = treasureUtil.getRandomTreasure();
+        setNewFoundItem(itemFromTreasure);
+        if (itemFromTreasure.type === 'weapon') {
+            console.log('here we are');
+            setIsShowWeaponPopup(true);
+            // _heroWeapons.push(itemFromTreasure);
+            // updateWeapon(_heroWeapons);
+        } else if (itemFromTreasure.type === 'rune') {
+            // _heroRunes.push(itemFromTreasure);
+            // updateRune(_heroRunes);
+        }
     };
 
     return (
@@ -99,15 +114,20 @@ function HeroActionComponent() {
                     <RoomDisplayComponent diceScore={totalDiceScore} />
                     <hr />
                     <div className={`dice-container ${roomData.requirePower}-dice`}>
-                        {dicePower - 1 >= 0 ? <DiceItem diceNumber={1} diceFace={rollResult[0]} /> : <div className="dice-frame"></div>}
-                        {dicePower - 2 >= 0 ? <DiceItem diceNumber={2} diceFace={rollResult[1]} /> : <div className="dice-frame"></div>}
-                        {dicePower - 3 >= 0 ? <DiceItem diceNumber={3} diceFace={rollResult[2]} /> : <div className="dice-frame"></div>}
+                        {dicePower - 1 >= 0 ? <DiceItem diceNumber={1} diceFace={rollResult[0]} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
+                        {dicePower - 2 >= 0 ? <DiceItem diceNumber={2} diceFace={rollResult[1]} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
+                        {dicePower - 3 >= 0 ? <DiceItem diceNumber={3} diceFace={rollResult[2]} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
                     </div>
-                    {rollResult.length > 0 &&
+                    {!_.isUndefined(rollResult) && rollResult.length > 0 &&
                         <div className={`dice-container action-dice`}>
                             <DiceActionButton diceOrder={0} dice={rollResult[0]} selectDice={selectDice} totalDiceScore={totalDiceScore} />
                             <DiceActionButton diceOrder={1} dice={rollResult[1]} selectDice={selectDice} totalDiceScore={totalDiceScore} />
                             <DiceActionButton diceOrder={2} dice={rollResult[2]} selectDice={selectDice} totalDiceScore={totalDiceScore} />
+                        </div>
+                    }
+                    {rollResult.length > 0 && totalDiceScore > 0 &&
+                        <div className="d-grid">
+                            <Button variant="warning" onClick={resetDiceSelect} size='sm'>Reset</Button>
                         </div>
                     }
                     {rollResult.length === 0 &&
@@ -121,13 +141,24 @@ function HeroActionComponent() {
                         </>
                     }
                     <hr />
-                    <Button variant="danger" className="close-button" onClick={() => { closeDicePopup(); resetDiceResult(); }}>Close</Button>
+                    <div className="d-grid">
+                        {rollResult.length === 0 && <Button variant="danger" className="close-button" onClick={() => { closeDicePopup(); resetDiceResult(); }}>Close</Button>}
+                        {totalDiceScore > 0 &&
+                            <>
+                                <span>You got:
+                                    {(_.times(effectHeroGet.action, () => <i className="action-token active in-message" />))}
+                                    {(_.times(effectHeroGet.health, () => <i className="health-token in-message" />))}
+                                </span>
+                                <Button className="confirm-button" onClick={() => { getRandomItemAndOpenPopup(); }}>Confirm</Button>
+                            </>
+                        }
+                    </div>
                 </div>
             </Modal >
 
             <div className="action-container">
                 {(roomData.isTreasureRoom && !roomData.solved) &&
-                    <button onClick={() => { getRandomItemAndOpenPopup(); }} className="open-chest-action action-button"></button>
+                    <button onClick={() => { showDicePopup(); }} className="open-chest-action action-button"></button>
                 }
                 {/* <button className="disarm-trap-action"></button>
             <button className="attack-action"></button>
@@ -136,6 +167,7 @@ function HeroActionComponent() {
                     <WeaponPopup
                         newFoundWeapon={newFoundItem}
                         setIsShowWeaponPopup={setIsShowWeaponPopup}
+                        isShowWeaponPopup={isShowWeaponPopup}
                     />
                 }
             </div>
@@ -144,7 +176,7 @@ function HeroActionComponent() {
     );
 }
 
-const DiceItem = ({ diceNumber, diceFace }) => {
+const DiceItem = ({ diceOrder, diceFace, totalDiceScore }) => {
     useEffect(() => {
         console.log(diceFace);
     }, [diceFace]);
@@ -152,15 +184,21 @@ const DiceItem = ({ diceNumber, diceFace }) => {
     return (
         <>
             {diceFace ?
-                <div className="dice-face">
+                <div
+                    className={"dice-face" +
+                        ((totalDiceScore > 0 && !diceFace.selected && diceFace.type !== 'add') ? ' effect-only' : '') +
+                        (diceFace.selected ? ' selected' : '') +
+                        (diceFace.effect === 'none' ? ' no-effect' : '')
+                    }>
                     <span className="dice-number">{diceFace.string}</span>
-                    <span>
-                        <span>{JSON.stringify(diceFace.selected)}</span>
+                    <span className="effect-sign">
                         {diceFace.effect === 'action' &&
-                            _.times(diceFace.effectPoint, (index) => <div key={`number_${diceNumber}_get${diceFace.number}point_effect_${diceFace.effectPoint}_index_${index}`} className={'action-token active'} />)
+                            _.times(diceFace.effectPoint, (index) => <div key={`number_${diceOrder}_get${diceFace.number}point_effect_${diceFace.effectPoint}_index_${index}`} className={'action-token active'} />)
                         }
                         {diceFace.effect === 'health' && <div className={'health-token'} />}
+                        {diceFace.effect === 'none' && <div className={"non-token"} />}
                     </span>
+                    <i className={"dice-status"} />
                 </div> :
                 <div className="dice-item"></div>
             }
@@ -173,17 +211,19 @@ const DiceActionButton = ({ diceOrder, dice, totalDiceScore, selectDice }) => {
         console.log(dice);
     }, [dice]);
 
-    return (
-        <>
-            {
-                (!_.isUndefined(dice) && !dice.selected && dice.type !== 'add') &&
-                < Button onClick={() => { selectDice(diceOrder, dice.number); }} size="sm">
-                    {totalDiceScore === 0 && 'Main'}
-                    {(totalDiceScore > 0 && dice.type === 'add') && 'Add'}
-                </Button >
-            }
-        </>
-    );
+
+    console.log(dice);
+    if (!_.isUndefined(dice) && !dice.selected) {
+        if (totalDiceScore === 0) {
+            return <Button onClick={() => { selectDice(diceOrder, dice.number); }} size="sm">Main</Button>
+        } else if (dice.type === 'add') {
+            return <Button onClick={() => { selectDice(diceOrder, dice.number); }} size="sm">Add</Button>
+        } else {
+            return <div />
+        }
+    } else {
+        return <div />
+    }
 };
 
 export default HeroActionComponent;

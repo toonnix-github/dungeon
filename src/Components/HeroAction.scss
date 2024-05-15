@@ -51,12 +51,17 @@
         grid-template-columns: 60% 40%;
         gap: 5px;
         aspect-ratio: 5/3;
+        border: 5px solid black;
     }
 
     .action-panel {
         background: rgba($color: #fff, $alpha: .7);
         padding: 10px;
         border-radius: 10px;
+
+        hr {
+            margin-block: 0.3em;
+        }
     }
 
     .roll-button {
@@ -70,6 +75,8 @@
         border-radius: 5px;
         box-sizing: border-box;
         margin: 10px 0;
+
+        .confirm-container {}
 
         .dice-frame,
         .dice-face {
@@ -86,16 +93,77 @@
             text-align: center;
             background-color: #fff;
             border-radius: 5px;
+            position: relative;
 
             .dice-number {
                 font-size: 2cqw;
             }
 
             .action-token,
-            .health-token {
+            .health-token,
+            .non-token {
                 margin: 0;
                 height: 60%;
                 width: auto;
+            }
+
+            .non-token {
+                display: none;
+            }
+
+            &.selected {
+                margin: -5px 0 5px;
+                grid-template-rows: 100%;
+                border-color: green;
+
+                .dice-number {
+                    font-size: 3.5cqw;
+                }
+
+                .effect-sign {
+                    display: none;
+                }
+
+                .dice-status {
+                    background: url(../Assets/images/arrow-up.png);
+                    background-size: cover;
+                    display: block;
+                }
+            }
+
+            &.no-effect {
+                .dice-number {
+                    font-size: 3.5cqw;
+                }
+            }
+
+            &.effect-only {
+                grid-template-rows: 100%;
+
+                .effect-sign {
+                    display: grid;
+                }
+
+                .action-token,
+                .health-token,
+                .non-token {
+                    margin: auto;
+                    display: block;
+                }
+
+                .dice-number {
+                    display: none;
+                }
+            }
+
+            .dice-status {
+                position: absolute;
+                bottom: -3px;
+                right: -3px;
+                width: 2cqw;
+                aspect-ratio: 1/1;
+                background: url(../Assets/images/arrow-down.png);
+                background-size: cover;
             }
         }
 
