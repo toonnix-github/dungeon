@@ -1,8 +1,6 @@
 .card-modal {
     background: url(../Assets/images/card-modal-pattern.png) repeat;
     background-size: 25%;
-    max-width: 60%;
-    margin: 5% auto;
 }
 
 .popup-title {
@@ -21,6 +19,16 @@
     display: grid;
     grid-template-columns: 32% 32% 32%;
     grid-gap: 2%;
+
+    &.rune-container {
+        grid-template-columns: 21% 21% 21% 21%;
+        grid-gap: 2%;
+    }
+
+    &.armor-container {
+        grid-template-columns: 49% 49%;
+        grid-gap: 2%;
+    }
 
     &.new-card-container {
         grid-template-columns: 33% 34% 33%;

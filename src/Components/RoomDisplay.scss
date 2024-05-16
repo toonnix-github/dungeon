@@ -28,6 +28,12 @@
         background-size: 70%;
     }
 
+    .challenge-container.lose {
+        background: url(../Assets/images/skull.png) no-repeat center;
+        background-size: cover;
+        background-size: 90%;
+    }
+
     .challenge-result {
         display: block;
         width: 30%;

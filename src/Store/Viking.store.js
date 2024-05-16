@@ -1,4 +1,4 @@
-import { create } from 'zustand'
+import { create } from 'zustand';
 
 const VikingAxe = {
     type: "weapon",
@@ -7,7 +7,7 @@ const VikingAxe = {
     description: "Basic weapon of Viking hero",
     attack: 20,
     defend: 0
-}
+};
 
 const VikingStore = create((set, get) => ({
     status: { attack: 20, defend: 10, magic: 5, speed: 5 },
@@ -33,10 +33,13 @@ const VikingStore = create((set, get) => ({
     setIsMoving: () => set(() => ({ isMoveDone: false })),
     setIsMoveDone: () => set(() => ({ isMoveDone: true })),
     updateWeapon: (_weapon) => set(() => {
-        return ({ weapon: _weapon })
+        return ({ weapon: _weapon });
     }),
     updateRune: (_rune) => set(() => {
-        return ({ rune: _rune })
+        return ({ rune: _rune });
+    }),
+    updateArmor: (_armor) => set(() => {
+        return ({ rune: _armor });
     }),
     useAction: () => set((state) => ({
         action: {

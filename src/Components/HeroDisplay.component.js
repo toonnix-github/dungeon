@@ -1,7 +1,7 @@
 import VikingStore from "../Store/Viking.store";
-import 'react-tooltip/dist/react-tooltip.css'
+import 'react-tooltip/dist/react-tooltip.css';
 import _ from 'lodash';
-import { Tooltip } from 'react-tooltip'
+import { Tooltip } from 'react-tooltip';
 
 function HeroDisplayComponent() {
     const vikingData = VikingStore((state) => state);
@@ -21,46 +21,42 @@ function HeroDisplayComponent() {
                         <span>{vikingData.status.attack}</span>
                         <i className="attack-power" />
                     </div>
-                    {[...Array(vikingData.dicePower.attack)].map((k, index) => (
-                        <i key={`attack-${index}`} className="dice-power"></i>
-                    ))}
+                    {_.times(vikingData.dicePower.attack,
+                        (index) => <i key={`attack-${index}`} className="dice-power"></i>
+                    )}
                     <hr />
                     <div className="power">
                         <span>{vikingData.status.magic}</span>
                         <i className="magic-power" />
                     </div>
-                    {[...Array(vikingData.dicePower.magic)].map((k, index) => (
-                        <i key={`magic-${index}`} className="dice-power"></i>
-                    ))}
+                    {_.times(vikingData.dicePower.magic,
+                        (index) => <i key={`magic-${index}`} className="dice-power"></i>
+                    )}
                     <hr />
                     <div className="power">
                         <span>{vikingData.status.speed}</span>
                         <i className="speed-power" />
                     </div>
-                    {[...Array(vikingData.dicePower.speed)].map((k, index) => (
-                        <i key={`speed-${index}`} className="dice-power"></i>
-                    ))}
+                    {_.times(vikingData.dicePower.speed,
+                        (index) => <i key={`speed-${index}`} className="dice-power"></i>
+                    )}
                 </div>
             </div>
             <div>
                 <div className="parameter-container">
                     <span className="move-token-container">
                         {
-                            _.times(vikingMove.max, (i) => {
-                                return (
-                                    <div key={i} className={'move-token' + ((vikingMove.current - i > 0) ? ' active' : '')}></div>
-                                )
-                            })
+                            _.times(vikingMove.max, (i) =>
+                                <div key={i} className={'move-token' + ((vikingMove.current - i > 0) ? ' active' : '')}></div>
+                            )
                         }
                     </span>
                     <hr />
                     <span className="action-token-container">
                         {
-                            _.times(vikingAction.max, (i) => {
-                                return (
-                                    <div key={i} className={'action-token' + ((vikingAction.current - i > 0) ? ' active' : '')}></div>
-                                )
-                            })
+                            _.times(vikingAction.max, (i) =>
+                                <div key={i} className={'action-token' + ((vikingAction.current - i > 0) ? ' active' : '')}></div>
+                            )
                         }
                     </span>
                 </div>
@@ -77,7 +73,7 @@ function HeroDisplayComponent() {
                 </div>
             </div>
         </div >
-    )
+    );
 }
 
 function FirstWeaponDisplay() {
@@ -101,7 +97,7 @@ function FirstWeaponDisplay() {
                     </div>
                 </Tooltip>}
         </>
-    )
+    );
 }
 
 function SecondWeaponDisplay() {
@@ -127,12 +123,13 @@ function SecondWeaponDisplay() {
             }
 
         </>
-    )
+    );
 }
 
 function FirstRune() {
     const vikingFirstRuneExist = VikingStore((state) => state.rune.length > 0);
     const vikingFirstRune = VikingStore((state) => state.rune[0]);
+
     return (
         <>
             {vikingFirstRuneExist ?
@@ -154,7 +151,7 @@ function FirstRune() {
                 </Tooltip>
             }
         </>
-    )
+    );
 }
 
 function SecondRune() {
@@ -181,7 +178,7 @@ function SecondRune() {
                 </Tooltip>
             }
         </>
-    )
+    );
 }
 
 function ThirdRune() {
@@ -208,7 +205,7 @@ function ThirdRune() {
                 </Tooltip>
             }
         </>
-    )
+    );
 }
 
 export default HeroDisplayComponent;
