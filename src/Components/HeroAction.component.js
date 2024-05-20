@@ -14,6 +14,8 @@ import Modal from 'react-bootstrap/Modal';
 
 function HeroActionComponent() {
     const vikingPosition = VikingStore((state) => state.position);
+    const vikingIsMoveDone = VikingStore((state) => state.isMoveDone);
+    const vikingTakeDamage = VikingStore((state) => state.takeDamage);
     const takeAction = VikingStore((state) => state.useAction);
     const takeMove = VikingStore((state) => state.useMove);
     const heroDicePower = VikingStore((state) => state.dicePower);
@@ -94,37 +96,35 @@ function HeroActionComponent() {
     };
 
     const getRandomItemAndOpenPopup = () => {
-        // takeAction();
-        // showDicePopup();
-
         endDicePhase();
         const itemFromTreasure = treasureUtil.getRandomTreasure();
         setNewFoundItem(itemFromTreasure);
         setIsShowLootPopup(true);
-        // if (itemFromTreasure.type === 'weapon') {
-        //     setIsShowLootPopup(true);
-        //     // _heroWeapons.push(itemFromTreasure);
-        //     // updateWeapon(_heroWeapons);
-        // } else if (itemFromTreasure.type === 'rune') {
-        //     // _heroRunes.push(itemFromTreasure);
-        //     // updateRune(_heroRunes);
-        // }
     };
+
+    const getPunishment = () => {
+        endDicePhase();
+        vikingTakeDamage(roomData.punishment);
+    };
+
+    useEffect(() => {
+        if (roomData.isTrapRoom) {
+            showDicePopup();
+        }
+    }, [vikingIsMoveDone]);
 
     return (
         <>
-            <Modal centered dialogClassName={
-                `dice-action-container` +
-                (roomData.isTreasureRoom && ' treasure-popup')
-            } show={isShowDicePopup}>
+            <Modal centered dialogClassName={`dice-action-container ${roomData.isTreasureRoom && ' treasure-popup'} ${roomData.isTrapRoom && ' trap-popup'}`}
+                show={isShowDicePopup}>
                 <div />
-                <div className="action-panel">
+                <div className={`action-panel ${totalDiceScore < roomData.requireAmount ? 'failed' : ''}`}>
                     <RoomDisplayComponent diceScore={totalDiceScore} />
                     <hr />
                     <div className={`dice-container ${roomData.requirePower}-dice`}>
-                        {dicePower - 1 >= 0 ? <DiceItem diceNumber={1} diceFace={rollResult[0]} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
-                        {dicePower - 2 >= 0 ? <DiceItem diceNumber={2} diceFace={rollResult[1]} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
-                        {dicePower - 3 >= 0 ? <DiceItem diceNumber={3} diceFace={rollResult[2]} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
+                        {dicePower - 1 >= 0 ? <DiceItem diceOrder={0} diceNumber={1} diceFace={rollResult[0]} selectDice={selectDice} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
+                        {dicePower - 2 >= 0 ? <DiceItem diceOrder={1} diceNumber={2} diceFace={rollResult[1]} selectDice={selectDice} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
+                        {dicePower - 3 >= 0 ? <DiceItem diceOrder={2} diceNumber={3} diceFace={rollResult[2]} selectDice={selectDice} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
                     </div>
                     {!_.isUndefined(rollResult) && rollResult.length > 0 &&
                         <div className={`dice-container action-dice`}>
@@ -143,24 +143,25 @@ function HeroActionComponent() {
                             <hr />
                             <Button
                                 className="roll-button"
-                                onClick={() => { rollTheDice(); takeAction(); }}>
-                                Let's roll (<div className={'action-token active in-message'} />)
+                                onClick={() => { rollTheDice(); roomData.isTreasureRoom && takeAction(); }}>
+                                {roomData.isTreasureRoom && <>Let's roll (<div className={'action-token active in-message'} />)</>}
+                                {roomData.isTrapRoom && `Disarm the trap`}
                             </Button>
                         </>
                     }
                     <hr />
                     <div className="d-grid">
-                        {rollResult.length === 0 && <Button variant="danger" className="close-button" onClick={() => { closeDicePopup(); resetDiceResult(); }}>Close</Button>}
+                        {(rollResult.length === 0 && roomData.isTreasureRoom) && <Button variant="danger" className="close-button" onClick={() => { closeDicePopup(); resetDiceResult(); }}>Close</Button>}
                         {totalDiceScore > 0 &&
                             <>
                                 <span>You got:
                                     {(_.times(effectHeroGet.action, (index) => <i key={index} className="action-token active in-message" />))}
                                     {(_.times(effectHeroGet.health, (index) => <i key={index} className="health-token in-message" />))}
-                                    {(effectHeroGet.action === 0 && effectHeroGet.action === 0) && ' nothing'}
+                                    {(effectHeroGet.action === 0 && effectHeroGet.health === 0) && ' nothing'}
                                 </span>
                                 {totalDiceScore >= roomData.requireAmount
                                     ? <Button variant="success" size='sm' onClick={() => { getRandomItemAndOpenPopup(); }}>Success - Confirm</Button>
-                                    : <Button variant="danger" size='sm' onClick={() => { endDicePhase(); }}>Failed - Confirm</Button>}
+                                    : <Button variant="danger" size='sm' onClick={() => { getPunishment(); }}>Failed - Confirm</Button>}
                             </>
                         }
                     </div>
@@ -171,8 +172,8 @@ function HeroActionComponent() {
                 {(roomData.isTreasureRoom && !roomData.solved) &&
                     <button onClick={() => { showDicePopup(); }} className="open-chest-action action-button"></button>
                 }
-                {/* <button className="disarm-trap-action"></button>
-            <button className="attack-action"></button>
+                {
+            /* <button className="attack-action"></button>
             <button className="magic-action"></button> */}
                 {isShowLootPopup &&
                     <LootPopup
@@ -187,7 +188,7 @@ function HeroActionComponent() {
     );
 }
 
-const DiceItem = ({ diceOrder, diceFace, totalDiceScore }) => {
+const DiceItem = ({ diceOrder, diceFace, totalDiceScore, selectDice }) => {
     useEffect(() => {
     }, [diceFace]);
 
@@ -198,8 +199,14 @@ const DiceItem = ({ diceOrder, diceFace, totalDiceScore }) => {
                     className={"dice-face" +
                         ((totalDiceScore > 0 && !diceFace.selected && diceFace.type !== 'add') ? ' effect-only' : '') +
                         (diceFace.selected ? ' selected' : '') +
-                        (diceFace.effect === 'none' ? ' no-effect' : '')
-                    }>
+                        (diceFace.effect === 'none' ? ' no-effect' : '') +
+                        (((totalDiceScore === 0) || (totalDiceScore > 0 && !diceFace.selected && diceFace.type === 'add')) ? ' addable' : '')
+                    }
+                    // if (!_.isUndefined(dice) && !dice.selected) {
+                    //     if (totalDiceScore === 0) {
+
+                    onClick={() => { ((totalDiceScore === 0) || (totalDiceScore > 0 && !diceFace.selected && diceFace.type === 'add')) && selectDice(diceOrder, diceFace.number) }}
+                >
                     <span className="dice-number">{diceFace.string}</span>
                     <span className="effect-sign">
                         {diceFace.effect === 'action' &&
@@ -209,6 +216,7 @@ const DiceItem = ({ diceOrder, diceFace, totalDiceScore }) => {
                         {diceFace.effect === 'none' && <div className={"non-token"} />}
                     </span>
                     <i className={"dice-status"} />
+                    <i className={"add-icon"} />
                 </div> :
                 <div className="dice-item"></div>
             }

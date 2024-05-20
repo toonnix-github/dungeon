@@ -39,7 +39,7 @@ const VikingStore = create((set, get) => ({
         return ({ rune: _rune });
     }),
     updateArmor: (_armor) => set(() => {
-        return ({ rune: _armor });
+        return ({ armor: _armor });
     }),
     useAction: () => set((state) => ({
         action: {
@@ -52,7 +52,19 @@ const VikingStore = create((set, get) => ({
             current: state.move.current - 1,
             max: state.move.max
         }
-    }))
+    })),
+    takeDamage: (damage) => set((state) => ({
+        health: {
+            current: state.health.current - damage,
+            max: state.health.max
+        }
+    })),
+    receiveHeal: (heal) => set((state) => ({
+        health: {
+            current: (state.health.current + heal) > state.health.max ? state.health.max : state.health.current + heal,
+            max: state.health.max
+        }
+    })),
 }));
 
 export default VikingStore;

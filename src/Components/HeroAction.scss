@@ -37,12 +37,11 @@
     }
 }
 
-.treasure-popup {
+.treasure-popup,
+.trap-popup {
     max-width: 60%;
 
     .modal-content {
-        background: url(../Assets/images/treasure-room.png) no-repeat center;
-        background-size: cover;
         width: 100%;
         padding: 10px;
         border-radius: 5px;
@@ -58,6 +57,10 @@
         background: rgba($color: #fff, $alpha: .7);
         padding: 10px;
         border-radius: 10px;
+
+        &.failed {
+            background: rgba($color: #ff7373, $alpha: .7);
+        }
 
         hr {
             margin-block: 0.3em;
@@ -165,6 +168,17 @@
                 background: url(../Assets/images/arrow-down.png);
                 background-size: cover;
             }
+
+            &.addable:hover .add-icon {
+                position: absolute;
+                width: 100%;
+                aspect-ratio: 1/1;
+                background: url(../Assets/images/add-icon.png) no-repeat center center;
+                background-size: 80%;
+                background-color: rgba($color: #00870e, $alpha: .2);
+                opacity: .3;
+                cursor: pointer;
+            }
         }
 
         &.attack-dice .dice-item {
@@ -205,5 +219,19 @@
 
     .close-button {
         width: 100%;
+    }
+}
+
+.treasure-popup {
+    .modal-content {
+        background: url(../Assets/images/treasure-room.png) no-repeat center;
+        background-size: cover;
+    }
+}
+
+.trap-popup {
+    .modal-content {
+        background: url(../Assets/images/trap-room.jpg) no-repeat center;
+        background-size: cover;
     }
 }

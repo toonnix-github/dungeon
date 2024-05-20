@@ -51,6 +51,20 @@
         }
     }
 
+    .punishment-bar {
+        display: inline-flex;
+        font-size: 2em;
+
+        .health-icon {
+            height: 1.1em;
+            display: inline-block;
+            aspect-ratio: 1/1;
+            background: url(../Assets/images/heart.png);
+            background-size: cover;
+            align-self: center;
+        }
+    }
+
     .power-icon {
         width: 1em;
         display: inline-block;
@@ -76,5 +90,20 @@
             background-size: cover;
         }
 
+    }
+
+    &.trap-room {
+        .challenge-result {
+
+            &.lose {
+                background: url(../Assets/images/chain.png);
+                background-size: cover;
+            }
+
+            &.win {
+                background: url(../Assets/images/chain-broken.png);
+                background-size: cover;
+            }
+        }
     }
 }

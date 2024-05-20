@@ -21,8 +21,8 @@
     grid-gap: 2%;
 
     &.rune-container {
-        grid-template-columns: 21% 21% 21% 21%;
-        grid-gap: 2%;
+        grid-template-columns: 24.25% 24.25% 24.25% 24.25%;
+        grid-gap: 1%;
     }
 
     &.armor-container {
@@ -58,6 +58,15 @@
         background: url(../Assets/images/card-background.png) no-repeat;
         background-size: cover;
         position: relative;
+        filter: drop-shadow(0px 0px 3px black);
+
+        &.rare {
+            border-color: #fffad6;
+        }
+
+        &.legendary {
+            border-color: #bb9600;
+        }
 
         &.discard {
             opacity: .5;
@@ -70,6 +79,7 @@
             box-sizing: border-box;
             filter: none;
             background-color: transparent;
+            position: relative;
         }
 
         .item-name {
@@ -101,10 +111,14 @@
             position: relative;
         }
 
+        .effect-value {
+            padding-bottom: 15px;
+        }
+
         .attack-value,
         .defend-value {
             position: absolute;
-            width: 2.7vw;
+            width: 3.7vw;
             height: 1.8vw;
             right: -0.3vw;
             bottom: -0.5vh;
@@ -118,7 +132,7 @@
         }
 
         .attack-value {
-            right: 2.7vw;
+            right: 3.7vw;
         }
 
         .attack-icon,
@@ -141,10 +155,14 @@
             background-size: cover;
         }
 
+        hr {
+            margin: 0.3rem 0
+        }
+
         .discard-button {
             position: absolute;
             left: 25%;
-            top: 40%;
+            bottom: 5%;
             width: 50%;
         }
     }

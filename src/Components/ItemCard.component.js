@@ -1,26 +1,37 @@
-function ItemCard({ itemDetail, setRemoveIndex, removeIndex, weaponIndex, needToDiscard }) {
+import React from 'react';
 
-    const discardThisWeapon = () => {
+const ItemCard = ({ itemDetail, setRemoveIndex, removeIndex, weaponIndex, needToDiscard }) => {
+    const { name, description, attack, defend, effect, rarity, id, type } = itemDetail;
+
+    const handleRemoveItem = () => {
+        setRemoveIndex(removeIndex);
+    };
+
+    const handleDiscardItem = () => {
         setRemoveIndex(weaponIndex);
-    }
+    };
 
     return (
-        <>
-            <div className={`item-card` + (removeIndex === weaponIndex ? ' discard' : '')}>
-                <div className="item-name">{itemDetail.name}</div>
-                <div className={`item-image ${itemDetail.id}`}></div>
-                <div className="item-type">{itemDetail.type}</div>
-                <div className="item-description">
-                    {itemDetail.description}
-                    <div className="attack-value"><i className="attack-icon"></i>{itemDetail.attack}</div>
-                    <div className="defend-value"><i className="defend-icon"></i>{itemDetail.defend}</div>
-                </div>
-                {((removeIndex !== weaponIndex) && needToDiscard) && <button onClick={discardThisWeapon} className="discard-button">discard</button>}
+        <div className={`item-card ${rarity} ${removeIndex === weaponIndex ? 'discard' : ''}`}>
+            <div className="item-name">{name}</div>
+            <div className={`item-image ${id}`}>
+                {((removeIndex !== weaponIndex) && needToDiscard) && (
+                    <button onClick={handleDiscardItem} className="discard-button">
+                        Discard
+                    </button>
+                )}
+            </div>
+            <div className="item-type">{type}</div>
+            <div className="item-description">
+                {description}
+                <hr />
+                {attack > 0 && <div className="attack-value"><i className="attack-icon"></i>{attack}</div>}
+                {defend > 0 && <div className="defend-value"><i className="defend-icon"></i>{defend}</div>}
+                {effect && <div className="effect-value">{effect}</div>}
             </div>
             {(removeIndex === weaponIndex) && <div className="discard-mark"></div>}
-        </>
-
-    )
-}
+        </div>
+    );
+};
 
 export default ItemCard;
