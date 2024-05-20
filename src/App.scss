@@ -275,10 +275,12 @@
 .grid-item .icon.icon-treasure {
   width: 40px;
   height: 40px;
-  background: url('./Assets/images/chest.png') no-repeat top left;
+  background: url('./Assets/images/treasure-icon-close.png') no-repeat top left;
   background-size: cover;
 
   &.solved {
+    background: url('./Assets/images/treasure-icon-open.png') no-repeat top left;
+    background-size: cover;
     opacity: .3;
   }
 }

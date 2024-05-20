@@ -34,7 +34,6 @@ function LootPopup({ newFoundLoot, setIsShowLootPopup, isShowLootPopup }) {
 
         setRemoveIndex(null);
         setIsShowLootPopup(false);
-        console.log(vikingPosition[0], vikingPosition[1]);
         solveRoomStatus(vikingPosition[0], vikingPosition[1]);
     };
 

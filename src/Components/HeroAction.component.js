@@ -109,7 +109,6 @@ function HeroActionComponent() {
     };
 
     useEffect(() => {
-        console.log(roomsData);
         if (roomData.isTrapRoom && !roomData.solved) {
             showDicePopup();
         }
