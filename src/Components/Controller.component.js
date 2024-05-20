@@ -29,10 +29,10 @@ function ControllerComponent() {
             bottom: vikingPosition[0] + 1 <= 6 ? roomsData[vikingPosition[0] + 1][vikingPosition[1]] : null,
             left: vikingPosition[1] > 0 ? roomsData[vikingPosition[0]][vikingPosition[1] - 1] : null
         }
-        setUpButtonState(vikingPosition[0] > 0 && currentRoom?.exist?.top && (!adjacentRoomsData?.top?.id || adjacentRoomsData?.top?.exist?.bottom))
-        setRightButtonState(vikingPosition[1] + 1 <= 6 && currentRoom?.exist?.right && (!adjacentRoomsData?.right?.id || adjacentRoomsData?.right?.exist?.left))
-        setBottomButtonState(vikingPosition[0] + 1 <= 6 && currentRoom?.exist?.bottom && (!adjacentRoomsData?.bottom?.id || adjacentRoomsData?.bottom?.exist?.top))
-        setLeftButtonState(vikingPosition[1] > 0 && currentRoom?.exist?.left && (!adjacentRoomsData?.left?.id || adjacentRoomsData?.left?.exist?.right))
+        setUpButtonState(vikingPosition[0] > 0 && currentRoom?.exit?.top && (!adjacentRoomsData?.top?.id || adjacentRoomsData?.top?.exit?.bottom))
+        setRightButtonState(vikingPosition[1] + 1 <= 6 && currentRoom?.exit?.right && (!adjacentRoomsData?.right?.id || adjacentRoomsData?.right?.exit?.left))
+        setBottomButtonState(vikingPosition[0] + 1 <= 6 && currentRoom?.exit?.bottom && (!adjacentRoomsData?.bottom?.id || adjacentRoomsData?.bottom?.exit?.top))
+        setLeftButtonState(vikingPosition[1] > 0 && currentRoom?.exit?.left && (!adjacentRoomsData?.left?.id || adjacentRoomsData?.left?.exit?.right))
     }, [isMoveDone]);
 
     const getRoomNumberString = (roomNumberArray) => {
@@ -54,7 +54,7 @@ function ControllerComponent() {
         moveVikingRight();
     }
     const moveBottom = () => {
-        setComeFromPath('up');
+        setComeFromPath('top');
         takeMove();
         setPreviousPosition(getRoomNumberString(vikingPosition));
         setIsMoving();
@@ -70,7 +70,7 @@ function ControllerComponent() {
 
     return (
         <div className='controller-container'>
-            <button className='up' disabled={!upButtonState} onClick={() => { moveUp() }}></button>
+            <button className='top' disabled={!upButtonState} onClick={() => { moveUp() }}></button>
             <button className='right' disabled={!rightButtonState} onClick={() => { moveRight() }}></button>
             <button className='bottom' disabled={!bottomButtonState} onClick={() => { moveBottom() }}></button>
             <button className='left' disabled={!leftButtonState} onClick={() => { moveLeft() }}></button>

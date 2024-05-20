@@ -21,6 +21,7 @@ function HeroActionComponent() {
     const heroDicePower = VikingStore((state) => state.dicePower);
 
     const roomData = roomStore((state) => state.rooms[vikingPosition[0]][vikingPosition[1]]);
+    const roomsData = roomStore((state) => state.rooms);
 
     const isShowDicePopup = DiceStore((state) => state.isShowPopup);
     const showDicePopup = DiceStore((state) => state.showPopup);
@@ -108,7 +109,8 @@ function HeroActionComponent() {
     };
 
     useEffect(() => {
-        if (roomData.isTrapRoom) {
+        console.log(roomsData);
+        if (roomData.isTrapRoom && !roomData.solved) {
             showDicePopup();
         }
     }, [vikingIsMoveDone]);

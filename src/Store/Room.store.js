@@ -26,7 +26,7 @@ initialRoomData[3][3] = {
   ...initialRoomData[3][3],
   id: 0,
   name: 'Entrance',
-  exist: {
+  exit: {
     top: true,
     bottom: true,
     left: true,

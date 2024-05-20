@@ -2,7 +2,7 @@ const roomInformationList = {
     1: {
         name: "Duke Agares",
         foundGoblin: true,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: true,
@@ -14,7 +14,7 @@ const roomInformationList = {
     2: {
         name: "Prince Vassago",
         foundGoblin: true,
-        exist: {
+        exit: {
             top: false,
             bottom: true,
             left: true,
@@ -26,7 +26,7 @@ const roomInformationList = {
     3: {
         name: "Marquis Samigina",
         foundGoblin: true,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: true,
@@ -38,7 +38,7 @@ const roomInformationList = {
     4: {
         name: "President Marbas",
         foundGoblin: true,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: true,
@@ -50,7 +50,7 @@ const roomInformationList = {
     5: {
         name: "Duke Valefor",
         foundGoblin: true,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: false,
@@ -62,7 +62,7 @@ const roomInformationList = {
     6: {
         name: "Marquis Amon",
         foundGoblin: true,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: false,
@@ -74,7 +74,7 @@ const roomInformationList = {
     7: {
         name: "Duke Barbatos",
         foundGoblin: true,
-        exist: {
+        exit: {
             top: false,
             bottom: true,
             left: true,
@@ -86,7 +86,7 @@ const roomInformationList = {
     8: {
         name: "King Paimon",
         foundGoblin: true,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: true,
@@ -98,7 +98,7 @@ const roomInformationList = {
     9: {
         name: "President Buer",
         foundGoblin: true,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: true,
@@ -110,7 +110,7 @@ const roomInformationList = {
     10: {
         name: "Duke Gusion",
         foundGoblin: true,
-        exist: {
+        exit: {
             top: false,
             bottom: false,
             left: true,
@@ -122,7 +122,7 @@ const roomInformationList = {
     11: {
         name: "Prince Sitri",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: true,
@@ -134,7 +134,7 @@ const roomInformationList = {
     12: {
         name: "King Beleth",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: false,
@@ -150,7 +150,7 @@ const roomInformationList = {
         requirePower: 'attack',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: true,
@@ -167,7 +167,7 @@ const roomInformationList = {
         requirePower: 'speed',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: false,
@@ -184,7 +184,7 @@ const roomInformationList = {
         requirePower: 'attack',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: true,
@@ -201,7 +201,7 @@ const roomInformationList = {
         requirePower: 'magic',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: true,
@@ -218,7 +218,7 @@ const roomInformationList = {
         requirePower: 'attack',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: true,
@@ -235,7 +235,7 @@ const roomInformationList = {
         requirePower: 'attack',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: false,
             bottom: true,
             left: false,
@@ -252,7 +252,7 @@ const roomInformationList = {
         requirePower: 'magic',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: true,
@@ -269,7 +269,7 @@ const roomInformationList = {
         requirePower: 'speed',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: false,
             bottom: false,
             left: true,
@@ -286,7 +286,7 @@ const roomInformationList = {
         requirePower: 'attack',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: true,
@@ -303,7 +303,7 @@ const roomInformationList = {
         requirePower: 'attack',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: false,
             bottom: false,
             left: true,
@@ -320,7 +320,7 @@ const roomInformationList = {
         requirePower: 'magic',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: false,
             bottom: true,
             left: false,
@@ -337,7 +337,7 @@ const roomInformationList = {
         requirePower: 'speed',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: true,
@@ -354,7 +354,7 @@ const roomInformationList = {
         requirePower: 'attack',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: true,
@@ -371,7 +371,7 @@ const roomInformationList = {
         requirePower: 'speed',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: true,
@@ -388,7 +388,7 @@ const roomInformationList = {
         requirePower: 'attack',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: true,
@@ -405,7 +405,7 @@ const roomInformationList = {
         requirePower: 'magic',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: false,
             bottom: true,
             left: true,
@@ -422,7 +422,7 @@ const roomInformationList = {
         requirePower: 'attack',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: false,
             bottom: true,
             left: true,
@@ -439,7 +439,7 @@ const roomInformationList = {
         requirePower: 'speed',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: false,
@@ -456,7 +456,7 @@ const roomInformationList = {
         requirePower: 'attack',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: false,
@@ -473,7 +473,7 @@ const roomInformationList = {
         requirePower: 'magic',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: false,
             bottom: true,
             left: true,
@@ -489,7 +489,7 @@ const roomInformationList = {
         requirePower: 'speed',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: false,
@@ -506,7 +506,7 @@ const roomInformationList = {
         requirePower: 'magic',
         requireAmount: 5,
         solved: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: false,
@@ -518,7 +518,7 @@ const roomInformationList = {
     35: {
         name: "Prince Stolas",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: false,
@@ -530,7 +530,7 @@ const roomInformationList = {
     36: {
         name: "Marquis Phenex",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: true,
@@ -542,7 +542,7 @@ const roomInformationList = {
     37: {
         name: "Count Halphas",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: false,
             bottom: true,
             left: true,
@@ -554,7 +554,7 @@ const roomInformationList = {
     38: {
         name: "President Malphas",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: false,
@@ -566,7 +566,7 @@ const roomInformationList = {
     39: {
         name: "Count Räum",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: true,
@@ -578,7 +578,7 @@ const roomInformationList = {
     40: {
         name: "Duke Focalor",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: true,
@@ -590,7 +590,7 @@ const roomInformationList = {
     41: {
         name: "Duke Vepar",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: false,
             bottom: true,
             left: false,
@@ -602,7 +602,7 @@ const roomInformationList = {
     42: {
         name: "Marquis Sabnock",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: false,
             bottom: false,
             left: true,
@@ -614,7 +614,7 @@ const roomInformationList = {
     43: {
         name: "Marquis Shax",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: false,
@@ -626,7 +626,7 @@ const roomInformationList = {
     44: {
         name: "Count Viné",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: true,
@@ -638,7 +638,7 @@ const roomInformationList = {
     45: {
         name: "Count Bifrons",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: false,
             bottom: true,
             left: true,
@@ -650,7 +650,7 @@ const roomInformationList = {
     46: {
         name: "Duke Vual",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: false,
@@ -662,7 +662,7 @@ const roomInformationList = {
     47: {
         name: "President Haagenti",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: false,
@@ -674,7 +674,7 @@ const roomInformationList = {
     48: {
         name: "Duke Crocell",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: false,
@@ -686,7 +686,7 @@ const roomInformationList = {
     49: {
         name: "Knight Furcas",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: true,
@@ -698,7 +698,7 @@ const roomInformationList = {
     50: {
         name: "King Balam",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: true,
@@ -710,7 +710,7 @@ const roomInformationList = {
     51: {
         name: "Duke Alloces",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: false,
@@ -722,7 +722,7 @@ const roomInformationList = {
     52: {
         name: "President Caim",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: true,
@@ -734,7 +734,7 @@ const roomInformationList = {
     53: {
         name: "Count Murmur",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: true,
@@ -746,7 +746,7 @@ const roomInformationList = {
     54: {
         name: "Prince Orobas",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: true,
@@ -758,7 +758,7 @@ const roomInformationList = {
     55: {
         name: "Duke Gremory",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: false,
             bottom: true,
             left: false,
@@ -770,7 +770,7 @@ const roomInformationList = {
     56: {
         name: "President Ose",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: false,
@@ -782,7 +782,7 @@ const roomInformationList = {
     57: {
         name: "President Amy",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: false,
@@ -794,7 +794,7 @@ const roomInformationList = {
     58: {
         name: "Marquis Orias",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: false,
             bottom: true,
             left: false,
@@ -806,7 +806,7 @@ const roomInformationList = {
     59: {
         name: "Duke Vapula",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: true,
@@ -818,7 +818,7 @@ const roomInformationList = {
     60: {
         name: "President Zagan",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: false,
             bottom: true,
             left: true,
@@ -830,7 +830,7 @@ const roomInformationList = {
     61: {
         name: "President Valac",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: false,
@@ -842,7 +842,7 @@ const roomInformationList = {
     62: {
         name: "Marquis Andras",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: true,
@@ -854,7 +854,7 @@ const roomInformationList = {
     63: {
         name: "Duke Flauros",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: false,
             bottom: true,
             left: false,
@@ -866,7 +866,7 @@ const roomInformationList = {
     64: {
         name: "Marquis Andrealphus",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: false,
             bottom: true,
             left: true,
@@ -878,7 +878,7 @@ const roomInformationList = {
     65: {
         name: "Marquis Kimaris",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: true,
@@ -890,7 +890,7 @@ const roomInformationList = {
     66: {
         name: "Duke Amdusias",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: false,
@@ -902,7 +902,7 @@ const roomInformationList = {
     67: {
         name: "King Belial",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: false,
@@ -914,7 +914,7 @@ const roomInformationList = {
     68: {
         name: "Marquis Decarabia",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: false,
             bottom: false,
             left: true,
@@ -926,7 +926,7 @@ const roomInformationList = {
     69: {
         name: "Prince Seere",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: false,
@@ -938,7 +938,7 @@ const roomInformationList = {
     70: {
         name: "Duke Dantalion",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: true,
             left: false,
@@ -950,7 +950,7 @@ const roomInformationList = {
     71: {
         name: "Count Andromalius",
         foundGoblin: false,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: true,
@@ -962,7 +962,7 @@ const roomInformationList = {
     72: {
         name: "King Bael",
         foundGoblin: true,
-        exist: {
+        exit: {
             top: true,
             bottom: false,
             left: true,

@@ -34,7 +34,8 @@ function LootPopup({ newFoundLoot, setIsShowLootPopup, isShowLootPopup }) {
 
         setRemoveIndex(null);
         setIsShowLootPopup(false);
-        // solveRoomStatus(vikingPosition[0], vikingPosition[1]);
+        console.log(vikingPosition[0], vikingPosition[1]);
+        solveRoomStatus(vikingPosition[0], vikingPosition[1]);
     };
 
     const lootIsWeapon = newFoundLoot.type === 'weapon';
@@ -48,6 +49,7 @@ function LootPopup({ newFoundLoot, setIsShowLootPopup, isShowLootPopup }) {
         if (lootIsRune) updateRune([...vikingRune, newFoundLoot]);
         if (lootIsArmor) updateArmor([...vikingArmor, newFoundLoot]);
         setIsShowLootPopup(false);
+        solveRoomStatus(vikingPosition[0], vikingPosition[1]);
     };
 
     return (
