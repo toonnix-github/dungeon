@@ -81,7 +81,7 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
     if (roomStatus !== 'revealed' && roomStatus !== 'readyToExplore') {
       const ready = ['top', 'bottom', 'left', 'right'].some(direction => {
         const adjRoom = adjacentRoomsData[direction];
-        return adjRoom && adjRoom.exit && adjRoom.exit[oppositeDirection(direction)]
+        return adjRoom && adjRoom.exit && adjRoom.exit[oppositeDirection(direction)];
       }
       );
       setIsReadyToExplore(ready);
@@ -117,7 +117,7 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
     } else if (roomData?.revealMethod === RevealMethodENUM.VISION) {
       state = ['top', 'bottom', 'left', 'right'].some(direction => {
         const adjRoom = adjacentRoomsData[direction];
-        return adjRoom && adjRoom.exit && adjRoom.exit[oppositeDirection(direction)] && roomData.exit[direction]
+        return adjRoom && adjRoom.exit && adjRoom.exit[oppositeDirection(direction)] && roomData.exit[direction];
       });
     }
     setConfirmButtonState(state);
@@ -147,6 +147,7 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
       {isTrapRoom && <span className={`icon icon-trap ${roomData.solved ? 'solved' : ''}`}></span>}
       {isTreasureRoom && <span className={`icon icon-treasure ${roomData.solved ? 'solved' : ''}`}></span>}
       {roomStatus === 'prompt-rotate' && <RotateButtons confirmButtonState={confirmButtonState} rotateRoomExit={rotateRoomExit} confirmRoom={confirmRoom} />}
+      {isRoomRotating && isOperatingRoom && !confirmButtonState && <div className='room-invalid-sign' />}
     </div>
   );
 
@@ -154,7 +155,7 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
     return [
       (!isRoomRevealed() && isReadyToExplore ? "ready-to-explore" : ""),
       (isRoomRevealed() ? "revealed" : ""),
-      (isRoomRotating && !isOperatingRoom && previousPosition !== roomNumberString ? 'room-is-rotating' : "")
+      (isRoomRotating && !isOperatingRoom && previousPosition !== roomNumberString ? 'room-is-rotating' : ""),
     ].join(" ");
   }
 

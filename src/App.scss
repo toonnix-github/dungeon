@@ -77,6 +77,14 @@
   justify-content: center;
   position: relative;
   min-width: 6vw;
+
+  .room-invalid-sign {
+    aspect-ratio: 1/1;
+    width: 100%;
+    position: absolute;
+    display: block;
+    background-color: rgba(255, 0, 0, 0.2);
+  }
 }
 
 .grid-item .explore-button {
