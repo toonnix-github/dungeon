@@ -10,15 +10,27 @@
 }
 
 .goblin-tooltip {
-    display: grid;
-    grid-template-columns: 60% 40%;
     box-sizing: border-box;
     border: 2px solid #222;
     border-radius: 5px;
 
+    .defend-power {
+        background-image: url(../../Assets/images/shield.png);
+        background-size: cover;
+        width: 45px;
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        aspect-ratio: 1 / 1;
+        text-align: center;
+        font-size: 35px;
+        line-height: 45px;
+        color: #222;
+        filter: drop-shadow(2px 4px 6px black);
+    }
+
     .goblin-tooltip-content {
-        width: 100%;
-        height: 100%;
+        width: 40%;
         padding: 5px;
         color: #222;
         background-color: rgba($color: #fff, $alpha: 0.8);
@@ -31,6 +43,8 @@
             margin-bottom: 5px;
             border-left-width: 2px;
             border-left-style: solid;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
         .goblin-tooltip-name {
@@ -39,8 +53,8 @@
             background-color: #222;
             border-radius: 5px;
             top: -5px;
-            right: 10px;
-            padding: 0 10px 0 20px;
+            left: 10px;
+            padding: 0 20px 0 10px;
             color: #fff;
             font-weight: bold;
         }
@@ -59,13 +73,125 @@
             font-size: 0.7rem;
         }
 
+
+
+        .action-panel {
+            height: 30px;
+            text-align: left;
+            padding-left: 5px;
+            position: absolute;
+            display: inline-flex;
+            left: 5px;
+            bottom: 5px;
+            background-color: rgba($color: #fff, $alpha: 0.8);
+            align-items: center;
+            border-radius: 2px;
+            border-left: 4px solid #fff;
+            padding-right: 15px;
+            font-size: 1.5rem;
+            border-top-right-radius: 15px;
+
+            &.attack-panel {
+                border-left-color: rgb(255 145 51);
+                bottom: 85px;
+                padding-left: 0;
+            }
+
+            &.counter-attack-panel {
+                border-left-color: rgb(255 145 51);
+                bottom: 45px;
+                padding-left: 0;
+            }
+
+            &.move-panel {
+                border-left-color: #762700;
+            }
+
+            .icon-move {
+                background: url('../../Assets/images/boot.png') no-repeat center right;
+                background-size: 100%;
+                width: 25px;
+                aspect-ratio: 1 / 1;
+                margin: 0 5px;
+                display: inline-block;
+            }
+
+            .arrow-right {
+                background: url('../../Assets/images/arrow-down.png') no-repeat center right;
+                rotate: -90deg;
+                background-size: 100%;
+                width: 15px;
+                aspect-ratio: 1 / 1;
+                margin-left: 5px;
+                display: inline-block;
+            }
+
+            .action-sign {
+                width: 35px;
+                aspect-ratio: 1 / 1;
+                margin-left: 2px;
+                display: inline-block;
+                position: relative;
+                filter: drop-shadow(1px 0 2px #222);
+                margin-right: 15px;
+
+                &:after {
+                    content: "";
+                    position: absolute;
+                    left: 97%;
+                    top: 0;
+                    width: 0;
+                    height: 0;
+                    border-top: 28px solid transparent;
+                    border-left: 10px solid transparent;
+                    border-bottom: 7px solid transparent;
+                }
+
+                &.icon-monster-action {
+                    background: url('../../Assets/images/action/monster-action.png') no-repeat 3px center;
+                    background-size: 100%;
+                    background-color: #762700;
+
+                    &:after {
+                        border-left-color: #762700;
+                    }
+                }
+
+                &.icon-attack-action {
+                    background: url('../../Assets/images/action/attack.png') no-repeat 3px center;
+                    background-size: 100%;
+                    background-color: rgb(236, 0, 20);
+                    margin-left: 0;
+
+                    &:after {
+                        border-left-color: rgb(236, 0, 20);
+                    }
+                }
+
+                &.icon-counter-attack-action {
+                    background: url('../../Assets/images/action/counter-attack.png') no-repeat 3px center;
+                    background-size: 100%;
+                    background-color: rgb(255 145 51);
+                    margin-left: 0;
+
+                    &:after {
+                        border-left-color: rgb(255 145 51);
+                    }
+                }
+            }
+        }
+
         .icon-attack-type,
         .icon-goblin,
         .icon-attack,
         .icon-counter-attack,
         .icon-health,
         .icon-tiles,
-        .icon-hero {
+        .icon-hero,
+        .icon-dice,
+        .icon-treasure-bag,
+        .icon-bomb,
+        .icon-prize {
             display: inline-block;
             width: 1.6rem;
             aspect-ratio: 1 / 1;
@@ -86,6 +212,27 @@
                 background: url('../../Assets/images/action/magic.png') no-repeat top left;
                 background-size: cover;
             }
+        }
+
+        .icon-dice {
+            background: url('../../Assets/images/dice.png') no-repeat top left;
+            background-size: cover;
+            margin-right: 2px;
+        }
+
+        .icon-bomb {
+            background: url('../../Assets/images/bomb.png') no-repeat top left;
+            background-size: cover;
+        }
+
+        .icon-treasure-bag {
+            background: url('../../Assets/images/treasure-bag.png') no-repeat top left;
+            background-size: cover;
+        }
+
+        .icon-prize {
+            background: url('../../Assets/images/prize.png') no-repeat top left;
+            background-size: cover;
         }
 
         .icon-tiles {
@@ -115,7 +262,7 @@
             background-size: cover;
             position: absolute;
             top: 5px;
-            left: 5px;
+            right: 5px;
             filter: drop-shadow(2px 4px 6px black);
         }
 
@@ -124,110 +271,50 @@
             background-size: cover;
         }
 
-        .move-panel {
-            height: 30px;
-            text-align: left;
-            padding-left: 5px;
-            position: absolute;
-            display: inline-flex;
-            left: 5px;
-            bottom: 5px;
-            background-color: rgba($color: #fff, $alpha: 0.8);
-            align-items: center;
-            border-radius: 2px;
-            border-left: 4px solid #762700;
-            padding-right: 15px;
-            font-size: 1.5rem;
-
-            .icon-move {
-                background: url('../../Assets/images/boot.png') no-repeat center right;
-                background-size: 100%;
-                width: 25px;
-                aspect-ratio: 1 / 1;
-                margin: 0 5px;
-                display: inline-block;
-            }
-
-            .arrow-right {
-                background: url('../../Assets/images/arrow-down.png') no-repeat center right;
-                rotate: -90deg;
-                background-size: 100%;
-                width: 15px;
-                aspect-ratio: 1 / 1;
-                margin-left: 5px;
-                display: inline-block;
-            }
-
-            .icon-monster-action {
-                background: url('../../Assets/images/action/monster-action.png') no-repeat 3px center;
-                background-size: 100%;
-                width: 35px;
-                aspect-ratio: 1 / 1;
-                margin-left: 2px;
-                display: inline-block;
-                background-color: #762700;
-                position: relative;
-                filter: drop-shadow(1px 0 2px #222);
-                margin-right: 15px;
-
-                &:after {
-                    content: "";
-                    position: absolute;
-                    left: 97%;
-                    top: 0;
-                    width: 0;
-                    height: 0;
-                    border-top: 28px solid transparent;
-                    border-left: 10px solid #762700;
-                    border-bottom: 7px solid transparent;
-                }
-            }
-        }
-
     }
 
     &.shooty-goblin-tooltip {
-        background: url('../../Assets/images/goblin/shooty-goblin.webp') no-repeat center right;
-        background-size: 140%;
+        background: url('../../Assets/images/goblin/shooty-goblin.webp') no-repeat center left;
+        background-size: 150%;
     }
 
     &.stabby-goblin-tooltip {
-        background: url('../../Assets/images/goblin/stabby-goblin.webp') no-repeat center right;
-        background-size: 140%;
+        background: url('../../Assets/images/goblin/stabby-goblin.webp') no-repeat center left;
+        background-size: 150%;
     }
 
     &.bomber-goblin-tooltip {
-        background: url('../../Assets/images/goblin/bomb-goblin.webp') no-repeat center right;
-        background-size: 140%;
+        background: url('../../Assets/images/goblin/bomb-goblin.webp') no-repeat center left;
+        background-size: 150%;
     }
 
     &.sneaky-goblin-tooltip {
-        background: url('../../Assets/images/goblin/sneaky-goblin.webp') no-repeat center right;
-        background-size: 140%;
+        background: url('../../Assets/images/goblin/sneaky-goblin.webp') no-repeat center left;
+        background-size: 150%;
     }
 
     &.boss-goblin-tooltip {
-        background: url('../../Assets/images/goblin/boss-goblin.webp') no-repeat center right;
-        background-size: 140%;
+        background: url('../../Assets/images/goblin/boss-goblin.webp') no-repeat center left;
+        background-size: 150%;
     }
 
     &.shadow-goblin-tooltip {
-        background: url('../../Assets/images/goblin/shadow-goblin.webp') no-repeat center right;
-        background-size: 140%;
+        background: url('../../Assets/images/goblin/shadow-goblin.webp') no-repeat center left;
+        background-size: 150%;
     }
 
     &.shaman-goblin-tooltip {
-        background: url('../../Assets/images/goblin/shaman-goblin.webp') no-repeat center right;
-        background-size: 140%;
+        background: url('../../Assets/images/goblin/shaman-goblin.webp') no-repeat center left;
+        background-size: 150%;
     }
 
     &.goblin-king-tooltip {
-        background: url('../../Assets/images/goblin/goblin-king.webp') no-repeat center right;
-        background-size: 140%;
+        background: url('../../Assets/images/goblin/goblin-king.webp') no-repeat center left;
+        background-size: 150%;
     }
 
     &.goblin-minion-tooltip {
-        background: url('../../Assets/images/goblin/goblin-minion.webp') no-repeat center right;
-        background-size: 140%;
+        background: url('../../Assets/images/goblin/goblin-minion.webp') no-repeat center left;
+        background-size: 150%;
     }
 }

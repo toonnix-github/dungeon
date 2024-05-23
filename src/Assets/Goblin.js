@@ -4,7 +4,7 @@ export const Goblins = [
         "id": "shooty-goblin",
         position: { x: 0, y: 0 },
         "description": "A cowardly creature that peppers its foes with projectiles as it retreats.",
-        "move": 2,
+        "move": 4,
         "attack": {
             "damage": 1,
             "type": "range"
@@ -12,9 +12,9 @@ export const Goblins = [
         "counterAttack": {
             "damage": 1,
             "bonusPerGoblin": 1,
-            "type": ["melee", "range", "magic"]
+            "type": ["range", "magic"]
         },
-        "defense": 5,
+        "defense": 2,
         "health": 1,
         "rewards": [
             { "get": "item", "amount": 1 },
@@ -32,14 +32,14 @@ export const Goblins = [
         "description": "A frenzied goblin that charges at heroes with its crude dagger.",
         "move": 4,
         "attack": {
-            "damage": 3,
+            "damage": 2,
             "bonusPerGoblin": 1,
             "type": "melee"
         },
         "counterAttack": {
-            "damage": 3,
+            "damage": 2,
             "bonusPerGoblin": 1,
-            "type": ["melee", "range", "magic"]
+            "type": ["melee"]
         },
         "defense": 4,
         "health": 1,
@@ -49,7 +49,7 @@ export const Goblins = [
         ],
         "monsterAction": {
             "type": "MOVE_AND_ATTACK",
-            "range": 1
+            "range": 0
         }
     },
     {
@@ -90,7 +90,8 @@ export const Goblins = [
         },
         "counterAttack": {
             "damage": 0,
-            "bonusPerGoblin": 0
+            "bonusPerGoblin": 0,
+            type: []
         },
         "defense": 6,
         "health": 1,
@@ -190,9 +191,8 @@ export const Goblins = [
         "description": "The ultimate ruler of goblins, strong and cunning, with the power to summon minions.",
         "move": 1,
         "attack": {
-            "damage": 5,
-            "bonusPerGoblin": 2,
-            "type": "melee"
+            "damage": 0,
+            "bonusPerGoblin": 0,
         },
         "counterAttack": {
             "damage": 4,
@@ -218,19 +218,19 @@ export const Goblins = [
         "description": "A feeble and tiny goblin, easily frightened and weak in combat, summoned by the Goblin King to swarm and distract enemies.",
         "move": 1,
         "attack": {
-            "damage": 1,
+            "damage": 0,
             "bonusPerGoblin": 0,
             "type": "melee"
         },
         "counterAttack": {
-            "damage": 0,
-            "bonusPerGoblin": 0,
+            "damage": 1,
+            "bonusPerGoblin": 1,
             "type": ["melee"]
         },
         "defense": 1,
         "health": 1,
         "rewards": [
-            { "get": "healthPotion", "amount": 1 }
+            { "get": "health", "amount": 1 }
         ],
         "monsterAction": {
             "type": "FLEE",

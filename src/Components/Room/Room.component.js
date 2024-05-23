@@ -42,19 +42,16 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
   });
 
   useEffect(() => {
-    setRoomOffset(roomNumber[0], roomNumber[1],
-      {
-        top: roomRef.current.offsetTop,
-        left: roomRef.current.offsetLeft,
-        bottom: roomRef.current.offsetTop + roomRef.current.offsetHeight,
-        right: roomRef.current.offsetLeft + roomRef.current.offsetWidth
-      }
-    );
-  }, [])
-
-  useEffect(() => {
     if (roomNumber) {
       setRoomNumberString(`${roomNumber[0]}-${roomNumber[1]}`);
+      setRoomOffset(roomNumber[0], roomNumber[1],
+        {
+          top: roomRef.current.offsetTop,
+          left: roomRef.current.offsetLeft,
+          bottom: roomRef.current.offsetTop + roomRef.current.offsetHeight,
+          right: roomRef.current.offsetLeft + roomRef.current.offsetWidth
+        }
+      );
     }
   }, [roomNumber]);
 
@@ -90,21 +87,14 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
   useEffect(() => {
     if (isFoundGoblin && isCurrentRoom) {
       let goblin = _.sample(Goblins);
-      goblin.position = { x: roomNumber[1], y: roomNumber[0] }
+      goblin.position = { x: roomNumber[1], y: roomNumber[0] };
       addGoblin(goblin);
       dispatchGoblin(roomNumber[0], roomNumber[1]);
     }
   }, [isFoundGoblin]);
 
-  useEffect(() => {
-    if (goblinGang.length > 0 && isCurrentRoom) {
-      console.log(goblinGang)
-    }
-  }, [goblinGang]);
-
   const checkRoomStatus = () => {
     setIsEntranceRoom(roomData.id === 0);
-    setIsFoundGoblin(roomData.foundGoblin);
     setIsTrapRoom(roomData.isTrapRoom);
     setIsTreasureRoom(roomData.isTreasureRoom);
     checkConfirmButtonState();
@@ -161,6 +151,7 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
     setIsRoomRotating(false);
     setIsOperatingRoom(false);
     setIsMoveDone();
+    setIsFoundGoblin(roomData.foundGoblin);
   };
 
   const isShowPreviousPath = () => previousPosition === roomNumberString && isRoomRotating;

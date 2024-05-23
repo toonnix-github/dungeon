@@ -38,7 +38,7 @@ function App() {
         <ControllerComponent />
       </div>
       {goblinGang.map((goblin, index) => (
-        <GoblinComponent key={index} goblin={goblin} />
+        <GoblinComponent key={index} index={index} goblin={goblin} />
       ))}
     </div >
   );
