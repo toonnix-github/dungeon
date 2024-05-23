@@ -5,13 +5,13 @@ const VikingAxe = {
     name: "Viking Axe",
     id: "viking-axe",
     description: "Basic weapon of Viking hero",
-    attack: 20,
-    defend: 0
+    effect: "N/A",
+    attack: { value: 1, effect: 'plus' },
 };
 
 const VikingStore = create((set, get) => ({
-    status: { attack: 20, defend: 10, magic: 5, speed: 5 },
-    dicePower: { attack: 3, magic: 1, speed: 1 },
+    defend: 5,
+    dicePower: { attack: 3, magic: 1, speed: 2 },
     health: { current: 10, max: 10 },
     action: { current: 5, max: 5 },
     move: { current: 6, max: 6 },
@@ -22,6 +22,7 @@ const VikingStore = create((set, get) => ({
     weapon: [VikingAxe],
     armor: [],
     rune: [],
+    spell: [],
     isMoveDone: true,
     setPreviousPosition: (_previousPosition) => set(() => ({ previousPosition: _previousPosition })),
     setComeFromPath: (direction) => set(() => ({ comeFromPath: direction })),

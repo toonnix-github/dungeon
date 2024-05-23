@@ -1,5 +1,4 @@
 import VikingStore from "../Store/Viking.store";
-import 'react-tooltip/dist/react-tooltip.css';
 import _ from 'lodash';
 import { Tooltip } from 'react-tooltip';
 
@@ -22,8 +21,7 @@ function ItemDisplay({ item, tooltipId, emptyClassName, itemType }) {
                     <div><span className="label">Effect: </span>{item.effect}</div>
                     {itemType !== 'rune' && (
                         <div>
-                            <span className="label">Attack: </span>{item.attack || '-'}
-                            <span className="label"> Defend: </span>{item.defend || '-'}
+                            {item.attack && <span className="label">Attack: {item.attack.effect === 'plus' ? '+' : '-'}{item.attack.value}</span>}
                         </div>
                     )}
                 </Tooltip>
@@ -47,11 +45,10 @@ function HeroDisplayComponent() {
             <hr />
             <div className="profile-container">
                 <div className="portrait">
-                    <div className="defend-power">{vikingData.status.defend}</div>
+                    <div className="defend-power">{vikingData.defend}</div>
                 </div>
                 <div className="status">
                     <div className="power">
-                        <span>{vikingData.status.attack}</span>
                         <i className="attack-power" />
                     </div>
                     {_.times(vikingData.dicePower.attack, (index) => (
@@ -59,7 +56,6 @@ function HeroDisplayComponent() {
                     ))}
                     <hr />
                     <div className="power">
-                        <span>{vikingData.status.magic}</span>
                         <i className="magic-power" />
                     </div>
                     {_.times(vikingData.dicePower.magic, (index) => (
@@ -67,7 +63,6 @@ function HeroDisplayComponent() {
                     ))}
                     <hr />
                     <div className="power">
-                        <span>{vikingData.status.speed}</span>
                         <i className="speed-power" />
                     </div>
                     {_.times(vikingData.dicePower.speed, (index) => (

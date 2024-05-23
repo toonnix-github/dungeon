@@ -112,6 +112,10 @@ function HeroActionComponent() {
         if (roomData.isTrapRoom && !roomData.solved) {
             showDicePopup();
         }
+        // if (roomData.hasMonster) {
+        //     showMonsterPopup();
+        // }
+
     }, [vikingIsMoveDone]);
 
     return (

@@ -36,32 +36,54 @@ initialRoomData[3][3] = {
 
 const roomStore = create((set) => ({
   rooms: initialRoomData,
-  assignRoom: (roomRow, roomColumn, roomData) =>
-    set((state) => ({
-      rooms: {
-        ...state.rooms,
-        [roomRow]: {
-          ...state.rooms[roomRow],
-          [roomColumn]: {
-            ...state.rooms[roomRow][roomColumn],
-            ...roomData
-          }
+  assignRoom: (roomRow, roomColumn, roomData) => set((state) => ({
+    rooms: {
+      ...state.rooms,
+      [roomRow]: {
+        ...state.rooms[roomRow],
+        [roomColumn]: {
+          ...state.rooms[roomRow][roomColumn],
+          ...roomData
         }
       }
-    })),
-  solveRoomStatus: (roomRow, roomColumn) =>
-    set((state) => ({
-      rooms: {
-        ...state.rooms,
-        [roomRow]: {
-          ...state.rooms[roomRow],
-          [roomColumn]: {
-            ...state.rooms[roomRow][roomColumn],
-            solved: true
-          }
+    }
+  })),
+  setOffset: (roomRow, roomColumn, offset) => set((state) => ({
+    rooms: {
+      ...state.rooms,
+      [roomRow]: {
+        ...state.rooms[roomRow],
+        [roomColumn]: {
+          ...state.rooms[roomRow][roomColumn],
+          offset: offset
         }
       }
-    })),
+    }
+  })),
+  solveRoomStatus: (roomRow, roomColumn) => set((state) => ({
+    rooms: {
+      ...state.rooms,
+      [roomRow]: {
+        ...state.rooms[roomRow],
+        [roomColumn]: {
+          ...state.rooms[roomRow][roomColumn],
+          solved: true
+        }
+      }
+    }
+  })),
+  dispatchGoblin: (roomRow, roomColumn) => set((state) => ({
+    rooms: {
+      ...state.rooms,
+      [roomRow]: {
+        ...state.rooms[roomRow],
+        [roomColumn]: {
+          ...state.rooms[roomRow][roomColumn],
+          foundGoblin: false
+        }
+      }
+    }
+  })),
 }))
 
 export default roomStore;

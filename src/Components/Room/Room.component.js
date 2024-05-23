@@ -5,6 +5,8 @@ import RoomPaths from './RoomPaths.component';
 import RotateButtons from './RotateButton.component';
 import { RevealMethodENUM, oppositeDirection, getRandomRoom } from '../../Util/Room.Util';
 import _ from 'lodash';
+import { Goblins } from '../../Assets/Goblin';
+import GoblinStore from '../../Store/Goblin.store';
 
 function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
   const roomRef = useRef();
@@ -21,11 +23,16 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
   const roomsData = roomStore(state => state.rooms);
   const roomData = roomStore(state => state.rooms[roomNumber[0]][roomNumber[1]]);
   const assignRoom = roomStore(state => state.assignRoom);
+  const setRoomOffset = roomStore(state => state.setOffset);
+
+  const dispatchGoblin = roomStore(state => state.dispatchGoblin);
   const vikingPosition = VikingStore(state => state.position);
   const setVikingOffset = VikingStore(state => state.setOffset);
   const setIsMoveDone = VikingStore(state => state.setIsMoveDone);
   const previousPosition = VikingStore(state => state.previousPosition);
   const comeFromPath = VikingStore(state => state.comeFromPath);
+  const addGoblin = GoblinStore(state => state.addGoblin);
+  const goblinGang = GoblinStore(state => state.gang);
 
   const [adjacentRoomsData, setAdjacentRoomsData] = useState({
     top: null,
@@ -33,6 +40,17 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
     bottom: null,
     left: null,
   });
+
+  useEffect(() => {
+    setRoomOffset(roomNumber[0], roomNumber[1],
+      {
+        top: roomRef.current.offsetTop,
+        left: roomRef.current.offsetLeft,
+        bottom: roomRef.current.offsetTop + roomRef.current.offsetHeight,
+        right: roomRef.current.offsetLeft + roomRef.current.offsetWidth
+      }
+    );
+  }, [])
 
   useEffect(() => {
     if (roomNumber) {
@@ -65,9 +83,24 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
       top: roomNumber[0] > 0 ? roomsData[roomNumber[0] - 1][roomNumber[1]] : null,
       right: roomNumber[1] < 6 ? roomsData[roomNumber[0]][roomNumber[1] + 1] : null,
       bottom: roomNumber[0] < 6 ? roomsData[roomNumber[0] + 1][roomNumber[1]] : null,
-      left: roomNumber[1] > 0 ? roomsData[roomNumber[0]][roomNumber[1] - 1] : null
+      left: roomNumber[1] > 0 ? roomsData[roomNumber[0]][roomNumber[1] - 1] : null,
     });
   };
+
+  useEffect(() => {
+    if (isFoundGoblin && isCurrentRoom) {
+      let goblin = _.sample(Goblins);
+      goblin.position = { x: roomNumber[1], y: roomNumber[0] }
+      addGoblin(goblin);
+      dispatchGoblin(roomNumber[0], roomNumber[1]);
+    }
+  }, [isFoundGoblin]);
+
+  useEffect(() => {
+    if (goblinGang.length > 0 && isCurrentRoom) {
+      console.log(goblinGang)
+    }
+  }, [goblinGang]);
 
   const checkRoomStatus = () => {
     setIsEntranceRoom(roomData.id === 0);
@@ -148,6 +181,7 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
       {isTreasureRoom && <span className={`icon icon-treasure ${roomData.solved ? 'solved' : ''}`}></span>}
       {roomStatus === 'prompt-rotate' && <RotateButtons confirmButtonState={confirmButtonState} rotateRoomExit={rotateRoomExit} confirmRoom={confirmRoom} />}
       {isRoomRotating && isOperatingRoom && !confirmButtonState && <div className='room-invalid-sign' />}
+      {/* {isFoundGoblin && goblin && <div className='goblin-info'>{goblin.name}</div>} */}
     </div>
   );
 

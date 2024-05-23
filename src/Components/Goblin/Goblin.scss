@@ -1,0 +1,233 @@
+.avatar-goblin {
+    position: absolute;
+    width: 30px;
+    aspect-ratio: 1 / 1;
+    background: url('../../Assets/images/goblin.png') no-repeat top left;
+    background-size: cover;
+    filter: drop-shadow(5px 5px 5px #222);
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.goblin-tooltip {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    box-sizing: border-box;
+    border: 2px solid #222;
+    border-radius: 5px;
+
+    .goblin-tooltip-content {
+        width: 100%;
+        height: 100%;
+        padding: 5px;
+        color: #222;
+        background-color: rgba($color: #fff, $alpha: 0.8);
+        border-radius: 2px;
+        padding-top: 15px;
+
+        .goblin-tooltip-row {
+            display: inline-flex;
+            width: 100%;
+            margin-bottom: 5px;
+            border-left-width: 2px;
+            border-left-style: solid;
+        }
+
+        .goblin-tooltip-name {
+            position: absolute;
+            display: inline-block;
+            background-color: #222;
+            border-radius: 5px;
+            top: -5px;
+            right: 10px;
+            padding: 0 10px 0 20px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .goblin-tooltip-attack {
+            border-left-color: red;
+        }
+
+        .goblin-tooltip-counter-attack {
+            border-left-color: blue;
+        }
+
+        .goblin-tooltip-description {
+            border-left-color: #fff;
+            padding-left: 5px;
+            font-size: 0.7rem;
+        }
+
+        .icon-attack-type,
+        .icon-goblin,
+        .icon-attack,
+        .icon-counter-attack,
+        .icon-health,
+        .icon-tiles,
+        .icon-hero {
+            display: inline-block;
+            width: 1.6rem;
+            aspect-ratio: 1 / 1;
+            align-self: center;
+            margin-left: 2px;
+
+            &.icon-melee {
+                background: url('../../Assets/images/action/melee.png') no-repeat top left;
+                background-size: cover;
+            }
+
+            &.icon-range {
+                background: url('../../Assets/images/action/range.png') no-repeat top left;
+                background-size: cover;
+            }
+
+            &.icon-magic {
+                background: url('../../Assets/images/action/magic.png') no-repeat top left;
+                background-size: cover;
+            }
+        }
+
+        .icon-tiles {
+            background: url('../../Assets/images/tiles.png') no-repeat center center;
+            background-size: cover;
+            margin-left: -1px;
+        }
+
+        .icon-attack {
+            background: url('../../Assets/images/action/attack.png') no-repeat top left;
+            background-size: cover;
+        }
+
+        .icon-hero {
+            background: url('../../Assets/images/action/hero.png') no-repeat center center;
+            background-size: cover;
+        }
+
+        .icon-counter-attack {
+            background: url('../../Assets/images/action/counter-attack.png') no-repeat top left;
+            background-size: cover;
+        }
+
+        .icon-health {
+            width: 45px;
+            background: url('../../Assets/images/heart.png') no-repeat;
+            background-size: cover;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            filter: drop-shadow(2px 4px 6px black);
+        }
+
+        .icon-goblin {
+            background: url('../../Assets/images/goblin.png') no-repeat top left;
+            background-size: cover;
+        }
+
+        .move-panel {
+            height: 30px;
+            text-align: left;
+            padding-left: 5px;
+            position: absolute;
+            display: inline-flex;
+            left: 5px;
+            bottom: 5px;
+            background-color: rgba($color: #fff, $alpha: 0.8);
+            align-items: center;
+            border-radius: 2px;
+            border-left: 4px solid #762700;
+            padding-right: 15px;
+            font-size: 1.5rem;
+
+            .icon-move {
+                background: url('../../Assets/images/boot.png') no-repeat center right;
+                background-size: 100%;
+                width: 25px;
+                aspect-ratio: 1 / 1;
+                margin: 0 5px;
+                display: inline-block;
+            }
+
+            .arrow-right {
+                background: url('../../Assets/images/arrow-down.png') no-repeat center right;
+                rotate: -90deg;
+                background-size: 100%;
+                width: 15px;
+                aspect-ratio: 1 / 1;
+                margin-left: 5px;
+                display: inline-block;
+            }
+
+            .icon-monster-action {
+                background: url('../../Assets/images/action/monster-action.png') no-repeat 3px center;
+                background-size: 100%;
+                width: 35px;
+                aspect-ratio: 1 / 1;
+                margin-left: 2px;
+                display: inline-block;
+                background-color: #762700;
+                position: relative;
+                filter: drop-shadow(1px 0 2px #222);
+                margin-right: 15px;
+
+                &:after {
+                    content: "";
+                    position: absolute;
+                    left: 97%;
+                    top: 0;
+                    width: 0;
+                    height: 0;
+                    border-top: 28px solid transparent;
+                    border-left: 10px solid #762700;
+                    border-bottom: 7px solid transparent;
+                }
+            }
+        }
+
+    }
+
+    &.shooty-goblin-tooltip {
+        background: url('../../Assets/images/goblin/shooty-goblin.webp') no-repeat center right;
+        background-size: 140%;
+    }
+
+    &.stabby-goblin-tooltip {
+        background: url('../../Assets/images/goblin/stabby-goblin.webp') no-repeat center right;
+        background-size: 140%;
+    }
+
+    &.bomber-goblin-tooltip {
+        background: url('../../Assets/images/goblin/bomb-goblin.webp') no-repeat center right;
+        background-size: 140%;
+    }
+
+    &.sneaky-goblin-tooltip {
+        background: url('../../Assets/images/goblin/sneaky-goblin.webp') no-repeat center right;
+        background-size: 140%;
+    }
+
+    &.boss-goblin-tooltip {
+        background: url('../../Assets/images/goblin/boss-goblin.webp') no-repeat center right;
+        background-size: 140%;
+    }
+
+    &.shadow-goblin-tooltip {
+        background: url('../../Assets/images/goblin/shadow-goblin.webp') no-repeat center right;
+        background-size: 140%;
+    }
+
+    &.shaman-goblin-tooltip {
+        background: url('../../Assets/images/goblin/shaman-goblin.webp') no-repeat center right;
+        background-size: 140%;
+    }
+
+    &.goblin-king-tooltip {
+        background: url('../../Assets/images/goblin/goblin-king.webp') no-repeat center right;
+        background-size: 140%;
+    }
+
+    &.goblin-minion-tooltip {
+        background: url('../../Assets/images/goblin/goblin-minion.webp') no-repeat center right;
+        background-size: 140%;
+    }
+}

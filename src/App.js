@@ -2,20 +2,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import './item.scss';
 import "../src/Components/HeroDisplay.scss";
+import 'react-tooltip/dist/react-tooltip.css';
 import RoomComponent from './Components/Room/Room.component';
 import ControllerComponent from './Components/Controller.component';
-import RoomDisplayComponent from './Components/RoomDisplay.component';
+import GoblinComponent from './Components/Goblin/Goblin.component';
 
 import React, { useState } from 'react';
 import VikingComponent from './Components/Viking.component';
 import HeroDisplayComponent from './Components/HeroDisplay.component';
 import HeroActionComponent from './Components/HeroAction.component';
+import GoblinStore from './Store/Goblin.store';
 
 function App() {
-  const [isShowPopup, setIsShowPopup] = useState(false);
-  const [isTrapRoomPopup, setIsTrapRoomPopup] = useState(false);
-  const [isShowTreasurePopup, setIsShowTreasurePopup] = useState(false);
   const [isRoomRotating, setIsRoomRotating] = useState(false);
+  const goblinGang = GoblinStore((state) => state.gang);
 
   return (
     <div className="App">
@@ -37,33 +37,9 @@ function App() {
         <HeroActionComponent />
         <ControllerComponent />
       </div>
-      {
-        isShowPopup &&
-        <div className="modal-overlay">
-          <div className="modal">
-            <span>!!YOU FOUND A GOBLIN!!</span>
-            <button className="close-button" onClick={() => setIsShowPopup(false)}>X</button>
-          </div>
-        </div>
-      }
-      {
-        isTrapRoomPopup &&
-        <div className="modal-overlay">
-          <div className="modal">
-            <span>!!YOU'VE BEEN TRAPPED!!</span>
-            <button className="close-button" onClick={() => setIsTrapRoomPopup(false)}>X</button>
-          </div>
-        </div>
-      }
-      {
-        isShowTreasurePopup &&
-        <div className="modal-overlay">
-          <div className="modal">
-            <span>$$ Treasure Room $$. RUN</span>
-            <button className="close-button" onClick={() => setIsShowTreasurePopup(false)}>X</button>
-          </div>
-        </div>
-      }
+      {goblinGang.map((goblin, index) => (
+        <GoblinComponent key={index} goblin={goblin} />
+      ))}
     </div >
   );
 }
