@@ -23,14 +23,14 @@
         bottom: 5px;
         aspect-ratio: 1 / 1;
         text-align: center;
-        font-size: 35px;
+        font-size: 30px;
         line-height: 45px;
         color: #222;
         filter: drop-shadow(2px 4px 6px black);
     }
 
     .goblin-tooltip-content {
-        width: 40%;
+        width: 55%;
         padding: 5px;
         color: #222;
         background-color: rgba($color: #fff, $alpha: 0.8);
@@ -73,8 +73,6 @@
             font-size: 0.7rem;
         }
 
-
-
         .action-panel {
             height: 30px;
             text-align: left;
@@ -92,7 +90,7 @@
             border-top-right-radius: 15px;
 
             &.attack-panel {
-                border-left-color: rgb(255 145 51);
+                border-left-color: rgb(236, 0, 20);
                 bottom: 85px;
                 padding-left: 0;
             }
@@ -186,12 +184,13 @@
         .icon-attack,
         .icon-counter-attack,
         .icon-health,
+        .icon-reward-health,
         .icon-tiles,
         .icon-hero,
         .icon-dice,
         .icon-treasure-bag,
         .icon-bomb,
-        .icon-prize {
+        .icon-defeat-goblin {
             display: inline-block;
             width: 1.6rem;
             aspect-ratio: 1 / 1;
@@ -215,7 +214,7 @@
         }
 
         .icon-dice {
-            background: url('../../Assets/images/dice.png') no-repeat top left;
+            background: url('../../Assets/images/dice-red.png') no-repeat top left;
             background-size: cover;
             margin-right: 2px;
         }
@@ -226,13 +225,22 @@
         }
 
         .icon-treasure-bag {
-            background: url('../../Assets/images/treasure-bag.png') no-repeat top left;
+            background: url('../../Assets/images/treasure-chest.png') no-repeat top left;
             background-size: cover;
+            filter: drop-shadow(0 0 1px black);
         }
 
-        .icon-prize {
-            background: url('../../Assets/images/prize.png') no-repeat top left;
+        .icon-reward-health {
+            background: url('../../Assets/images/heart.png') no-repeat top left;
             background-size: cover;
+            width: 1.2rem;
+        }
+
+        .icon-defeat-goblin {
+            background-image: url('../../Assets/images/stopping.png'), url('../../Assets/images/goblin.png');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover, 80%;
         }
 
         .icon-tiles {
@@ -275,46 +283,46 @@
 
     &.shooty-goblin-tooltip {
         background: url('../../Assets/images/goblin/shooty-goblin.webp') no-repeat center left;
-        background-size: 150%;
+        background-size: 145%;
     }
 
     &.stabby-goblin-tooltip {
         background: url('../../Assets/images/goblin/stabby-goblin.webp') no-repeat center left;
-        background-size: 150%;
+        background-size: 145%;
     }
 
     &.bomber-goblin-tooltip {
         background: url('../../Assets/images/goblin/bomb-goblin.webp') no-repeat center left;
-        background-size: 150%;
+        background-size: 145%;
     }
 
     &.sneaky-goblin-tooltip {
         background: url('../../Assets/images/goblin/sneaky-goblin.webp') no-repeat center left;
-        background-size: 150%;
+        background-size: 145%;
     }
 
     &.boss-goblin-tooltip {
         background: url('../../Assets/images/goblin/boss-goblin.webp') no-repeat center left;
-        background-size: 150%;
+        background-size: 145%;
     }
 
     &.shadow-goblin-tooltip {
         background: url('../../Assets/images/goblin/shadow-goblin.webp') no-repeat center left;
-        background-size: 150%;
+        background-size: 145%;
     }
 
     &.shaman-goblin-tooltip {
         background: url('../../Assets/images/goblin/shaman-goblin.webp') no-repeat center left;
-        background-size: 150%;
+        background-size: 145%;
     }
 
     &.goblin-king-tooltip {
         background: url('../../Assets/images/goblin/goblin-king.webp') no-repeat center left;
-        background-size: 150%;
+        background-size: 145%;
     }
 
     &.goblin-minion-tooltip {
         background: url('../../Assets/images/goblin/goblin-minion.webp') no-repeat center left;
-        background-size: 150%;
+        background-size: 145%;
     }
 }

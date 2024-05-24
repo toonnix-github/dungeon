@@ -11,7 +11,7 @@ export default GoblinComponent;
 function GoblinComponent({ index, goblin }) {
     const [goblinOffset, setGoblinOffset] = useState({ top: 0, left: 0 });
     const roomData = roomStore(state => state.rooms[goblin.position.y][goblin.position.x]);
-    const popupId = `${goblin.id}-${crypto.randomUUID().substring(0, 8)}`;
+    const popupId = `${goblin.id}-${[goblin.position.y]}-${[goblin.position.x]}-${crypto.randomUUID().substring(0, 8)}`;
 
     useEffect(() => {
         setGoblinOffset({ top: roomData.offset.bottom, left: roomData.offset.right });
@@ -23,9 +23,7 @@ function GoblinComponent({ index, goblin }) {
         >
             <Tooltip id={popupId} className={`goblin-tooltip ${goblin.id}-tooltip`}
                 opacity={0.9}
-                style={{ maxWidth: '500px', padding: '5px', aspectRatio: '5/3' }}
-                clickable={true}
-                delayHide={99999999}
+                style={{ maxWidth: '500px', padding: '5px', aspectRatio: '7/5' }}
             >
                 <div />
                 <div className="goblin-tooltip-content">
@@ -33,16 +31,19 @@ function GoblinComponent({ index, goblin }) {
                     <div className="goblin-tooltip-row goblin-tooltip-description">
                         {goblin.description}
                     </div>
+                    {goblin.skill && <div className="goblin-tooltip-row goblin-tooltip-description">
+                        {goblin.skill}
+                    </div>}
                     <div className="goblin-tooltip-row prize">
-                        <i className="icon-prize" />
+                        <i className="icon-defeat-goblin" />:
                         {
                             (goblin.rewards.map((reward, index) => {
                                 if (reward.get === 'item') {
-                                    return _.times(reward.amount, () => <i key={index} className={`icon-treasure-bag`} />);
+                                    return _.times(reward.amount, () => <i key={`treasure-${index}`} className={`icon-treasure-bag`} />);
                                 } else if (reward.get === 'health') {
-                                    return <i key={index} className={`icon-health`}>{reward.amount}</i>;
+                                    return _.times(reward.amount, () => <i key={`health-${index}`} className={`icon-reward-health`} />);
                                 } else if (reward.get === 'bomb') {
-                                    return _.times(reward.amount, () => <i key={index} className={`icon-bomb`} />);
+                                    return _.times(reward.amount, () => <i key={`bomb-${index}`} className={`icon-bomb`} />);
                                 }
                             }))
                         }
@@ -51,6 +52,7 @@ function GoblinComponent({ index, goblin }) {
                     <div className="action-panel attack-panel">
                         <i className="icon-attack-action action-sign" />
                         {goblin.attack.damage > 0 ? <>
+                            {goblin.attack.damage}
                             {(!_.isUndefined(goblin.attack.bonusPerGoblin) && goblin.attack.bonusPerGoblin > 0) &&
                                 <>+({goblin.attack.bonusPerGoblin}x<i className={`icon icon-goblin`} />)</>
                             }

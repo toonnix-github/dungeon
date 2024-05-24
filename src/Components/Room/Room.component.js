@@ -7,6 +7,7 @@ import { RevealMethodENUM, oppositeDirection, getRandomRoom } from '../../Util/R
 import _ from 'lodash';
 import { Goblins } from '../../Assets/Goblin';
 import GoblinStore from '../../Store/Goblin.store';
+import { getRandomGoblin } from '../../Util/Goblin.Util';
 
 function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
   const roomRef = useRef();
@@ -86,7 +87,7 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
 
   useEffect(() => {
     if (isFoundGoblin && isCurrentRoom) {
-      let goblin = _.sample(Goblins);
+      let goblin = getRandomGoblin();
       goblin.position = { x: roomNumber[1], y: roomNumber[0] };
       addGoblin(goblin);
       dispatchGoblin(roomNumber[0], roomNumber[1]);

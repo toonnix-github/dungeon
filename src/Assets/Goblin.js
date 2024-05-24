@@ -57,6 +57,7 @@ export const Goblins = [
         id: 'sneaky-goblin',
         position: { x: 0, y: 0 },
         "description": "A nimble trickster who excels at avoiding detection and ambushing unsuspecting victims.",
+        skill: 'Wind-Walk',
         "move": 3,
         "attack": {
             "damage": 2,
@@ -109,6 +110,7 @@ export const Goblins = [
         id: 'boss-goblin',
         position: { x: 0, y: 0 },
         "description": "A hulking brute who commands other goblins and boasts increased strength and resilience.",
+        skill: 'Goblins gain +1 Attack while the Boss Goblin is in the dungeon.',
         "move": 1,
         "attack": {
             "damage": 4,
@@ -135,16 +137,17 @@ export const Goblins = [
         id: 'shadow-goblin',
         position: { x: 0, y: 0 },
         "description": "A ghostly goblin that can blend into the shadows, attacking heroes when they least expect it.",
+        skill: "Wind-Walk, deals 1.5 damage in [Wind-Walk] state",
         "move": 3,
         "attack": {
-            "damage": 2,
+            "damage": 0,
             "bonusPerGoblin": 0,
-            "type": "stealth"
+            "type": "range"
         },
         "counterAttack": {
-            "damage": 2,
+            "damage": 6,
             "bonusPerGoblin": 0,
-            "type": ["melee", "magic"]
+            "type": ["melee", "range", "magic"]
         },
         "defense": 2,
         "health": 1,
@@ -152,7 +155,7 @@ export const Goblins = [
             { "get": "item", "amount": 1 },
         ],
         "monsterAction": {
-            "type": "SHADOW_MOVE",
+            "type": "MOVE_ONLY",
             "range": 2,
             "stealthMultiplier": 1.5
         }
@@ -176,7 +179,7 @@ export const Goblins = [
         "defense": 3,
         "health": 2,
         "rewards": [
-            { "get": "magic", "amount": 1 },
+            { "get": "spell", "amount": 1 },
             { "get": "health", "amount": 2 }
         ],
         "monsterAction": {
@@ -189,6 +192,7 @@ export const Goblins = [
         id: 'goblin-king',
         position: { x: 0, y: 0 },
         "description": "The ultimate ruler of goblins, strong and cunning, with the power to summon minions.",
+        skill: "After moving, summons a Goblin Minion to an adjacent space.",
         "move": 1,
         "attack": {
             "damage": 0,
@@ -210,31 +214,32 @@ export const Goblins = [
             "range": 1,
             "summonMinions": true
         }
-    },
-    {
-        "name": "Goblin Minion",
-        id: 'goblin-minion',
-        position: { x: 0, y: 0 },
-        "description": "A feeble and tiny goblin, easily frightened and weak in combat, summoned by the Goblin King to swarm and distract enemies.",
-        "move": 1,
-        "attack": {
-            "damage": 0,
-            "bonusPerGoblin": 0,
-            "type": "melee"
-        },
-        "counterAttack": {
-            "damage": 1,
-            "bonusPerGoblin": 1,
-            "type": ["melee"]
-        },
-        "defense": 1,
-        "health": 1,
-        "rewards": [
-            { "get": "health", "amount": 1 }
-        ],
-        "monsterAction": {
-            "type": "FLEE",
-            "range": 1
-        }
     }
 ];
+
+export const GoblinMinion = {
+    "name": "Goblin Minion",
+    id: 'goblin-minion',
+    position: { x: 0, y: 0 },
+    "description": "A feeble and tiny goblin, easily frightened and weak in combat, summoned by the Goblin King to swarm and distract enemies.",
+    "move": 1,
+    "attack": {
+        "damage": 0,
+        "bonusPerGoblin": 0,
+        "type": "melee"
+    },
+    "counterAttack": {
+        "damage": 1,
+        "bonusPerGoblin": 1,
+        "type": ["melee"]
+    },
+    "defense": 1,
+    "health": 1,
+    "rewards": [
+        { "get": "health", "amount": 1 }
+    ],
+    "monsterAction": {
+        "type": "FLEE",
+        "range": 1
+    }
+}

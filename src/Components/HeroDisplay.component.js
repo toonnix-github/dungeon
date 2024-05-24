@@ -37,7 +37,7 @@ function HeroDisplayComponent() {
 
     return (
         <div className="hero-container">
-            <span className="label health-bar">HP:
+            <span className="label health-bar">
                 {_.times(vikingData.health.max, (index) => (
                     <i key={`health-${index}`} className={`health-power ${vikingData.health.current - index > 0 ? 'active' : ''}`}></i>
                 ))}
