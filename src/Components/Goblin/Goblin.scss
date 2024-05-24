@@ -13,14 +13,17 @@
     box-sizing: border-box;
     border: 2px solid #222;
     border-radius: 5px;
+    width: 100%;
+    position: relative;
+    aspect-ratio: 7 / 5;
 
     .defend-power {
         background-image: url(../../Assets/images/shield.png);
         background-size: cover;
         width: 45px;
         position: absolute;
-        right: 5px;
-        bottom: 5px;
+        right: 55px;
+        top: 5px;
         aspect-ratio: 1 / 1;
         text-align: center;
         font-size: 30px;
@@ -325,4 +328,84 @@
         background: url('../../Assets/images/goblin/goblin-minion.webp') no-repeat center left;
         background-size: 145%;
     }
+}
+
+.goblin-encounter-container {
+    display: block;
+    background-size: cover;
+
+    .goblin-tooltip {
+        aspect-ratio: 16/9;
+        background-size: cover;
+        border-width: 3px;
+    }
+}
+
+.hero-encounter-container {
+    width: 30%;
+    aspect-ratio: 3/5;
+    rotate: -10deg;
+    position: absolute;
+    right: 0;
+    top: 28%;
+    border-radius: 4px;
+    border: 3px solid;
+    padding: 0;
+    filter: drop-shadow(-2px -2px 1px black);
+    border-color: black;
+
+    .profile-container {
+        display: block;
+
+        .portrait {
+            filter: none;
+            border-radius: 0;
+            border: 0;
+
+            .dice-power-container {
+                display: grid;
+                grid-template-rows: 32.6% 32.6% 32.6%;
+                gap: 1%;
+                width: 50%;
+                height: 30%;
+                bottom: 0;
+                left: 0;
+                position: absolute;
+                background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+
+                .power-row {
+                    display: inline-flex;
+                    align-items: center;
+                    padding-left: 4px;
+
+                    .icon {
+                        height: 100%;
+                        aspect-ratio: 1/1;
+                        display: inline-block;
+
+                        &.fist-icon {
+                            background-image: url(../../Assets/images/fist.png);
+                            background-size: cover;
+                        }
+
+                        &.magic-icon {
+                            background-image: url(../../Assets/images/lightning.png);
+                            background-size: cover;
+                        }
+
+                        &.speed-icon {
+                            background-image: url(../../Assets/images/arrows.png);
+                            background-size: cover;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .hero-card-name {
+        background-color: white;
+        text-align: center;
+    }
+
 }

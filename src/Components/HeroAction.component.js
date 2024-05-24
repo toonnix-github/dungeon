@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import _ from "lodash";
+import _, { set } from "lodash";
 import roomStore from "../Store/Room.store";
 import VikingStore from "../Store/Viking.store";
 import treasureUtil from '../Util/Treasure.Util';
@@ -11,6 +11,8 @@ import DiceUtil from "../Util/Dice.Util";
 import RoomDisplayComponent from "./RoomDisplay.component";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import GoblinStore from "../Store/Goblin.store";
+import GoblinEncounterComponent from "./Goblin/GoblinEncounter.component";
 
 function HeroActionComponent() {
     const vikingPosition = VikingStore((state) => state.position);
@@ -33,11 +35,18 @@ function HeroActionComponent() {
     const resetDiceScore = DiceStore((state) => state.resetDiceScore);
     const totalDiceScore = DiceStore((state) => state.diceScore.main + state.diceScore.add1 + state.diceScore.add2);
 
+    const goblinGang = GoblinStore((state) => state.gang);
+
+
     const [isShowLootPopup, setIsShowLootPopup] = useState(false);
     const [newFoundItem, setNewFoundItem] = useState();
     const [dicePower, setDicePower] = useState(0);
     const [rollResult, setRollResult] = useState([]);
     const [effectHeroGet, setEffectHeroGet] = useState({ action: 0, health: 0 });
+    const [encounterGoblinIndex, setEncounterGoblinIndex] = useState();
+    const [isShowGoblinEncounterPopup, setIsShowGoblinEncounterPopup] = useState(false);
+
+
 
     useEffect(() => {
         if (isShowDicePopup) {
@@ -108,14 +117,21 @@ function HeroActionComponent() {
         vikingTakeDamage(roomData.punishment);
     };
 
+    const checkGoblinEncounter = () => {
+        console.log(goblinGang);
+        goblinGang.map((goblin, index) => {
+            if (_.isEqual(goblin.position.y, vikingPosition[0]) && _.isEqual(goblin.position.x, vikingPosition[1])) {
+                setEncounterGoblinIndex(index);
+                setIsShowGoblinEncounterPopup(true);
+            }
+        });
+    };
+
     useEffect(() => {
         if (roomData.isTrapRoom && !roomData.solved) {
             showDicePopup();
         }
-        // if (roomData.hasMonster) {
-        //     showMonsterPopup();
-        // }
-
+        checkGoblinEncounter();
     }, [vikingIsMoveDone]);
 
     return (
@@ -188,6 +204,7 @@ function HeroActionComponent() {
                     />
                 }
             </div>
+            <GoblinEncounterComponent show={isShowGoblinEncounterPopup} index={encounterGoblinIndex} />
         </>
 
     );
@@ -210,7 +227,7 @@ const DiceItem = ({ diceOrder, diceFace, totalDiceScore, selectDice }) => {
                     // if (!_.isUndefined(dice) && !dice.selected) {
                     //     if (totalDiceScore === 0) {
 
-                    onClick={() => { ((totalDiceScore === 0) || (totalDiceScore > 0 && !diceFace.selected && diceFace.type === 'add')) && selectDice(diceOrder, diceFace.number) }}
+                    onClick={() => { ((totalDiceScore === 0) || (totalDiceScore > 0 && !diceFace.selected && diceFace.type === 'add')) && selectDice(diceOrder, diceFace.number); }}
                 >
                     <span className="dice-number">{diceFace.string}</span>
                     <span className="effect-sign">

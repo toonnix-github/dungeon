@@ -1,4 +1,4 @@
-import { create } from 'zustand'
+import { create } from 'zustand';
 
 const GoblinStore = create((set) => ({
     gang: [],
@@ -20,6 +20,6 @@ const GoblinStore = create((set) => ({
     moveLeft: (index) => set((state) => ({
         gang: state.gang.map((goblin, i) => i === index ? { ...goblin, position: { x: goblin.position.x - 1, y: goblin.position.y } } : goblin)
     })),
-}))
+}));
 
-export default GoblinStore
+export default GoblinStore;

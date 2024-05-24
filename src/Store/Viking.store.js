@@ -10,6 +10,7 @@ const VikingAxe = {
 };
 
 const VikingStore = create((set, get) => ({
+    name: "Viking",
     defend: 5,
     dicePower: { attack: 3, magic: 1, speed: 2 },
     health: { current: 10, max: 10 },

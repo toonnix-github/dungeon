@@ -59,6 +59,7 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
   useEffect(() => {
     setAdjacentRooms();
     checkRoomStatus();
+    setIsFoundGoblin(roomData.foundGoblin);
   }, [roomsData, roomData]);
 
   useEffect(() => {
@@ -152,7 +153,6 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
     setIsRoomRotating(false);
     setIsOperatingRoom(false);
     setIsMoveDone();
-    setIsFoundGoblin(roomData.foundGoblin);
   };
 
   const isShowPreviousPath = () => previousPosition === roomNumberString && isRoomRotating;
