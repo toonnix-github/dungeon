@@ -242,4 +242,4 @@ export const GoblinMinion = {
         "type": "FLEE",
         "range": 1
     }
-}
+};

@@ -1,6 +1,6 @@
 import roomInformationList from '../Assets/Room';
 
-let roomsDeck = Array.from({ length: 12 }, (_, index) => index + 1);
+let roomsDeck = Array.from({ length: 72 }, (_, index) => index + 1);
 
 export const getRandomRoom = () => {
     let randomNum = 0;
