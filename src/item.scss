@@ -7,148 +7,222 @@
     filter: drop-shadow(2px 2px 5px black);
     background-color: #1f2135;
 
-    &.viking-axe {
-        background: url('./Assets/images/viking-axe.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.durandal {
-        background: url('./Assets/images/durandal.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.aegis {
-        background: url('./Assets/images/aegis.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.book-of-thoth {
-        background: url('./Assets/images/book-of-thoth.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.breath-of-anubis {
-        background: url('./Assets/images/breath-of-anubis.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.caduceus {
-        background: url('./Assets/images/caduceus.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.dragon-scale-armor {
-        background: url('./Assets/images/dragon-scale-armor.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.dragon-sword {
-        background: url('./Assets/images/dragon-sword.jpg') no-repeat;
-        background-size: cover;
-    }
-
+    /* Weapon CSS rules */
     &.excalibur {
-        background: url('./Assets/images/excalibur.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.eye-of-odin {
-        background: url('./Assets/images/eye-of-odin.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.fragarach {
-        background: url('./Assets/images/fragarach.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.gae-bolg {
-        background: url('./Assets/images/gae-bolg.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.gleipnir {
-        background: url('./Assets/images/gleipnir.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.golden-fleece {
-        background: url('./Assets/images/golden-fleece.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.gordian-knot {
-        background: url('./Assets/images/gordian-knot.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.gungnir {
-        background: url('./Assets/images/gungnir.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.heart-of-gaia {
-        background: url('./Assets/images/heart-of-gaia.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.helm-of-darkness {
-        background: url('./Assets/images/helm-of-darkness.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.masamune {
-        background: url('./Assets/images/masamune.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.medusa-shield {
-        background: url('./Assets/images/medusa-shield.jpg') no-repeat;
+        background: url('./Assets/images/weapon/excalibur.webp') no-repeat;
         background-size: cover;
     }
 
     &.mjolnir {
-        background: url('./Assets/images/mjolnir.jpg') no-repeat;
+        background: url('./Assets/images/weapon/mjolnir.webp') no-repeat;
         background-size: cover;
     }
 
-    &.nemean-lion-pelt {
-        background: url('./Assets/images/nemean-lion-pelt.jpg') no-repeat;
+    &.aegis {
+        background: url('./Assets/images/weapon/aegis.webp') no-repeat;
         background-size: cover;
     }
 
-    &.philosopher-stone {
-        background: url('./Assets/images/philosopher-stone.jpg') no-repeat;
+    &.durandal {
+        background: url('./Assets/images/weapon/durandal.webp') no-repeat;
         background-size: cover;
     }
 
-    &.ring-of-gyges {
-        background: url('./Assets/images/ring-of-gyges.jpg') no-repeat;
+    &.masamune {
+        background: url('./Assets/images/weapon/masamune.webp') no-repeat;
         background-size: cover;
     }
 
-    &.sigil-of-loki {
-        background: url('./Assets/images/sigil-of-loki.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.stone-of-ra {
-        background: url('./Assets/images/stone-of-ra.jpg') no-repeat;
-        background-size: cover;
-    }
-
-    &.tarnhelm {
-        background: url('./Assets/images/tarnhelm.jpg') no-repeat;
+    &.gungnir {
+        background: url('./Assets/images/weapon/gungnir.webp') no-repeat;
         background-size: cover;
     }
 
     &.trident-of-poseidon {
-        background: url('./Assets/images/trident-of-poseidon.jpg') no-repeat;
+        background: url('./Assets/images/weapon/trident-of-poseidon.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.fragarach {
+        background: url('./Assets/images/weapon/fragarach.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.gae-bolg {
+        background: url('./Assets/images/weapon/gae-bolg.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.claws-of-hades {
+        background: url('./Assets/images/weapon/claws-of-hades.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.shadow-dagger {
+        background: url('./Assets/images/weapon/shadow-dagger.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.earthshaker {
+        background: url('./Assets/images/weapon/earthshaker.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.bow-of-artemis {
+        background: url('./Assets/images/weapon/bow-of-artemis.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.stormcaller {
+        background: url('./Assets/images/weapon/stormcaller.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.spectral-bow {
+        background: url('./Assets/images/weapon/spectral-bow.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.crossbow-of-the-undead {
+        background: url('./Assets/images/weapon/crossbow-of-the-undead.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.lightning-bow {
+        background: url('./Assets/images/weapon/lightning-bow.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.throwing-knives {
+        background: url('./Assets/images/weapon/throwing-knives.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.elven-bow {
+        background: url('./Assets/images/weapon/elven-bow.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.harp-of-apollo {
+        background: url('./Assets/images/weapon/harp-of-apollo.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.staff-of-asclepius {
+        background: url('./Assets/images/weapon/staff-of-asclepius.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.frostbite-staff {
+        background: url('./Assets/images/weapon/frostbite-staff.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.phoenix-feather {
+        background: url('./Assets/images/weapon/phoenix-feather.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.mystic-wand {
+        background: url('./Assets/images/weapon/mystic-wand.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.flame-staff {
+        background: url('./Assets/images/weapon/flame-staff.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.ice-wand {
+        background: url('./Assets/images/weapon/ice-wand.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.thunder-staff {
+        background: url('./Assets/images/weapon/thunder-staff.webp') no-repeat;
+        background-size: cover;
+    }
+
+    /* Armor CSS rules */
+    &.dragon-scale-armor {
+        background: url('./Assets/images/armor/dragon-scale-armor.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.golden-fleece {
+        background: url('./Assets/images/armor/golden-fleece.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.helm-of-darkness {
+        background: url('./Assets/images/armor/helm-of-darkness.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.medusa-shield {
+        background: url('./Assets/images/armor/medusa-shield.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.nemean-lion-pelt {
+        background: url('./Assets/images/armor/nemean-lion-pelt.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.tarnhelm {
+        background: url('./Assets/images/armor/tarnhelm.webp') no-repeat;
+        background-size: cover;
+    }
+
+    /* Rune CSS rules */
+    &.eye-of-odin {
+        background: url('./Assets/images/rune/eye-of-odin.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.heart-of-gaia {
+        background: url('./Assets/images/rune/heart-of-gaia.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.sigil-of-loki {
+        background: url('./Assets/images/rune/sigil-of-loki.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.stone-of-ra {
+        background: url('./Assets/images/rune/stone-of-ra.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.breath-of-anubis {
+        background: url('./Assets/images/rune/breath-of-anubis.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.philosopher-stone {
+        background: url('./Assets/images/rune/philosopher-stone.webp') no-repeat;
         background-size: cover;
     }
 
     &.yata-no-kagami {
-        background: url('./Assets/images/yata-no-kagami.jpg') no-repeat;
+        background: url('./Assets/images/rune/yata-no-kagami.webp') no-repeat;
         background-size: cover;
     }
+
+    &.caduceus {
+        background: url('./Assets/images/rune/caduceus.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.book-of-thoth {
+        background: url('./Assets/images/rune/book-of-thoth.webp') no-repeat;
+        background-size: cover;
+    }
+
+    &.gordian-knot {
+        background: url('./Assets/images/rune/gordian-knot.webp') no-repeat;
+        background-size: cover;
+    }
+
 }

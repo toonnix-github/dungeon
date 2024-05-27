@@ -118,7 +118,6 @@ function HeroActionComponent() {
     };
 
     const checkGoblinEncounter = () => {
-        console.log(goblinGang);
         goblinGang.map((goblin, index) => {
             if (_.isEqual(goblin.position.y, vikingPosition[0]) && _.isEqual(goblin.position.x, vikingPosition[1])) {
                 setEncounterGoblinIndex(index);

@@ -6,11 +6,12 @@ const VikingAxe = {
     id: "viking-axe",
     description: "Basic weapon of Viking hero",
     effect: "N/A",
-    attack: { value: 1, effect: 'plus' },
+    attack: { value: 1, effect: 'plus', type: 'melee' },
 };
 
 const VikingStore = create((set, get) => ({
-    name: "Viking",
+    name: "Bjorn the Brave",
+    class: "Viking Warrior",
     defend: 5,
     dicePower: { attack: 3, magic: 1, speed: 2 },
     health: { current: 10, max: 10 },
