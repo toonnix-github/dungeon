@@ -8,6 +8,11 @@
     background-color: #1f2135;
 
     /* Weapon CSS rules */
+    &.viking-axe {
+        background: url('./Assets/images/weapon/viking-axe.webp') no-repeat;
+        background-size: cover;
+    }
+
     &.excalibur {
         background: url('./Assets/images/weapon/excalibur.webp') no-repeat;
         background-size: cover;

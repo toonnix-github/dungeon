@@ -492,6 +492,10 @@
         }
     }
 
+}
+
+.encounter-modal {
+
     .weapon-card,
     .rune-card,
     .armor-card {
@@ -502,15 +506,24 @@
         border-radius: 4px;
         outline: 1px solid #2f2f2f;
         outline-offset: -2px;
+        cursor: pointer;
 
         &.weapon-card-0 {
             left: -60%;
             top: 30%;
+
+            &:hover {
+                top: 28%;
+            }
         }
 
         &.weapon-card-1 {
             left: -70%;
             top: 67%;
+
+            &:hover {
+                top: 65%;
+            }
         }
 
         &.rune-card-0 {
@@ -557,24 +570,33 @@
             border-radius: 50%;
         }
 
-        &:hover .use-button {
-            visibility: visible;
+        &:hover {
+            z-index: 1;
+            width: 62%;
+            filter: brightness(1.2);
+
+            .use-button {
+                visibility: visible;
+            }
         }
 
         .use-button {
             position: absolute;
             width: 100%;
-            aspect-ratio: 1/1;
-            background-color: rgba($color: #fff, $alpha: 0.35);
-            left: 0;
-            top: 0;
-            visibility: hidden;
+            height: fit-content;
+            left: -2px;
+            background-color: black;
+            top: 100%;
             text-align: center;
             align-content: center;
-            color: #000;
-            font-size: 1.5rem;
-            cursor: pointer;
+            color: #fff;
+            font-size: 0.8rem;
             z-index: 1;
+            border: 2px solid #000;
+            box-sizing: content-box;
+            border-radius: 4px;
+            visibility: hidden;
+            content: "!! Attack !!";
         }
 
         .attack-type {
@@ -614,5 +636,48 @@
     .rune-card {
         width: 30%;
     }
+}
 
+.fight-container {
+    display: grid;
+    grid-template-columns: 24.25% 24.25% 24.25% 24.25%;
+    gap: 1%;
+    position: absolute;
+    width: 25%;
+    top: 54%;
+    left: 5%;
+
+    .selected-weapon {
+        position: absolute;
+        top: -250%;
+        left: 0;
+        rotate: 2deg;
+
+        .use-button {
+            bottom: 40%;
+            top: auto;
+            opacity: .5;
+        }
+
+    }
+
+    .dice-container {
+        width: 100%;
+        aspect-ratio: 1/1;
+        border: 1px solid #ffffff;
+        background-color: #000;
+
+        &.rollable {
+            background-image: url(../../Assets/images/dice.png);
+            background-size: cover;
+            background-color: #5e5e5e;
+        }
+    }
+
+    .monster-dice-container {
+        background-color: rgb(255, 122, 122);
+        background-image: url(../../Assets/images/dice-red.png);
+        background-size: cover;
+
+    }
 }

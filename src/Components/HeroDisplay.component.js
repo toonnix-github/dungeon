@@ -18,7 +18,7 @@ function ItemDisplay({ item, tooltipId, emptyClassName, itemType }) {
             {itemExists && (
                 <Tooltip id={tooltipId}>
                     <div><span className="label">Name: </span>{item.name}</div>
-                    <div><span className="label">Effect: </span>{item.effect}</div>
+                    <div><span className="label">Effect: </span>{item.skill}</div>
                     {itemType !== 'rune' && (
                         <div>
                             {item.attack && <span className="label">Attack: {item.attack.effect === 'plus' ? '+' : '-'}{item.attack.value}</span>}
