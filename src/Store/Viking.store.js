@@ -1,12 +1,20 @@
+import { range } from 'lodash';
 import { create } from 'zustand';
 
 const VikingAxe = {
     type: "weapon",
     name: "Viking Axe",
     id: "viking-axe",
-    description: "Basic weapon of Viking hero",
     effect: "N/A",
     attack: { value: 1, effect: 'plus', type: 'melee' },
+};
+
+const VikingBow = {
+    type: "weapon",
+    name: "Viking Bow",
+    id: "viking-bow",
+    effect: "N/A",
+    attack: { value: 1, effect: 'plus', type: 'range', range: 2 },
 };
 
 const VikingStore = create((set, get) => ({

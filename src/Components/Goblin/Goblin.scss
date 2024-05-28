@@ -347,13 +347,13 @@
 }
 
 .hero-encounter-container {
-    width: 30%;
+    width: 25%;
     aspect-ratio: 2/3;
     background: url(../../Assets/images/hero-viking.webp) bottom;
     background-size: cover;
     position: absolute;
     right: 0;
-    top: 20%;
+    top: -10%;
     border-radius: 4px;
     border: 8px solid;
     padding: 0;
@@ -361,6 +361,7 @@
     border-color: #000;
     outline: 1px solid #2f2f2f;
     outline-offset: -8px;
+    rotate: -4deg;
 
     &:before {
         content: " ";
@@ -499,7 +500,7 @@
     .weapon-card,
     .rune-card,
     .armor-card {
-        width: 60%;
+        width: 55%;
         aspect-ratio: 1/1;
         border: 2px solid #000;
         position: absolute;
@@ -509,36 +510,33 @@
         cursor: pointer;
 
         &.weapon-card-0 {
-            left: -60%;
-            top: 30%;
-
-            &:hover {
-                top: 28%;
-            }
+            left: -5%;
+            bottom: -34%;
+            rotate: -3deg;
         }
 
         &.weapon-card-1 {
-            left: -70%;
-            top: 67%;
-
-            &:hover {
-                top: 65%;
-            }
+            left: 51%;
+            bottom: -36%;
+            rotate: 5deg;
         }
 
         &.rune-card-0 {
-            bottom: -17%;
-            left: -20%;
+            bottom: -57%;
+            left: -5%;
+            rotate: -2deg;
         }
 
         &.rune-card-1 {
             bottom: -17%;
             left: 10%;
+            rotate: 5deg;
         }
 
         &.rune-card-2 {
             bottom: -20%;
             left: 40%;
+            rotate: -5deg;
         }
 
         .item-name {
@@ -562,7 +560,7 @@
             background: url(../../Assets/images/weapon.png) no-repeat center;
             background-size: 70%;
             background-color: #000;
-            height: 20%;
+            height: 15%;
             aspect-ratio: 1 / 1;
             position: absolute;
             top: -1px;
@@ -572,8 +570,8 @@
 
         &:hover {
             z-index: 1;
-            width: 62%;
-            filter: brightness(1.2);
+            width: 56%;
+            filter: brightness(1.3);
 
             .use-button {
                 visibility: visible;
@@ -584,7 +582,7 @@
             position: absolute;
             width: 100%;
             height: fit-content;
-            left: -2px;
+            left: -1px;
             background-color: black;
             top: 100%;
             text-align: center;
@@ -608,14 +606,12 @@
             width: fit-content;
             display: inline-flex;
             font-size: 1.2rem;
-            padding-left: 22%;
+            padding-left: 25%;
             color: #000;
             padding-right: 15px;
 
-            &.melee-type::after {
+            &::after {
                 content: '';
-                background: url(../../Assets/images/action/melee.png) rgb(145, 34, 0) center no-repeat;
-                background-size: 90%;
                 height: 80%;
                 aspect-ratio: 1 / 1;
                 border-radius: 5px;
@@ -623,6 +619,21 @@
                 left: 2px;
                 bottom: 3px;
                 border: 1px solid white;
+            }
+
+            &.melee-type::after {
+                background: url(../../Assets/images/action/melee.png) rgb(145, 34, 0) center no-repeat;
+                background-size: 90%;
+            }
+
+            &.range-type::after {
+                background: url(../../Assets/images/action/range.png) green center no-repeat;
+                background-size: 90%;
+            }
+
+            &.magic-type::after {
+                background: url(../../Assets/images/action/melee.png) rgb(18, 113, 202) center no-repeat;
+                background-size: 90%;
             }
         }
     }
@@ -636,22 +647,73 @@
     .rune-card {
         width: 30%;
     }
+
+    .attack-button {
+        position: absolute;
+        width: 10%;
+        aspect-ratio: 1 / 1;
+        display: inline-block;
+        top: 40%;
+        left: 45%;
+        background-color: rgba($color: #fff, $alpha: 0.8);
+        text-align: center;
+        align-content: center;
+        border-radius: 10px;
+        cursor: pointer;
+        border: 1px solid #000;
+        color: #000;
+
+        &:hover {
+            background: url(../../Assets/images/action/roll-action.png) no-repeat center;
+            background-size: 90%;
+            background-color: rgba($color: #fff, $alpha: 0.8);
+            color: transparent;
+            animation: tilt-shaking 0.2s infinite;
+        }
+    }
+}
+
+@keyframes tilt-shaking {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(5deg);
+    }
+
+    50% {
+        transform: rotate(0eg);
+    }
+
+    75% {
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
 }
 
 .fight-container {
     display: grid;
-    grid-template-columns: 24.25% 24.25% 24.25% 24.25%;
-    gap: 1%;
+    grid-template-columns: 32% 32% 32%;
+    gap: 2%;
     position: absolute;
-    width: 25%;
-    top: 54%;
-    left: 5%;
+    width: 15%;
+    top: 20%;
+    right: 26%;
 
     .selected-weapon {
         position: absolute;
-        top: -250%;
-        left: 0;
-        rotate: 2deg;
+        top: -280%;
+        right: 0;
+        rotate: 4deg;
+        width: 90%;
+
+        &:hover {
+            width: 91%;
+        }
 
         .use-button {
             bottom: 40%;
@@ -664,12 +726,13 @@
     .dice-container {
         width: 100%;
         aspect-ratio: 1/1;
-        border: 1px solid #ffffff;
+        border: 0.5px solid #ffffff;
         background-color: #000;
+        border-radius: 4px;
 
         &.rollable {
-            background-image: url(../../Assets/images/dice.png);
-            background-size: cover;
+            background: url(../../Assets/images/dice.png) no-repeat center;
+            background-size: 95%;
             background-color: #5e5e5e;
         }
     }
@@ -678,6 +741,9 @@
         background-color: rgb(255, 122, 122);
         background-image: url(../../Assets/images/dice-red.png);
         background-size: cover;
-
+        position: absolute;
+        top: 100%;
+        left: -180%;
+        width: 50%;
     }
 }

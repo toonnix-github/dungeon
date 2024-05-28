@@ -7,14 +7,12 @@ import { GoblinDetailComponent } from './GoblinDetail.component';
 import VikingStore from '../../Store/Viking.store';
 import { set } from 'lodash';
 
-
 export default GoblinEncounterComponent;
 
 function GoblinEncounterComponent({ index }) {
     const goblin = GoblinStore((state) => state.gang[index]);
     const [isShowPopup, setIsShowPopup] = useState(false);
     const [weaponToAttack, setWeaponToAttack] = useState(null);
-
 
     const heroData = VikingStore((state) => state);
 
@@ -28,6 +26,9 @@ function GoblinEncounterComponent({ index }) {
         console.log(weaponToAttack);
     }, [weaponToAttack]);
 
+    const rollTheDice = () => {
+    }
+
 
     if (isShowPopup) {
         return (
@@ -35,7 +36,7 @@ function GoblinEncounterComponent({ index }) {
                 <div className='goblin-encounter-container'>
                     <GoblinDetailComponent goblin={goblin} />
                 </div>
-                <div style={{ rotate: (Math.floor(Math.random() * (20)) - 10) + 'deg' }} className='hero-container hero-encounter-container'>
+                <div className='hero-container hero-encounter-container'>
                     <div className='description'>
                     </div>
                     <div className='hero-card-name'>{heroData.name}</div>
@@ -65,7 +66,7 @@ function GoblinEncounterComponent({ index }) {
                     <div className='defend-power'>{heroData.defend}</div>
                     {heroData.weapon.map((weapon, index) => {
                         if (_.isNull(weaponToAttack) || weapon.id !== weaponToAttack?.id) {
-                            return <div key={index} onClick={() => setWeaponToAttack(weapon)} style={{ rotate: (Math.floor(Math.random() * (30)) - 15) + 'deg' }} className={`weapon-card weapon-card-${index} item-image ${weapon.id}`}>
+                            return <div key={index} onClick={() => setWeaponToAttack(weapon)} className={`weapon-card weapon-card-${index} item-image ${weapon.id}`}>
                                 <div className='item-name'>{weapon.name}</div>
                                 <div className={`attack-type ${weapon.attack.type}-type`}>
                                     {weapon.attack.effect === 'plus' ? '+' : '-'}{JSON.stringify(weapon.attack.value)}
@@ -78,14 +79,15 @@ function GoblinEncounterComponent({ index }) {
 
                     )}
                     {heroData.rune.map((rune, index) =>
-                        <div key={index} style={{ rotate: (Math.floor(Math.random() * (30)) - 15) + 'deg' }} className={`rune-card rune-card-${index} item-image ${rune.id}`}></div>
+                        <div key={index} className={`rune-card rune-card-${index} item-image ${rune.id}`}></div>
                     )}
                     {heroData.armor.length > 0 &&
-                        <div style={{ rotate: (Math.floor(Math.random() * (30)) - 15) + 'deg' }} className={`armor-card item-image ${heroData.armor[0].id}`}></div>
+                        <div className={`armor-card item-image ${heroData.armor[0].id}`}></div>
                     }
 
                 </div>
                 <FightContainerComponent weapon={weaponToAttack} setWeaponToAttack={() => setWeaponToAttack()} />
+                <div onClick={() => { rollTheDice(); }} className='attack-button'>!! Attack !!</div>
                 <Button onClick={() => { setIsShowPopup(false); }}>Close</Button>
             </Modal>
         );
