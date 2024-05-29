@@ -14,15 +14,20 @@
     border: 2px solid #222;
     border-radius: 5px;
     width: 100%;
-    position: relative;
+    position: absolute;
+    top: 4%;
+    left: 10%;
+    rotate: 2deg;
     aspect-ratio: 7 / 5;
+    width: 80%;
+    border: 10px solid rgb(0, 41, 10);
 
     .defend-power {
         background-image: url(../../Assets/images/shield.png);
         background-size: cover;
         width: 45px;
         position: absolute;
-        right: 55px;
+        right: 5px;
         top: 5px;
         aspect-ratio: 1 / 1;
         text-align: center;
@@ -273,7 +278,7 @@
             background-size: cover;
             position: absolute;
             top: 5px;
-            right: 5px;
+            right: 55px;
             filter: drop-shadow(2px 4px 6px black);
         }
 
@@ -337,8 +342,10 @@
     .goblin-tooltip {
         aspect-ratio: 16/9;
         background-size: cover;
-        border-width: 3px;
-
+        border-width: 8px;
+        outline: 2px solid #2f2f2f;
+        outline-offset: -8px;
+        filter: drop-shadow(0 0 5px rgb(0, 46, 23));
 
         .goblin-tooltip-content {
             width: 40%;
@@ -352,8 +359,8 @@
     background: url(../../Assets/images/hero-viking.webp) bottom;
     background-size: cover;
     position: absolute;
-    right: 0;
-    top: -10%;
+    right: 5%;
+    top: 50%;
     border-radius: 4px;
     border: 8px solid;
     padding: 0;
@@ -640,36 +647,13 @@
 
     .armor-card {
         width: 45%;
-        right: -30%;
-        bottom: -23%;
+        right: -44%;
+        bottom: 20%;
+        rotate: 6deg;
     }
 
     .rune-card {
         width: 30%;
-    }
-
-    .attack-button {
-        position: absolute;
-        width: 10%;
-        aspect-ratio: 1 / 1;
-        display: inline-block;
-        top: 40%;
-        left: 45%;
-        background-color: rgba($color: #fff, $alpha: 0.8);
-        text-align: center;
-        align-content: center;
-        border-radius: 10px;
-        cursor: pointer;
-        border: 1px solid #000;
-        color: #000;
-
-        &:hover {
-            background: url(../../Assets/images/action/roll-action.png) no-repeat center;
-            background-size: 90%;
-            background-color: rgba($color: #fff, $alpha: 0.8);
-            color: transparent;
-            animation: tilt-shaking 0.2s infinite;
-        }
     }
 }
 
@@ -700,9 +684,9 @@
     grid-template-columns: 32% 32% 32%;
     gap: 2%;
     position: absolute;
-    width: 15%;
-    top: 20%;
-    right: 26%;
+    width: 20%;
+    top: 65%;
+    right: 30%;
 
     .selected-weapon {
         position: absolute;
@@ -723,17 +707,111 @@
 
     }
 
-    .dice-container {
+    .dice-item,
+    .selected-dice-item {
         width: 100%;
         aspect-ratio: 1/1;
         border: 0.5px solid #ffffff;
         background-color: #000;
         border-radius: 4px;
 
-        &.rollable {
-            background: url(../../Assets/images/dice.png) no-repeat center;
-            background-size: 95%;
-            background-color: #5e5e5e;
+        background: url(../../Assets/images/dice.png) no-repeat center;
+        background-size: 95%;
+        background-color: #5e5e5e;
+
+    }
+
+    .dice-frame,
+    .dice-face {
+        width: 100%;
+        aspect-ratio: 1/1;
+        border: 1px dotted black;
+        box-sizing: border-box;
+    }
+
+    .dice-face {
+        border: 1px double red;
+        grid-template-rows: 50% 50%;
+        display: grid;
+        text-align: center;
+        background-color: #fff;
+        border-radius: 5px;
+        position: relative;
+
+        .dice-number {
+            font-size: 1cqw;
+        }
+
+        .action-token,
+        .health-token,
+        .non-token {
+            margin: 0;
+            height: 60%;
+            width: auto;
+        }
+
+        .non-token {
+            display: none;
+        }
+
+        &.selected {
+            margin: -5px 0 5px;
+            grid-template-rows: 100%;
+            border: 1px dotted green;
+            background-color: rgba($color: #fff, $alpha: 0.15);
+
+            .dice-number {
+                color: transparent;
+            }
+
+            .effect-sign {
+                display: none;
+            }
+        }
+
+        &.no-effect {
+            .dice-number {
+                font-size: 3.5cqw;
+            }
+        }
+
+        .effect-sign {
+            align-content: flex-end;
+        }
+
+        &.effect-only {
+            grid-template-rows: 100%;
+
+            .action-token,
+            .health-token,
+            .non-token {
+                display: inline-block;
+            }
+
+            .dice-number {
+                display: none;
+            }
+        }
+
+        .dice-status {
+            position: absolute;
+            bottom: -3px;
+            right: -3px;
+            width: 2cqw;
+            aspect-ratio: 1/1;
+            background: url(../../Assets/images/arrow-down.png);
+            background-size: cover;
+        }
+
+        &.addable:hover .add-icon {
+            position: absolute;
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: url(../../Assets/images/add-icon.png) no-repeat center center;
+            background-size: 80%;
+            background-color: rgba($color: #00870e, $alpha: .2);
+            opacity: .3;
+            cursor: pointer;
         }
     }
 
@@ -742,8 +820,66 @@
         background-image: url(../../Assets/images/dice-red.png);
         background-size: cover;
         position: absolute;
+        top: -500%;
+        right: -80%;
+        height: 150%;
+        width: auto;
+    }
+
+    .selected-dice-container {
+        position: absolute;
         top: 100%;
-        left: -180%;
-        width: 50%;
+        left: -40%;
+        height: 150%;
+        display: inline-block;
+    }
+
+    .selected-dice-item {
+        height: 100%;
+        aspect-ratio: 1/1;
+        background: none;
+        background-color: #ffffff;
+        border: 1px solid green;
+        font-size: 2.4rem;
+        text-align: center;
+        align-content: center;
+    }
+
+    .attack-button {
+        position: absolute;
+        width: 80%;
+        aspect-ratio: 1 / 1;
+        display: inline-block;
+        top: 200%;
+        left: -100%;
+        background-color: rgba($color: #fff, $alpha: 0.8);
+        text-align: center;
+        align-content: center;
+        border-radius: 10px;
+        cursor: pointer;
+        border: 1px solid #000;
+        color: #000;
+
+        &:hover {
+            background: url(../../Assets/images/action/roll-action.png) no-repeat center;
+            background-size: 90%;
+            background-color: rgba($color: #fff, $alpha: 0.8);
+            color: transparent;
+            animation: tilt-shaking 0.2s infinite;
+        }
+    }
+}
+
+.encounter-modal {
+
+    .modal-content {
+        aspect-ratio: 1/1;
+        background: url(../../Assets/images/room/dungeon-room-01.webp);
+        background-size: cover;
+
+        .close-button {
+            position: absolute;
+            bottom: -5%;
+        }
     }
 }

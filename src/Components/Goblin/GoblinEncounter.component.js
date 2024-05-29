@@ -6,6 +6,9 @@ import { Button } from 'react-bootstrap';
 import { GoblinDetailComponent } from './GoblinDetail.component';
 import VikingStore from '../../Store/Viking.store';
 import { set } from 'lodash';
+import { DiceItem } from '../DiceItem.component';
+import DiceStore from '../../Store/Dice.store';
+import DiceUtil from '../../Util/Dice.Util';
 
 export default GoblinEncounterComponent;
 
@@ -26,13 +29,9 @@ function GoblinEncounterComponent({ index }) {
         console.log(weaponToAttack);
     }, [weaponToAttack]);
 
-    const rollTheDice = () => {
-    }
-
-
     if (isShowPopup) {
         return (
-            <Modal className='encounter-modal' show={isShowPopup} onHide={() => { }} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+            <Modal dialogClassName='encounter-modal' show={isShowPopup} onHide={() => { }} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
                 <div className='goblin-encounter-container'>
                     <GoblinDetailComponent goblin={goblin} />
                 </div>
@@ -73,7 +72,7 @@ function GoblinEncounterComponent({ index }) {
                                     {/* {weapon.attackType === 'range' ? <>{weapon.range}<i className='tile-icon' /></> : ''} */}
                                 </div>
                                 <div className='use-button'>!!! Attack !!!</div>
-                            </div>
+                            </div>;
                         }
                     }
 
@@ -87,8 +86,7 @@ function GoblinEncounterComponent({ index }) {
 
                 </div>
                 <FightContainerComponent weapon={weaponToAttack} setWeaponToAttack={() => setWeaponToAttack()} />
-                <div onClick={() => { rollTheDice(); }} className='attack-button'>!! Attack !!</div>
-                <Button onClick={() => { setIsShowPopup(false); }}>Close</Button>
+                <Button className='close-button' onClick={() => { setIsShowPopup(false); }}>Close</Button>
             </Modal>
         );
     }
@@ -96,10 +94,48 @@ function GoblinEncounterComponent({ index }) {
 }
 
 const FightContainerComponent = ({ weapon, setWeaponToAttack }) => {
+    const heroData = VikingStore((state) => state);
+    const totalDiceScore = DiceStore((state) => state.diceScore.main + state.diceScore.add1 + state.diceScore.add2);
+    const diceScore = DiceStore((state) => state.diceScore);
+    const selectMainDice = DiceStore((state) => state.selectMainDice);
+    const select1stAddition = DiceStore((state) => state.select1stAddition);
+    const select2ndAddition = DiceStore((state) => state.select2ndAddition);
+
     const [dicePower, setDicePower] = useState(0);
     const [rollResult, setRollResult] = useState([0, 0, 0]);
+    const [effectHeroGet, setEffectHeroGet] = useState({ action: 0, health: 0 });
 
-    const heroData = VikingStore((state) => state);
+    const selectDice = (diceOrder, score) => {
+        rollResult[diceOrder].selected = true;
+        if (diceScore.main === 0) {
+            selectMainDice(score);
+        } else if (diceScore.add1 === 0) {
+            select1stAddition(score);
+        } else if (diceScore.add2 === 0) {
+            select2ndAddition(score);
+        }
+        checkEffectHeroGet();
+    };
+
+    const rollTheDice = () => {
+        let diceResult = [];
+        for (let index = 0; index < dicePower; index++) {
+            diceResult.push({ ...DiceUtil.rollDice() });
+        }
+        setRollResult(diceResult);
+    };
+
+    const checkEffectHeroGet = () => {
+        let _effectHeroGet = { action: 0, health: 0 };
+        rollResult.forEach(dice => {
+            if (!dice.selected) {
+                if (dice.effect === 'action') { _effectHeroGet.action = _effectHeroGet.action + dice.effectPoint; }
+                if (dice.effect === 'health') { _effectHeroGet.health = _effectHeroGet.health + dice.effectPoint; }
+            }
+        });
+        setEffectHeroGet(_effectHeroGet);
+    };
+
     useEffect(() => {
         if (!_.isNull(weapon) && !_.isUndefined(weapon)) {
             switch (weapon.attack.type) {
@@ -120,10 +156,10 @@ const FightContainerComponent = ({ weapon, setWeaponToAttack }) => {
 
     if (!_.isUndefined(weapon)) {
         return <div className='fight-container'>
-            {dicePower - 1 >= 0 ? <DiceComponent /> : <div className="dice-container"></div>}
-            {dicePower - 2 >= 0 ? <DiceComponent /> : <div className="dice-container"></div>}
-            {dicePower - 3 >= 0 ? <DiceComponent /> : <div className="dice-container"></div>}
-            <div className='dice-container monster-dice-container'></div>
+            {dicePower - 1 >= 0 ? <DiceItem diceOrder={0} diceFace={rollResult[0]} selectDice={selectDice} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
+            {dicePower - 2 >= 0 ? <DiceItem diceOrder={1} diceFace={rollResult[1]} selectDice={selectDice} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
+            {dicePower - 3 >= 0 ? <DiceItem diceOrder={2} diceFace={rollResult[2]} selectDice={selectDice} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
+            <div className='dice-item monster-dice-container'></div>
             <div onClick={() => setWeaponToAttack(null)} className={`weapon-card item-image ${weapon?.id} selected-weapon`}>
                 <div className='item-name'>{weapon?.name}</div>
                 <div className={`attack-type ${_.get(weapon, 'attack.type')}-type`}>
@@ -132,13 +168,12 @@ const FightContainerComponent = ({ weapon, setWeaponToAttack }) => {
                 </div>
                 <div className='use-button'>- Remove -</div>
             </div>
-        </div>
+            {(!_.isUndefined(weapon) && totalDiceScore === 0) && <div onClick={() => { rollTheDice(); }} className='attack-button'>!! Attack !!</div>}
+            <div className='selected-dice-container'>
+                {diceScore.main > 0 && <div className='selected-dice-item dice-item-main'>{diceScore.main}</div>}
+                {diceScore.add1 > 0 && <div className='selected-dice-item dice-item-add-1'>{diceScore.add1}</div>}
+                {diceScore.add2 > 0 && <div className='selected-dice-item dice-item-add-2'>{diceScore.add2}</div>}
+            </div>
+        </div>;
     }
-
-}
-
-const DiceComponent = () => {
-    return (
-        <div className="dice-container rollable"></div>
-    )
-}
+};
