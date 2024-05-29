@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import _ from "lodash";
+import "./DiceItem.scss";
 
-export const DiceItem = ({ diceOrder, diceFace, totalDiceScore, selectDice }) => {
+export const DiceItem = ({ isShaking, diceOrder, diceFace, totalDiceScore, selectDice }) => {
     useEffect(() => {
     }, [diceFace]);
 
@@ -28,7 +29,7 @@ export const DiceItem = ({ diceOrder, diceFace, totalDiceScore, selectDice }) =>
                     {/* <i className={"dice-status"} /> */}
                     <i className={"add-icon"} />
                 </div> :
-                <div className="dice-item"></div>}
+                <div className={`dice-item ${isShaking ? 'shaking-' : ''}${diceOrder}`}></div>}
         </>
     );
 };
