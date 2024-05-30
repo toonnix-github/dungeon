@@ -19,23 +19,34 @@
     left: 2%;
     rotate: 2deg;
     aspect-ratio: 16 / 9;
-    height: 60%;
+    height: 55%;
     width: auto;
     border: 10px solid rgb(0, 41, 10);
+
 
     .defend-power {
         background-image: url(../../Assets/images/shield.png);
         background-size: cover;
-        width: 45px;
+        width: 6%;
         position: absolute;
-        right: 5px;
-        top: 5px;
+        right: 1%;
+        top: 2%;
         aspect-ratio: 1 / 1;
         text-align: center;
-        font-size: 30px;
-        line-height: 45px;
         color: #222;
         filter: drop-shadow(2px 4px 6px black);
+        container: defend-power / size;
+
+        &.dice-confirm {
+            width: 15%;
+            top: 35%;
+            transition: .3s;
+        }
+
+        .value {
+            font-size: 60cqh;
+        }
+
     }
 
     .goblin-tooltip-content {
@@ -517,6 +528,7 @@
         outline: 1px solid #2f2f2f;
         outline-offset: -2px;
         cursor: pointer;
+        container: item-card / size;
 
         &.weapon-card-0 {
             left: -5%;
@@ -551,15 +563,16 @@
         .item-name {
             width: fit-content;
             background-color: #000;
-            top: -1px;
+            bottom: -1px;
             right: -1px;
-            padding: 2% 22% 2% 10%;
+            padding: 2% 17% 2% 10%;
             color: #fff;
             position: absolute;
-            font-size: .5rem;
-            border-bottom-left-radius: 10px;
-            border-bottom: 1px solid rgba($color: #fff, $alpha: 0.15);
+            border-top-left-radius: 10px;
+            border-top: 1px solid rgba($color: #fff, $alpha: 0.15);
             border-left: 1px solid rgba($color: #fff, $alpha: 0.15);
+            font-size: 5cqh;
+            text-align: right;
         }
     }
 
@@ -572,7 +585,7 @@
             height: 15%;
             aspect-ratio: 1 / 1;
             position: absolute;
-            top: -1px;
+            bottom: -1px;
             right: -1px;
             border-radius: 50%;
         }
@@ -606,18 +619,39 @@
             content: "!! Attack !!";
         }
 
+        .total-score-full {
+            font-size: 10cqh;
+            color: red;
+            opacity: 0.6;
+            align-self: center;
+        }
+
+        .total-score-description {
+            font-size: 5cqh;
+            align-content: center;
+            text-align: center;
+            background-color: rgba($color: #fff, $alpha: 0.6);
+            position: absolute;
+            top: 20cqh;
+            left: 0;
+            width: 100cqw;
+        }
+
         .attack-type {
             background: linear-gradient(90deg, rgba(255, 255, 255, 0.7987788865546218) 0%,
                     rgba(255, 255, 255, 0.4990589985994398) 70%,
                     rgba(255, 255, 255, 0) 100%);
             position: absolute;
-            bottom: 0;
-            width: fit-content;
+            top: 0;
             display: inline-flex;
-            font-size: 1.2rem;
-            padding-left: 25%;
+            padding-left: 18%;
             color: #000;
             padding-right: 15px;
+            height: 20%;
+            flex-wrap: wrap;
+            align-content: center;
+            font-size: 18cqh;
+            font-weight: bold;
 
             &::after {
                 content: '';
@@ -737,7 +771,7 @@
         &.selected {
             margin: -5px 0 5px;
             grid-template-rows: 100%;
-            border: 1px dotted green;
+            border: 3px dashed white;
             background-color: rgba($color: #fff, $alpha: 0.15);
 
             .dice-number {
@@ -762,11 +796,16 @@
         &.effect-only {
             grid-template-rows: 100%;
 
+            .effect-sign {
+                align-content: center;
+            }
+
             .action-token,
             .health-token,
             .non-token {
                 height: 70%;
                 margin: auto;
+                display: block;
             }
 
             .dice-number {
@@ -802,72 +841,80 @@
         background-size: cover;
         position: absolute;
         top: -500%;
-        left: 30%;
-        height: 150%;
+        left: -30%;
+        height: 100%;
         width: auto;
+
+        &.hero-phase {
+            visibility: hidden;
+            transition: .5s;
+        }
     }
 
     .selected-dice-container {
         position: absolute;
-        top: -10%;
-        left: -60%;
-        height: 120%;
+        top: 23%;
+        left: 2%;
+        height: 100%;
         display: inline-block;
     }
 
     .selected-dice-item {
-        height: 100%;
+        height: 20%;
         aspect-ratio: 1/1;
         background: none;
         background-color: #ffffff;
         border: 1px solid green;
-        font-size: 2.4rem;
+        font-size: 15cqw;
         text-align: center;
         align-content: center;
+        opacity: 0.8;
 
-        &.dice-item-add-1 {
-            height: 70%;
+        &.dice-item-add-1,
+        &.dice-item-add-2 {
+            height: 15%;
+            aspect-ratio: 1 / 1;
             width: auto;
             rotate: 9deg;
-            bottom: -30px;
+            top: 17%;
             position: absolute;
-            right: -20px;
-            font-size: 1.5em;
+            left: 4px;
+            font-size: 8cqw;
         }
 
         &.dice-item-add-2 {
-            height: 50%;
+            top: 30%;
+            left: 5%;
+            rotate: -5deg;
         }
     }
 
     .attack-button,
-    .reset-button {
+    .reset-button,
+    .confirm-button {
         position: absolute;
-        width: 100%;
-        aspect-ratio: 6 / 1;
-        display: inline-block;
-        top: 120%;
-        left: 0;
-        background-color: rgba($color: #fff, $alpha: 0.8);
-        text-align: center;
-        align-content: center;
-        border-radius: 10px;
-        cursor: pointer;
-        border: 1px solid #000;
-        color: #000;
+        width: 32%;
+        top: 105%;
+        right: 0;
     }
 
     .attack-button {
+        width: 100%;
+
         &:hover {
             span {
                 display: none;
             }
 
             &::before {
-                color: #000;
                 content: 'Roll the Dice';
             }
         }
+    }
+
+    .confirm-button {
+        top: 150%;
+        width: 65%;
     }
 }
 
@@ -877,10 +924,13 @@
 
     .modal-content {
         aspect-ratio: 1/1;
-        background: url(../../Assets/images/room/dungeon-room-01.webp);
+        background: url(../../Assets/images/room/dungeon-room-01.webp) bottom;
         background-size: cover;
         width: 80vw;
         height: 90vh;
+        border: 8px solid #000;
+        border-radius: 10px;
+        rotate: -1deg;
 
         .close-button {
             position: absolute;

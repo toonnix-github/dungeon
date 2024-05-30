@@ -1,6 +1,9 @@
 import _ from "lodash";
+import DiceStore from "../../Store/Dice.store";
 
 export function GoblinDetailComponent({ goblin }) {
+    const diceStore = DiceStore((state) => state);
+
     return (
         <div className={`goblin-tooltip ${goblin.id}-tooltip`} >
             <div />
@@ -24,7 +27,7 @@ export function GoblinDetailComponent({ goblin }) {
                         }
                     }))}
                 </div>
-                <i className="icon-health" />
+                <i className={`icon-health ${diceStore.dicePhase === 'KILL_GOBLIN' ? 'health-gone-animation' : ''}`} />
                 <div className="action-panel attack-panel">
                     <i className="icon-attack-action action-sign" />
                     {goblin.attack.damage > 0 ? <>
@@ -54,7 +57,10 @@ export function GoblinDetailComponent({ goblin }) {
                     {goblin.monsterAction.type === 'MOVE_OR_ATTACK' ? <> <i className="icon-move" /> / <i className="icon-attack" /></> : ''}
                     {goblin.monsterAction.type === 'MOVE_AND_ATTACK' ? <> <i className="icon-move" /> + <i className="icon-attack" /></> : ''}
                 </div>
-                <div className="defend-power">{goblin.defense}</div>
+                <div className={`defend-power` +
+                    `${diceStore.dicePhase === 'CONFIRM_DICE_SCORE' ||
+                        diceStore.dicePhase === 'AFTER_CHARGE_SHIELD' ?
+                        ' dice-confirm' : ''}`}><span className="value">{goblin.defense}</span></div>
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
-import { create } from 'zustand'
+import { create } from 'zustand';
 
 const initRoomNumbers = [];
-for (let i = 1; i <= 72; i++) {
+for (let i = 1; i <= 12; i++) {
   initRoomNumbers.push(i);
 }
 
@@ -32,7 +32,7 @@ initialRoomData[3][3] = {
     left: true,
     right: true
   }
-}
+};
 
 const roomStore = create((set) => ({
   rooms: initialRoomData,
@@ -84,6 +84,6 @@ const roomStore = create((set) => ({
       }
     }
   })),
-}))
+}));
 
 export default roomStore;

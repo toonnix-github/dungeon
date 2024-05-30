@@ -1,0 +1,84 @@
+@keyframes charge {
+    0% {
+        transform: translateY(3%);
+    }
+
+    10% {
+        transform: translateY(6%);
+    }
+
+    98% {
+        transform: translateY(-40%);
+    }
+
+    100% {
+        transform: translateY(-39%);
+    }
+}
+
+@keyframes attack {
+    0% {
+        transform: translateY(-39%);
+    }
+
+    10% {
+        transform: translateY(-36);
+    }
+
+    12% {
+        transform: translateY(-34);
+
+    }
+
+    98% {
+        transform: translateY(-132%);
+    }
+
+    100% {
+        transform: translateY(-130%);
+    }
+}
+
+@keyframes health-gone {
+    0% {
+        filter: brightness(1);
+    }
+
+    25% {
+        filter: brightness(0.2);
+    }
+
+    50% {
+        filter: brightness(0.3);
+    }
+
+    70% {
+        filter: brightness(0.2);
+    }
+
+    80% {
+        filter: brightness(0.4);
+    }
+
+    100% {
+        filter: brightness(0);
+    }
+}
+
+.charge-animation {
+    animation: charge 0.3s ease-in;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+.attack-animation {
+    animation: attack 0.3s ease-in;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+.health-gone-animation {
+    animation: health-gone 0.8s ease-in;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}

@@ -1,4 +1,5 @@
-import { create } from 'zustand'
+import { clear } from '@testing-library/user-event/dist/clear';
+import { create } from 'zustand';
 
 const defaultDiceScore = {
     main: 0,
@@ -11,10 +12,15 @@ const DiceStore = create((set) => ({
     showPopup: () => set(() => ({ isShowPopup: true })),
     closePopup: () => set(() => ({ isShowPopup: false })),
     diceScore: defaultDiceScore,
+    isConfirm: false,
+    dicePhase: 'INITIAL',
     selectMainDice: (score) => set((state) => ({ diceScore: { ...state.diceScore, main: score } })),
     select1stAddition: (score) => set((state) => ({ diceScore: { ...state.diceScore, add1: score } })),
     select2ndAddition: (score) => set((state) => ({ diceScore: { ...state.diceScore, add2: score } })),
-    resetDiceScore: () => set(() => ({ diceScore: defaultDiceScore }))
-}))
+    resetDiceScore: () => set(() => ({ diceScore: defaultDiceScore })),
+    confirmDiceScore: () => set(() => ({ isConfirm: true })),
+    clearConfirmState: () => set(() => ({ isConfirm: false })),
+    setDicePhase: (phase) => set(() => ({ dicePhase: phase }))
+}));
 
 export default DiceStore;
