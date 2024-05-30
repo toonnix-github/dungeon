@@ -1,8 +1,11 @@
 import _ from "lodash";
 import DiceStore from "../../Store/Dice.store";
+import GameStateStore, { FightPhaseEnum } from "../../Store/GameState.store";
 
 export function GoblinDetailComponent({ goblin }) {
     const diceStore = DiceStore((state) => state);
+    const totalDiceScore = DiceStore((state) => state.diceScore.main + state.diceScore.add1 + state.diceScore.add2);
+    const gameState = GameStateStore((state) => state);
 
     return (
         <div className={`goblin-tooltip ${goblin.id}-tooltip`} >
@@ -27,7 +30,7 @@ export function GoblinDetailComponent({ goblin }) {
                         }
                     }))}
                 </div>
-                <i className={`icon-health ${diceStore.dicePhase === 'KILL_GOBLIN' ? 'health-gone-animation' : ''}`} />
+                <i className={`icon-health ${gameState.fightPhase.number > 9 ? 'take-damage-health-animation' : ''}`} />
                 <div className="action-panel attack-panel">
                     <i className="icon-attack-action action-sign" />
                     {goblin.attack.damage > 0 ? <>
@@ -58,9 +61,15 @@ export function GoblinDetailComponent({ goblin }) {
                     {goblin.monsterAction.type === 'MOVE_AND_ATTACK' ? <> <i className="icon-move" /> + <i className="icon-attack" /></> : ''}
                 </div>
                 <div className={`defend-power` +
-                    `${diceStore.dicePhase === 'CONFIRM_DICE_SCORE' ||
-                        diceStore.dicePhase === 'AFTER_CHARGE_SHIELD' ?
-                        ' dice-confirm' : ''}`}><span className="value">{goblin.defense}</span></div>
+                    `${gameState.fightPhase.number > 0 ? ' prepare-to-fight' : ''}` +
+                    `${gameState.fightPhase.number === 4 ? ' take-damage-animation' : ''}` +
+                    `${gameState.fightPhase.number >= 5 ? ' gone-animation' : ''}`}
+                >
+                    <span className="value">
+                        {gameState.fightPhase.number <= 4 && goblin.defense}
+                        {gameState.fightPhase.number >= 5 && ((gameState.netAttackValue < goblin.defense) ? (goblin.defense - gameState.netAttackValue) : '0')}
+                    </span>
+                </div>
             </div>
         </div>
     );

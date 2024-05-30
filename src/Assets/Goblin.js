@@ -177,7 +177,7 @@ export const Goblins = [
             "type": ["magic"]
         },
         "defense": 3,
-        "health": 2,
+        "health": 1,
         "rewards": [
             { "get": "spell", "amount": 1 },
             { "get": "health", "amount": 2 }
@@ -204,7 +204,7 @@ export const Goblins = [
             "type": ["melee", "range", "magic"]
         },
         "defense": 10,
-        "health": 3,
+        "health": 1,
         "rewards": [
             { "get": "item", "amount": 2 },
             { "get": "spell", "amount": 2 },

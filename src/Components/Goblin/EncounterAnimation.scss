@@ -62,7 +62,99 @@
 
     100% {
         filter: brightness(0);
+        border: 1px solid #fff;
     }
+}
+
+@keyframes takeDamage {
+    0% {
+        filter: brightness(0.2);
+        width: 17%;
+    }
+
+    30% {
+        filter: brightness(1.5);
+        width: 14%;
+    }
+
+    60% {
+        filter: brightness(0.2);
+        width: 16%;
+    }
+
+    100% {
+        filter: brightness(0.2);
+        width: 13%;
+    }
+}
+
+@keyframes takeDamage-health {
+    0% {
+        filter: brightness(0.2);
+        transform: scale(1.1);
+    }
+
+    15% {
+        filter: brightness(1.5);
+        transform: scale(0.9);
+    }
+
+    30% {
+        filter: brightness(0.2);
+        transform: scale(1.2);
+    }
+
+    60% {
+        filter: brightness(0.2);
+        transform: scale(0.8);
+    }
+
+    70% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    90% {
+        opacity: 0.5;
+        transform: scale(1.1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+@keyframes disappear {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(1.1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+.gone-animation {
+    animation: disappear 0.2s ease-in forwards;
+    animation-iteration-count: 1;
+}
+
+.take-damage-animation {
+    animation: takeDamage 0.2s ease-in;
+    animation-iteration-count: 2;
+}
+
+.take-damage-health-animation {
+    animation: takeDamage-health 0.3s ease-in forwards;
+    animation-iteration-count: 1;
 }
 
 .charge-animation {
@@ -75,6 +167,7 @@
     animation: attack 0.3s ease-in;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
+    animation-delay: 0.2s;
 }
 
 .health-gone-animation {
