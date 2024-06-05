@@ -154,10 +154,7 @@ const FightContainerComponent = ({ weapon, setWeaponToAttack, goblinIndex }) => 
             {dicePower - 1 >= 0 ? <DiceItem isShaking={isDiceShaking} diceOrder={0} diceFace={rollResult[0]} selectDice={selectDice} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
             {dicePower - 2 >= 0 ? <DiceItem isShaking={isDiceShaking} diceOrder={1} diceFace={rollResult[1]} selectDice={selectDice} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
             {dicePower - 3 >= 0 ? <DiceItem isShaking={isDiceShaking} diceOrder={2} diceFace={rollResult[2]} selectDice={selectDice} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
-            <div className={`dice-item monster-dice-container` +
-                `${isDiceShaking ? ' shaking' : ''}` +
-                `${diceStore.dicePhase === 'CONFIRM_DICE_SCORE' ||
-                    diceStore.dicePhase === 'AFTER_CHARGE_SHIELD' ? ' hero-phase' : ''}`}></div>
+            <div className={`dice-item monster-dice-container` + `${isDiceShaking ? ' shaking' : ''}`}></div>
             <div onClick={() => gameState.fightPhase.number <= 1 && resetWeapon()}
                 className={`weapon-card item-image ${weapon?.id} selected-weapon` +
                     `${gameState.fightPhase.number > 2 ? ' charge-animation' : ''}` +

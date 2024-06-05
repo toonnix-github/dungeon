@@ -39,52 +39,25 @@
     }
 }
 
-@keyframes health-gone {
-    0% {
-        filter: brightness(1);
-    }
-
-    25% {
-        filter: brightness(0.2);
-    }
-
-    50% {
-        filter: brightness(0.3);
-    }
-
-    70% {
-        filter: brightness(0.2);
-    }
-
-    80% {
-        filter: brightness(0.4);
-    }
-
-    100% {
-        filter: brightness(0);
-        border: 1px solid #fff;
-    }
-}
-
 @keyframes takeDamage {
     0% {
         filter: brightness(0.2);
-        width: 17%;
+        transform: scale(.8);
     }
 
     30% {
         filter: brightness(1.5);
-        width: 14%;
+        transform: scale(1.1);
     }
 
     60% {
         filter: brightness(0.2);
-        width: 16%;
+        transform: scale(0.9);
     }
 
     100% {
         filter: brightness(0.2);
-        width: 13%;
+        transform: scale(1);
     }
 }
 
@@ -120,8 +93,22 @@
     }
 
     100% {
-        opacity: 0;
-        transform: scale(0);
+        filter: brightness(0.1);
+        transform: scale(1);
+    }
+}
+
+@keyframes monster-die {
+    0% {
+        filter: grayscale(.6);
+    }
+
+    50% {
+        filter: grayscale(.2);
+    }
+
+    100% {
+        filter: grayscale(1);
     }
 }
 
@@ -152,6 +139,10 @@
     animation-iteration-count: 2;
 }
 
+.take-damage-monster-animation {
+    animation: takeDamage 0.2s ease-in 2 0.3s, monster-die 0.2s ease-in 1 0.4s forwards;
+}
+
 .take-damage-health-animation {
     animation: takeDamage-health 0.3s ease-in forwards;
     animation-iteration-count: 1;
@@ -168,10 +159,4 @@
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
     animation-delay: 0.2s;
-}
-
-.health-gone-animation {
-    animation: health-gone 0.8s ease-in;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
 }

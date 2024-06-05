@@ -8,7 +8,9 @@ export function GoblinDetailComponent({ goblin }) {
     const gameState = GameStateStore((state) => state);
 
     return (
-        <div className={`goblin-tooltip ${goblin.id}-tooltip`} >
+        <div className={`goblin-tooltip ${goblin.id}-tooltip` +
+            `${gameState.fightPhase.number >= 10 ? ' take-damage-monster-animation' : ''}`
+        } >
             <div />
             <div className="goblin-tooltip-content">
                 <div className="goblin-tooltip-name">{goblin.name}</div>
@@ -30,7 +32,7 @@ export function GoblinDetailComponent({ goblin }) {
                         }
                     }))}
                 </div>
-                <i className={`icon-health ${gameState.fightPhase.number > 9 ? 'take-damage-health-animation' : ''}`} />
+                <i className={`icon-health ${gameState.fightPhase.number >= 10 ? 'take-damage-health-animation' : ''}`} />
                 <div className="action-panel attack-panel">
                     <i className="icon-attack-action action-sign" />
                     {goblin.attack.damage > 0 ? <>

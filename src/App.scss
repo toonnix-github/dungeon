@@ -1,7 +1,10 @@
 @import "App-color";
 
+body {
+  font-family: 'MedievalSharp', serif;
+}
+
 .App {
-  font-family: monospace;
   display: grid;
   grid-template-columns: 70% 30%;
 
