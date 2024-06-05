@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import GoblinStore from '../../Store/Goblin.store';
 import _ from 'lodash';
 import { Button } from 'react-bootstrap';
-import { GoblinDetailComponent } from './GoblinDetail.component';
+import GoblinCardComponent from './GoblinCard.component';
 import VikingStore from '../../Store/Viking.store';
 import DiceStore from '../../Store/Dice.store';
 import './EncounterAnimation.scss';
@@ -37,10 +37,8 @@ function GoblinEncounterComponent({ index }) {
         return (
             <Modal dialogClassName='encounter-modal' show={isShowPopup} onHide={() => { }} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
                 <div className='state-label'>{gameState.fightPhase.name}</div>
-                <div className='goblin-encounter-container'>
-                    <GoblinDetailComponent goblin={goblin} />
-                </div>
-                <div className='hero-container hero-encounter-container'>
+                <GoblinCardComponent goblin={goblin} />
+                <div className='card-item hero-container hero-encounter-container'>
                     <div className='description'>
                     </div>
                     <div className='hero-card-name'>{heroData.name}</div>

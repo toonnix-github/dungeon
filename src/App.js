@@ -3,6 +3,7 @@ import './App.scss';
 import './item.scss';
 import "../src/Components/HeroDisplay.scss";
 import 'react-tooltip/dist/react-tooltip.css';
+import './styles/card.scss';
 import RoomComponent from './Components/Room/Room.component';
 import ControllerComponent from './Components/Controller.component';
 import GoblinComponent from './Components/Goblin/Goblin.component';

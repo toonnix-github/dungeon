@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import roomStore from "../../Store/Room.store";
 import "./Goblin.scss";
-import { GoblinDetailComponent } from "./GoblinDetail.component";
+// import { GoblinDetailComponent } from "./GoblinDetail.component";
 import { Tooltip } from "react-tooltip";
 
 
@@ -25,7 +25,7 @@ function GoblinComponent({ index, goblin }) {
                 opacity={0.9}
                 style={{ maxWidth: '500px', padding: '0' }}
             >
-                <GoblinDetailComponent goblin={goblin} />
+                {/* <GoblinDetailComponent goblin={goblin} /> */}
             </Tooltip>
         </div >
     );
