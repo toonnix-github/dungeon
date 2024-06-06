@@ -17,6 +17,112 @@
         height: 100%;
         background-size: cover;
     }
+
+    .card-row {
+        background-color: rgba(0, 0, 0, 0.8);
+        border-top: 2px solid #000;
+        position: absolute;
+        width: 100%;
+        box-sizing: border-box;
+        color: white;
+        font-size: 8cqw;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .card-type-icon {
+        height: 8cqh;
+        aspect-ratio: 1.2 / 1;
+        position: absolute;
+        left: -5px;
+        top: 0;
+        border-bottom-right-radius: 50%;
+        border-top-right-radius: 40%;
+        background-color: #000000;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .name-row {
+        height: 8cqh;
+        top: 0;
+        border-bottom: 2px solid #000;
+        background-color: rgba($color: #ffffff, $alpha: 0.6);
+        align-content: center;
+        color: #000000;
+        padding-left: 15cqw;
+        font-weight: bolder;
+        font-size: 5cqw;
+    }
+
+    .move-container {
+        position: absolute;
+        right: -2px;
+        top: -3px;
+        display: grid;
+        grid-template-columns: 30% 70%;
+        width: 15cqw;
+        height: 10cqh;
+
+        .move-number {
+            align-content: center;
+            font-weight: bold;
+        }
+
+        .move-icon {
+            background: url(./../Assets/images/icon/footprint.png) no-repeat center center;
+            background-size: cover;
+            width: 100%;
+        }
+    }
+
+    .defend-power {
+        background-image: url(./../Assets/images/shield.png);
+        background-size: cover;
+        width: 20cqw;
+        position: absolute;
+        right: -4px;
+        bottom: 0;
+        aspect-ratio: 1 / 1;
+        text-align: center;
+        font-size: 12cqw;
+        color: #222;
+        filter: drop-shadow(2px 4px 6px black);
+        rotate: 8deg;
+        align-content: end;
+    }
+
+    .heart-score {
+        background-image: url(./../Assets/images/icon/heart-icon.png);
+        background-size: cover;
+        width: 20cqw;
+        position: absolute;
+        right: 11cqw;
+        bottom: 0;
+        aspect-ratio: 1 / 1;
+        text-align: center;
+        font-size: 12cqw;
+        color: #222;
+        filter: drop-shadow(2px 4px 6px black);
+        rotate: -15deg;
+        align-content: end;
+    }
+
+    i.icon-in-detail {
+        display: inline-block;
+        width: 10cqw;
+        aspect-ratio: 1 / 1;
+        align-self: center;
+
+        &.icon-badge {
+            background-color: #000000;
+            border: 1px solid #ffffff;
+            border-radius: 4px;
+            margin-right: 2cqw;
+            width: 12cqw;
+        }
+    }
 }
 
 @import 'goblin-card';
+@import 'card-icon';

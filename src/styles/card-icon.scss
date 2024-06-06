@@ -1,0 +1,75 @@
+.icon-defeat-goblin {
+    background-image: url('./../Assets/images/stopping.png'), url('./../Assets/images/icon/icon-goblin.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover, 120%;
+}
+
+.icon-reward-health {
+    background: url('./../Assets/images/icon/heart-icon.png') no-repeat center;
+    background-size: 100%;
+    width: 10cqw;
+
+    &.icon-reward-0 {
+        rotate: -10deg;
+    }
+
+    &.icon-reward-1 {
+        margin-left: -5cqw;
+        rotate: 11deg;
+        filter: drop-shadow(0px 2px 4px black);
+    }
+
+    &.icon-reward-2 {
+        margin-left: -5cqw;
+        rotate: -4deg;
+        filter: drop-shadow(0px 2px 4px black);
+    }
+}
+
+.icon-attack {
+    background: url('./../Assets/images/action/attack.png') no-repeat center;
+    background-size: cover;
+}
+
+.icon-counter-attack {
+    background: url('./../Assets/images/action/counter-attack.png') no-repeat center;
+    background-size: cover;
+}
+
+.icon-monster-dice {
+    background: url('./../Assets/images/dice-red.png') no-repeat center;
+    background-size: cover;
+    margin-right: 2px;
+}
+
+.icon-bomb {
+    background: url('./../Assets/images/bomb.png') no-repeat center;
+    background-size: cover;
+}
+
+.icon-treasure-bag {
+    background: url('./../Assets/images/treasure-chest.png') no-repeat center;
+    background-size: cover;
+    filter: drop-shadow(0 0 1px black);
+}
+
+.icon-melee {
+    background: url('./../Assets/images/action/melee.png') no-repeat center;
+    background-size: cover;
+}
+
+.icon-range {
+    background: url('./../Assets/images/action/range.png') no-repeat center;
+    background-size: cover;
+}
+
+.icon-magic {
+    background: url('./../Assets/images/action/magic.png') no-repeat center;
+    background-size: cover;
+}
+
+.icon-goblin {
+    background: url('./../Assets/images/icon/icon-goblin.png') no-repeat center;
+    background-size: 140%;
+}

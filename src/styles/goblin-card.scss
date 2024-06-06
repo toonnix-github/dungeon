@@ -3,85 +3,25 @@
     left: 4%;
 
     .card-type-icon {
-        background: url(./../Assets/images/icon/icon-goblin.png) no-repeat center;
-        height: 8cqh;
-        aspect-ratio: 1.2 / 1;
-        position: absolute;
-        left: -5px;
-        top: 0;
-        background-color: #000;
+        background-image: url(./../Assets/images/icon/icon-goblin.png);
         background-size: 90%;
-        border-bottom-right-radius: 50%;
-        border-top-right-radius: 40%;
-    }
-
-    .card-row {
-        background-color: rgba(0, 0, 0, 0.8);
-        border-top: 2px solid #000;
-        position: absolute;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .name-row {
-        height: 8cqh;
-        top: 0;
-        border-bottom: 2px solid #000;
-        background-color: rgba($color: #ffffff, $alpha: 0.6);
-        align-content: center;
-        color: #000000;
-        padding-left: 15cqw;
-        font-weight: bolder;
-        font-size: 5cqw;
     }
 
     .top-row {
         background-color: rgba(0, 0, 0, 0.6);
-        height: 8cqh;
-        bottom: 18cqh;
+        height: 10cqh;
+        bottom: 22cqh;
     }
 
     .middle-row {
         background-color: rgba(0, 0, 0, 0.7);
-        height: 8cqh;
-        bottom: 10cqh;
+        height: 10cqh;
+        bottom: 12cqh;
     }
 
     .bottom-row {
-        height: 10cqh;
+        height: 12cqh;
         bottom: 0;
-    }
-
-    .defend-power {
-        background-image: url(./../Assets/images/shield.png);
-        background-size: cover;
-        width: 25cqw;
-        position: absolute;
-        right: -4px;
-        bottom: 0;
-        aspect-ratio: 1 / 1;
-        text-align: center;
-        font-size: 16cqw;
-        color: #222;
-        filter: drop-shadow(2px 4px 6px black);
-        rotate: 8deg;
-        align-content: end;
-    }
-
-    .heart-score {
-        background-image: url(./../Assets/images/icon/heart-icon.png);
-        background-size: cover;
-        width: 25cqw;
-        position: absolute;
-        right: 15cqw;
-        bottom: 0;
-        aspect-ratio: 1 / 1;
-        text-align: center;
-        font-size: 14cqw;
-        color: #222;
-        filter: drop-shadow(2px 4px 6px black);
-        rotate: -15deg;
-        align-content: end;
     }
 }
 

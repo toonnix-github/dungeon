@@ -12,10 +12,38 @@ export default function GoblinCardComponent({ goblin }) {
             <div className="card-row name-row">{goblin.name}</div>
 
             <i className="card-type-icon" />
-            <div className="card-row top-row"></div>
-            <div className="card-row middle-row"></div>
+            <div className="move-container">
+                <div className="move-number">{goblin.move}</div>
+                <i className="move-icon" />
+            </div>
+            <div className="card-row top-row">
+                <i className="icon-counter-attack icon-in-detail icon-badge" />
+                {goblin.counterAttack.damage > 0 ? <>
+                    <i className="icon-in-detail icon-monster-dice" /> +{goblin.counterAttack.damage}
+                    {(!_.isUndefined(goblin.counterAttack.bonusPerGoblin) && goblin.counterAttack.bonusPerGoblin > 0) &&
+                        <>+({goblin.counterAttack.bonusPerGoblin}x<i className={`icon-in-detail icon-goblin`} />)</>} [{goblin.counterAttack.type.map((type, index) => <i key={index} className={`icon-in-detail icon-${type}`} />)}]
+                </> : 'N/A'}
+            </div>
+            <div className="card-row middle-row">
+                <i className="icon-attack icon-in-detail icon-badge" />
+                {goblin.attack.damage > 0 ? <>
+                    {goblin.attack.damage}
+                    {(!_.isUndefined(goblin.attack.bonusPerGoblin) && goblin.attack.bonusPerGoblin > 0) &&
+                        <>+({goblin.attack.bonusPerGoblin}x<i className={`icon-in-detail icon-goblin`} />)</>}
+                    [<i className={`icon-in-detail icon-attack-type icon-${goblin.attack.type}`} />]
+                </> : 'N/A'}
+            </div>
             <div className="card-row bottom-row">
-
+                <i className="icon-in-detail icon-defeat-goblin icon-badge" />
+                {(goblin.rewards.map((reward) => {
+                    if (reward.get === 'item') {
+                        return _.times(reward.amount, (reward_index) => <i key={`treasure-${reward_index}`} className={`icon-in-detail icon-treasure-bag`} />);
+                    } else if (reward.get === 'health') {
+                        return _.times(reward.amount, (reward_index) => <i key={`health-${reward_index}`} className={`icon-in-detail icon-reward-health icon-reward-${reward_index}`} />);
+                    } else if (reward.get === 'bomb') {
+                        return _.times(reward.amount, (reward_index) => <i key={`bomb-${reward_index}`} className={`icon-in-detail icon-bomb`} />);
+                    }
+                }))}
                 <div className={`heart-score`}>{goblin.health}</div>
                 <div className={`defend-power`}>{goblin.defense}</div>
             </div>
