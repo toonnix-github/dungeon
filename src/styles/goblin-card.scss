@@ -3,15 +3,16 @@
     left: 4%;
 
     .card-type-icon {
-        width: 12cqh;
+        background: url(./../Assets/images/icon/icon-goblin.png) no-repeat center;
+        height: 8cqh;
         aspect-ratio: 1.2 / 1;
         position: absolute;
-        right: -5px;
-        top: -8px;
-        background: url(./../Assets/images/icon/icon-goblin.png) no-repeat center;
+        left: -5px;
+        top: 0;
         background-color: #000;
         background-size: 90%;
-        border-bottom-left-radius: 50%;
+        border-bottom-right-radius: 50%;
+        border-top-right-radius: 40%;
     }
 
     .card-row {
@@ -20,6 +21,18 @@
         position: absolute;
         width: 100%;
         box-sizing: border-box;
+    }
+
+    .name-row {
+        height: 8cqh;
+        top: 0;
+        border-bottom: 2px solid #000;
+        background-color: rgba($color: #ffffff, $alpha: 0.6);
+        align-content: center;
+        color: #000000;
+        padding-left: 15cqw;
+        font-weight: bolder;
+        font-size: 5cqw;
     }
 
     .top-row {
@@ -52,7 +65,7 @@
         color: #222;
         filter: drop-shadow(2px 4px 6px black);
         rotate: 8deg;
-        align-content: center;
+        align-content: end;
     }
 
     .heart-score {
@@ -68,7 +81,7 @@
         color: #222;
         filter: drop-shadow(2px 4px 6px black);
         rotate: -15deg;
-        align-content: center;
+        align-content: end;
     }
 }
 

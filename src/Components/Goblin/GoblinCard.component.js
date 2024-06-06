@@ -9,6 +9,8 @@ export default function GoblinCardComponent({ goblin }) {
 
     return (
         <div className={`card-item goblin-card ${goblin.id}-card`}>
+            <div className="card-row name-row">{goblin.name}</div>
+
             <i className="card-type-icon" />
             <div className="card-row top-row"></div>
             <div className="card-row middle-row"></div>
