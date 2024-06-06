@@ -25,7 +25,7 @@
         width: 100%;
         box-sizing: border-box;
         color: white;
-        font-size: 8cqw;
+        font-size: 6cqw;
         display: inline-flex;
         align-items: center;
     }
@@ -119,6 +119,10 @@
             border: 1px solid #ffffff;
             border-radius: 4px;
             margin-right: 2cqw;
+            width: 12cqw;
+        }
+
+        &.icon-skill {
             width: 12cqw;
         }
     }

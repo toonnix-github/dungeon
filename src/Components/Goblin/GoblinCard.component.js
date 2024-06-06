@@ -16,6 +16,9 @@ export default function GoblinCardComponent({ goblin }) {
                 <div className="move-number">{goblin.move}</div>
                 <i className="move-icon" />
             </div>
+            <div className="card-row skill-row">
+                <i className="icon-in-detail icon-skill icon-windwalk" />
+            </div>
             <div className="card-row top-row">
                 <i className="icon-counter-attack icon-in-detail icon-badge" />
                 {goblin.counterAttack.damage > 0 ? <>
