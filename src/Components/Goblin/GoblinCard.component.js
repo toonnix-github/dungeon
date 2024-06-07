@@ -13,6 +13,11 @@ export default function GoblinCardComponent({ goblin }) {
 
             <i className="card-type-icon" />
             <div className="move-container">
+                <div className="range-number">{goblin.attack.range > 0 && goblin.attack.range}</div>
+                {goblin.attack.range > 0 && goblin.attack.type[0] === 'range' && <i className="range-location-icon" />}
+                {goblin.attack.range > 0 && goblin.attack.type[0] === 'magic' && <i className="magic-location-icon" />}
+                {goblin.attack.range > 0 && goblin.attack.type[0] === 'bomb' && <i className="bomb-location-icon" />}
+                {goblin.attack.range === 0 && <i className="same-location-icon" />}
                 <div className="move-number">{goblin.move}</div>
                 <i className="move-icon" />
             </div>
@@ -33,7 +38,7 @@ export default function GoblinCardComponent({ goblin }) {
                     {goblin.attack.damage}
                     {(!_.isUndefined(goblin.attack.bonusPerGoblin) && goblin.attack.bonusPerGoblin > 0) &&
                         <>+({goblin.attack.bonusPerGoblin}x<i className={`icon-in-detail icon-goblin`} />)</>}
-                    [<i className={`icon-in-detail icon-attack-type icon-${goblin.attack.type}`} />]
+                    &nbsp;[<i className={`icon-in-detail icon-attack-type icon-${goblin.attack.type}`} />]
                 </> : 'N/A'}
             </div>
             <div className="card-row bottom-row">
