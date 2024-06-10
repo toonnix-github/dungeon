@@ -1,5 +1,5 @@
 .card-item {
-    height: 50vh;
+    height: 66cqh;
     width: auto;
     aspect-ratio: 2/3;
     border-radius: 4px;
@@ -57,11 +57,11 @@
 
     .move-container {
         position: absolute;
-        right: -5px;
+        right: -2px;
         top: -3px;
         display: grid;
-        grid-template-columns: 20% 40% 10% 30%;
-        width: 35cqw;
+        grid-template-columns: 30% 70%;
+        width: 15cqw;
         height: 10cqh;
 
         .move-number {
@@ -75,19 +75,34 @@
             background-size: 95%;
             width: 100%;
         }
+    }
 
-        i {}
+    .same-location-icon {
+        background-image: url(./../Assets/images/icon/same-location.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: red;
+    }
 
-        .same-location-icon {
-            background-image: url(./../Assets/images/icon/arrow-down.png), url(./../Assets/images/icon/tile.webp);
-            background-size: 40%, 99%;
-            background-repeat: no-repeat;
-            background-position: 46% 15%, center center;
-        }
+    .range-location-icon {
+        background-image: url(./../Assets/images/icon/range-location.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: green;
+    }
 
-        .move-name {
-            ;
-        }
+    .magic-location-icon {
+        background-image: url(./../Assets/images/icon/magic-location.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: rgb(18, 113, 202);
+    }
+
+    .bomb-location-icon {
+        background-image: url(./../Assets/images/icon/bomb-location.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: orange;
     }
 
     .defend-power {
@@ -122,14 +137,13 @@
         align-content: end;
     }
 
-    i.icon-in-detail {
+    .icon-in-detail {
         display: inline-block;
         width: 10cqw;
         aspect-ratio: 1 / 1;
         align-self: center;
 
         &.icon-badge {
-            background-color: #000000;
             border: 1px solid #ffffff;
             border-radius: 4px;
             margin-right: 2cqw;
@@ -145,3 +159,4 @@
 
 @import 'goblin-card';
 @import 'card-icon';
+@import 'card-placeholder';

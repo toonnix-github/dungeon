@@ -1,6 +1,7 @@
 import _ from "lodash";
 import DiceStore from "../../Store/Dice.store";
 import GameStateStore, { FightPhaseEnum } from "../../Store/GameState.store";
+import { MonsterDiceComponent } from "./MonsterDiceComponent";
 
 export default function GoblinCardComponent({ goblin }) {
     const diceStore = DiceStore((state) => state);
@@ -13,17 +14,18 @@ export default function GoblinCardComponent({ goblin }) {
 
             <i className="card-type-icon" />
             <div className="move-container">
-                <div className="range-number">{goblin.attack.range > 0 && goblin.attack.range}</div>
-                {goblin.attack.range > 0 && goblin.attack.type[0] === 'range' && <i className="range-location-icon" />}
-                {goblin.attack.range > 0 && goblin.attack.type[0] === 'magic' && <i className="magic-location-icon" />}
-                {goblin.attack.range > 0 && goblin.attack.type[0] === 'bomb' && <i className="bomb-location-icon" />}
-                {goblin.attack.range === 0 && <i className="same-location-icon" />}
                 <div className="move-number">{goblin.move}</div>
                 <i className="move-icon" />
             </div>
             <div className="card-row skill-row">
+                <div className="range-number">{goblin.attack.range > 0 && goblin.attack.range}</div>
+                {goblin.attack.range > 0 && goblin.attack.type[0] === 'range' && <i className="icon-badge icon-in-detail range-location-icon" />}
+                {goblin.attack.range > 0 && goblin.attack.type[0] === 'magic' && <i className="icon-badge icon-in-detail magic-location-icon" />}
+                {goblin.attack.range > 0 && goblin.attack.type[0] === 'bomb' && <i className="icon-badge icon-in-detail bomb-location-icon" />}
+                {goblin.attack.range === 0 && <i className="icon-badge icon-in-detail same-location-icon" />}
                 <i className="icon-in-detail icon-skill icon-windwalk" />
             </div>
+            {gameState.fightPhase.number === 1 && <MonsterDiceComponent isDiceShaking={diceStore.isShaking} />}
             <div className="card-row top-row">
                 <i className="icon-counter-attack icon-in-detail icon-badge" />
                 {goblin.counterAttack.damage > 0 ? <>

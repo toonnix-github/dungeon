@@ -7,8 +7,9 @@ import { DiceItem } from '../DiceItem.component';
 import DiceStore from '../../Store/Dice.store';
 import DiceUtil from '../../Util/Dice.Util';
 import GameStateStore, { FightPhaseEnum } from '../../Store/GameState.store';
+import { MonsterDiceComponent } from './MonsterDiceComponent';
 
-const FightContainerComponent = ({ weapon, setWeaponToAttack, goblinIndex }) => {
+export default function FightContainerComponent({ weapon, setWeaponToAttack, goblinIndex }) {
     const heroData = VikingStore((state) => state);
     const totalDiceScore = DiceStore((state) => state.diceScore.main + state.diceScore.add1 + state.diceScore.add2);
     const diceScore = DiceStore((state) => state.diceScore);
@@ -24,7 +25,6 @@ const FightContainerComponent = ({ weapon, setWeaponToAttack, goblinIndex }) => 
     const [dicePower, setDicePower] = useState(0);
     const [rollResult, setRollResult] = useState([0, 0, 0]);
     const [effectHeroGet, setEffectHeroGet] = useState({ action: 0, health: 0 });
-    const [isDiceShaking, setIsDiceShaking] = useState(false);
     const [isConfirmDice, setIsConfirmDice] = useState(false);
 
     const selectDice = (diceOrder, score) => {
@@ -151,10 +151,11 @@ const FightContainerComponent = ({ weapon, setWeaponToAttack, goblinIndex }) => 
 
     if (!_.isUndefined(weapon)) {
         return <div className='fight-container'>
-            {dicePower - 1 >= 0 ? <DiceItem isShaking={isDiceShaking} diceOrder={0} diceFace={rollResult[0]} selectDice={selectDice} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
-            {dicePower - 2 >= 0 ? <DiceItem isShaking={isDiceShaking} diceOrder={1} diceFace={rollResult[1]} selectDice={selectDice} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
-            {dicePower - 3 >= 0 ? <DiceItem isShaking={isDiceShaking} diceOrder={2} diceFace={rollResult[2]} selectDice={selectDice} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
-            <div className={`dice-item monster-dice-container` + `${isDiceShaking ? ' shaking' : ''}`}></div>
+            <div className='fight-dice-container'>
+                {dicePower - 1 >= 0 ? <DiceItem isShaking={diceStore.isShaking} diceOrder={0} diceFace={rollResult[0]} selectDice={selectDice} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
+                {dicePower - 2 >= 0 ? <DiceItem isShaking={diceStore.isShaking} diceOrder={1} diceFace={rollResult[1]} selectDice={selectDice} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
+                {dicePower - 3 >= 0 ? <DiceItem isShaking={diceStore.isShaking} diceOrder={2} diceFace={rollResult[2]} selectDice={selectDice} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
+            </div>
             <div onClick={() => gameState.fightPhase.number <= 1 && resetWeapon()}
                 className={`weapon-card item-image ${weapon?.id} selected-weapon` +
                     `${gameState.fightPhase.number > 2 ? ' charge-animation' : ''}` +
@@ -178,13 +179,13 @@ const FightContainerComponent = ({ weapon, setWeaponToAttack, goblinIndex }) => 
                     {diceScore.add2 > 0 && <div className='selected-dice-item dice-item-add-2'>+{diceScore.add2}</div>}
                 </div>
             </div>
-            {(!_.isUndefined(weapon) && rollResult[0] === 0) && <Button size='sm' variant='success' onClick={() => { rollTheDice(); setIsDiceShaking(false); }} onMouseEnter={() => { setIsDiceShaking(true); }} onMouseLeave={() => { setIsDiceShaking(false); }} className='attack-button'><span>!! Attack !!</span></Button>}
+            {(!_.isUndefined(weapon) && rollResult[0] === 0) && <Button size='sm' variant='success' onClick={() => { rollTheDice(); diceStore.setShaking(false); }} onMouseEnter={() => { diceStore.setShaking(true); }} onMouseLeave={() => { diceStore.setShaking(false); }} className='attack-button'><span>!! Attack !!</span></Button>}
             {totalDiceScore !== 0 && !diceStore.isConfirm && <>
                 <Button size='sm' variant='warning' onClick={() => { resetDice(); }} className='reset-button'>Reset</Button>
                 <Button size='sm' variant='success' onClick={() => { confirmDice(); }} className='confirm-button'>Confirm</Button>
             </>}
         </div>;
     }
+
 };
 
-export default FightContainerComponent;

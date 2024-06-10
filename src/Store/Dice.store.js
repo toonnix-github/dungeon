@@ -14,6 +14,8 @@ const DiceStore = create((set) => ({
     diceScore: defaultDiceScore,
     isConfirm: false,
     dicePhase: 'INITIAL',
+    isShaking: false,
+    setShaking: (isShaking) => set(() => ({ isShaking: isShaking })),
     selectMainDice: (score) => set((state) => ({ diceScore: { ...state.diceScore, main: score } })),
     select1stAddition: (score) => set((state) => ({ diceScore: { ...state.diceScore, add1: score } })),
     select2ndAddition: (score) => set((state) => ({ diceScore: { ...state.diceScore, add2: score } })),

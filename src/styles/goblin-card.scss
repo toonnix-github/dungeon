@@ -1,6 +1,7 @@
 .goblin-card {
-    top: 4%;
-    left: 4%;
+    top: 3%;
+    left: 3%;
+    rotate: 2deg;
 
     .card-type-icon {
         background-image: url(./../Assets/images/icon/icon-goblin.png);
@@ -9,11 +10,16 @@
 
     .skill-row {
         height: 10cqh;
-        bottom: 32cqh;
-        background-color: transparent;
+        top: 8cqh;
         border: none;
-        justify-content: right;
-        padding-right: 3cqw;
+        width: fit-content;
+        background-color: rgba($color: #000000, $alpha: 0.5);
+        padding-right: 8cqw;
+        border-bottom-right-radius: 20px;
+
+        .range-number {
+            margin-right: 2cqw;
+        }
     }
 
     .top-row {

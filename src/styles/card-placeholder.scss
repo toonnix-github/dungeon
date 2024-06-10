@@ -1,0 +1,94 @@
+.card-place-holder {
+    background-color: rgba($color: #ffffff, $alpha: 0.2);
+    border: 8px solid rgba($color: #ffffff, $alpha: 0.05);
+    border-radius: 6px;
+    position: absolute;
+    box-sizing: content-box;
+
+    &.portrait-card {
+        width: 44cqh;
+        margin-left: -8px;
+        margin-top: -8px;
+        aspect-ratio: 2/3;
+    }
+
+    &.square-card {
+        width: 22cqh;
+        margin-left: -8px;
+        margin-top: -8px;
+        aspect-ratio: 1/1;
+    }
+
+    &.square-half-card {
+        margin-left: -8px;
+        margin-top: -8px;
+        aspect-ratio: 2/1;
+
+        .bottom-left,
+        .bottom-right {
+            display: none;
+        }
+    }
+
+    &.monster-card {
+        top: 3cqh;
+        left: 4cqh;
+    }
+
+    &.hero-card {
+        top: 3cqh;
+        right: 2cqh;
+    }
+
+    &.pick-weapon-card {
+        top: 10cqh;
+        right: 52cqh;
+    }
+
+    &.weapon-left-card {
+        width: 20cqh;
+        top: 73cqh;
+        right: 26cqh;
+    }
+
+    &.weapon-right-card {
+        width: 20cqh;
+        top: 73cqh;
+        right: 2cqh;
+    }
+
+    .corner {
+        position: absolute;
+        width: 30%;
+        aspect-ratio: 1 / 1;
+        border-radius: 10px;
+
+        &.top-left {
+            border-top: 10px solid rgba($color: #ffffff, $alpha: 0.3);
+            border-left: 10px solid rgba($color: #ffffff, $alpha: 0.3);
+            top: -6px;
+            left: -6px;
+        }
+
+        &.top-right {
+            border-top: 10px solid rgba($color: #ffffff, $alpha: 0.3);
+            border-right: 10px solid rgba($color: #ffffff, $alpha: 0.3);
+            top: -6px;
+            right: -6px;
+        }
+
+        &.bottom-left {
+            border-bottom: 10px solid rgba($color: #ffffff, $alpha: 0.3);
+            border-left: 10px solid rgba($color: #ffffff, $alpha: 0.3);
+            bottom: -6px;
+            left: -6px;
+        }
+
+        &.bottom-right {
+            border-bottom: 10px solid rgba($color: #ffffff, $alpha: 0.3);
+            border-right: 10px solid rgba($color: #ffffff, $alpha: 0.3);
+            bottom: -6px;
+            right: -6px;
+        }
+    }
+}
