@@ -369,7 +369,7 @@
 .hero-encounter-container {
     rotate: -4deg;
     position: absolute;
-    right: 3%;
+    right: 19cqh;
     top: 3%;
 
     &::before {
@@ -510,9 +510,8 @@
 .encounter-modal {
 
     .weapon-card,
-    .rune-card,
-    .armor-card {
-        width: 55%;
+    .rune-card {
+        width: 50%;
         aspect-ratio: 1/1;
         border: 2px solid #000;
         position: absolute;
@@ -523,7 +522,7 @@
         container: item-card / size;
 
         &.weapon-card-0 {
-            left: -10%;
+            left: -15%;
             top: 105%;
             rotate: 8deg;
         }
@@ -592,6 +591,10 @@
             }
         }
 
+        &.already-rolled {
+            pointer-events: none;
+        }
+
         .use-button {
             position: absolute;
             width: 100%;
@@ -641,8 +644,8 @@
             padding-right: 15px;
             height: 20%;
             flex-wrap: wrap;
-            align-content: center;
-            font-size: 18cqh;
+            align-items: center;
+            font-size: 16cqh;
             font-weight: bold;
 
             &::after {
@@ -673,13 +676,6 @@
         }
     }
 
-    .armor-card {
-        width: 45%;
-        right: -44%;
-        bottom: 20%;
-        rotate: 6deg;
-    }
-
     .rune-card {
         width: 30%;
     }
@@ -687,10 +683,10 @@
 
 .fight-container {
     position: absolute;
-    width: 22cqh;
+    width: 17cqh;
     aspect-ratio: 1/1;
     top: 10cqh;
-    right: 52cqh;
+    right: 57cqh;
 
     .fight-dice-container {
         display: grid;
@@ -770,6 +766,7 @@
     aspect-ratio: 1/1;
     border: 1px dotted black;
     box-sizing: border-box;
+    container: dice-face / size;
 }
 
 .dice-face {
@@ -782,7 +779,7 @@
     position: relative;
 
     .dice-number {
-        font-size: 2cqw;
+        font-size: 50cqw;
     }
 
     .action-token,
@@ -791,6 +788,7 @@
         margin: 0;
         height: 60%;
         width: auto;
+        vertical-align: text-bottom;
     }
 
     .non-token {
@@ -814,7 +812,7 @@
 
     &.no-effect {
         .dice-number {
-            font-size: 3.5cqw;
+            font-size: 75cqw;
         }
     }
 

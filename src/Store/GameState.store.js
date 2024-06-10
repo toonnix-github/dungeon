@@ -15,7 +15,7 @@ export const FightPhaseEnum = {
     HERO_DIE: { number: 12, name: 'HERO_DIE' },
     HERO_DIE_END: { number: 13, name: 'HERO_DIE_END' },
     PHASE_END: { number: 14, name: 'PHASE_END' }
-}
+};
 
 const GameStoreStore = create((set) => ({
     fightPhase: FightPhaseEnum.INITIAL,
@@ -36,6 +36,13 @@ const GameStoreStore = create((set) => ({
     setPhaseEnd: () => set(() => ({ fightPhase: FightPhaseEnum.PHASE_END })),
     netAttackValue: 0,
     setNetAttackValue: (value) => set(() => ({ netAttackValue: value })),
+    monsterShieldBroken: false,
+    setMonsterShieldBroken: (value) => set(() => ({ monsterShieldBroken: value })),
+    resetAll: () => set(() => ({
+        fightPhase: FightPhaseEnum.INITIAL,
+        netAttackValue: 0,
+        monsterShieldBroken: false
+    }))
 }));
 
 export default GameStoreStore;

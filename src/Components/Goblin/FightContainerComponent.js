@@ -43,7 +43,7 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
         if (!_.isUndefined(weapon)) {
             gameState.setNetAttackValue(totalDiceScore + weapon.attack.value);
         }
-    }, [totalDiceScore]);
+    }, [totalDiceScore, gameState.fightPhase.number === 2]);
 
     const rollTheDice = () => {
         let diceResult = [];
@@ -99,20 +99,21 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
         if (gameState.fightPhase === FightPhaseEnum.CONFIRM_DICE) {
             setTimeout(() => {
                 gameState.setAttackShield();
-            }, 500);
+            }, 1000);
         }
 
         if (gameState.fightPhase === FightPhaseEnum.ATTACK_SHIELD) {
             setTimeout(() => {
                 gameState.setAttackShieldEnd();
-            }, 200);
+            }, 1000);
         }
 
         if (gameState.fightPhase === FightPhaseEnum.ATTACK_SHIELD_END) {
             if (gameState.netAttackValue > goblin.defense) {
+                gameState.setMonsterShieldBroken(true);
                 setTimeout(() => {
                     gameState.setAttackHealth();
-                }, 700);
+                }, 1000);
             }
         }
 
@@ -148,7 +149,6 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
         return;
     };
 
-
     if (!_.isUndefined(weapon)) {
         return <div className='fight-container'>
             <div className='fight-dice-container'>
@@ -157,8 +157,9 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
                 {dicePower - 3 >= 0 ? <DiceItem isShaking={diceStore.isShaking} diceOrder={2} diceFace={rollResult[2]} selectDice={selectDice} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
             </div>
             <div onClick={() => gameState.fightPhase.number <= 1 && resetWeapon()}
-                className={`weapon-card item-image ${weapon?.id} selected-weapon` +
-                    `${gameState.fightPhase.number > 2 ? ' charge-animation' : ''}` +
+                className={`weapon-card card-item square-card item-image ${weapon?.id} selected-weapon` +
+                    `${gameState.fightPhase.number > 1 ? ' already-rolled' : ''}` +
+                    `${gameState.fightPhase.number === 3 ? ' attack-animation' : ''}` +
                     `${gameState.fightPhase.number > 4 ? ' take-damage-animation' : ''}` +
                     `${gameState.fightPhase.number > 6 ? ' attack-animation' : ''}`}
             >
@@ -169,7 +170,11 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
                     {gameState.fightPhase.number > 1 && gameState.fightPhase.number <= 4 ?
                         <><span className='total-score'>{gameState.netAttackValue}</span> <span className='total-score-description'>({totalDiceScore || 0} +{weapon.attack.value})</span></> : ''}
                     {gameState.fightPhase.number >= 5 ?
-                        <><span className='total-score-full'>{gameState.netAttackValue}</span>➧<span className='total-score'>{(gameState.netAttackValue <= goblin.defense) ? '0' : gameState.netAttackValue - goblin.defense}</span> <span className='total-score-description'>({totalDiceScore || 0} +{weapon.attack.value} -{goblin.defense})</span></> : ''}
+                        <>
+                            <span className='total-score-full'>{gameState.netAttackValue}</span>
+                            ➧<span className='total-score'>{(gameState.netAttackValue <= goblin.defense) ? '0' : gameState.netAttackValue - goblin.defense}</span>
+                            <span className='total-score-description'>({totalDiceScore || 0} +{weapon.attack.value} -{goblin.defense})</span>
+                        </> : ''}
                     {/* {weapon.attackType === 'range' ? <>{weapon.range}<i className='tile-icon' /></> : ''} */}
                 </div>
                 {gameState.fightPhase === FightPhaseEnum.CHOOSE_WEAPON && <div className='use-button'>- Remove -</div>}

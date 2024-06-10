@@ -1,162 +1,58 @@
-@keyframes charge {
-    0% {
-        transform: translateY(3%);
-    }
-
-    10% {
-        transform: translateY(6%);
-    }
-
-    98% {
-        transform: translateY(-40%);
-    }
-
-    100% {
-        transform: translateY(-39%);
-    }
-}
-
 @keyframes attack {
     0% {
-        transform: translateY(-39%);
-    }
-
-    10% {
-        transform: translateY(-36);
-    }
-
-    12% {
-        transform: translateY(-34);
-
-    }
-
-    98% {
-        transform: translateY(-132%);
-    }
-
-    100% {
-        transform: translateY(-130%);
-    }
-}
-
-@keyframes takeDamage {
-    0% {
-        filter: brightness(0.2);
-        transform: scale(.8);
-    }
-
-    30% {
-        filter: brightness(1.5);
-        transform: scale(1.1);
-    }
-
-    60% {
-        filter: brightness(0.2);
         transform: scale(0.9);
+        filter: brightness(1.3);
     }
 
-    100% {
-        filter: brightness(0.2);
-        transform: scale(1);
-    }
-}
-
-@keyframes takeDamage-health {
-    0% {
-        filter: brightness(0.2);
-        transform: scale(1.1);
-    }
-
-    15% {
-        filter: brightness(1.5);
-        transform: scale(0.9);
-    }
-
-    30% {
-        filter: brightness(0.2);
+    20% {
         transform: scale(1.2);
+        filter: brightness(0.8);
     }
 
-    60% {
-        filter: brightness(0.2);
+    40% {
         transform: scale(0.8);
+        filter: brightness(1.5);
+    }
+
+    68% {
+        transform: scale(1.1);
+        filter: brightness(0.7);
+    }
+
+    78% {
+        transform: scale(0.5);
+        filter: brightness(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+}
+
+@keyframes broken {
+    0% {
+        transform: scale(0.6);
+        filter: brightness(0.4);
     }
 
     70% {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    90% {
-        opacity: 0.5;
-        transform: scale(1.1);
+        transform: scale(1.4);
+        filter: brightness(1.5);
     }
 
     100% {
-        filter: brightness(0.1);
-        transform: scale(1);
-    }
-}
-
-@keyframes monster-die {
-    0% {
-        filter: grayscale(.6);
-    }
-
-    50% {
-        filter: grayscale(.2);
-    }
-
-    100% {
-        filter: grayscale(1);
-    }
-}
-
-@keyframes disappear {
-    0% {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    50% {
-        opacity: 0.5;
-        transform: scale(1.1);
-    }
-
-    100% {
-        opacity: 0;
         transform: scale(0);
+        filter: brightness(0);
     }
-}
-
-.gone-animation {
-    animation: disappear 0.2s ease-in forwards;
-    animation-iteration-count: 1;
-}
-
-.take-damage-animation {
-    animation: takeDamage 0.2s ease-in;
-    animation-iteration-count: 2;
-}
-
-.take-damage-monster-animation {
-    animation: takeDamage 0.2s ease-in 2 0.3s, monster-die 0.2s ease-in 1 0.4s forwards;
-}
-
-.take-damage-health-animation {
-    animation: takeDamage-health 0.3s ease-in forwards;
-    animation-iteration-count: 1;
-}
-
-.charge-animation {
-    animation: charge 0.3s ease-in;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
 }
 
 .attack-animation {
-    animation: attack 0.3s ease-in;
+    animation: attack 0.1s ease-out;
+    animation-iteration-count: 7;
+}
+
+.broken {
+    animation: broken 0.2s ease-out forwards;
     animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-    animation-delay: 0.2s;
 }

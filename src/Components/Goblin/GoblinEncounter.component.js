@@ -12,14 +12,14 @@ import FightContainerComponent from './FightContainerComponent';
 
 const CardPlaceholderComponent = ({ size, className }) => {
     return (
-        <div className={`card-place-holder ${size}-card ${className}`}>
+        <div className={`card-place-holder card-item ${size}-card ${className}`}>
             <div className='corner top-left'></div>
             <div className='corner top-right'></div>
             <div className='corner bottom-left'></div>
             <div className='corner bottom-right'></div>
         </div>
-    )
-}
+    );
+};
 
 export default GoblinEncounterComponent;
 
@@ -42,7 +42,7 @@ function GoblinEncounterComponent({ index }) {
     const chooseWeapon = (weapon) => {
         setWeaponToAttack(weapon);
         gameState.setChooseWeapon();
-    }
+    };
 
     if (isShowPopup) {
         return (
@@ -50,11 +50,12 @@ function GoblinEncounterComponent({ index }) {
                 <CardPlaceholderComponent size={'portrait'} className={'monster-card'} />
                 <CardPlaceholderComponent size={'portrait'} className={'hero-card'} />
                 <CardPlaceholderComponent size={'square'} className={'pick-weapon-card'} />
+                <CardPlaceholderComponent size={'square'} className={'armor-card'} />
                 <CardPlaceholderComponent size={'square-half'} className={'weapon-left-card'} />
                 <CardPlaceholderComponent size={'square-half'} className={'weapon-right-card'} />
                 <div className='state-label'>{gameState.fightPhase.name}</div>
                 <GoblinCardComponent goblin={goblin} />
-                <div className='card-item hero-container hero-encounter-container'>
+                <div className='card-item hero-container hero-encounter-container portrait-card'>
                     <div className='description'>
                     </div>
                     <div className='hero-card-name'>{heroData.name}</div>

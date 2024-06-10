@@ -9,7 +9,7 @@ export default function GoblinCardComponent({ goblin }) {
     const gameState = GameStateStore((state) => state);
 
     return (
-        <div className={`card-item goblin-card ${goblin.id}-card`}>
+        <div className={`card-item goblin-card ${goblin.id}-card portrait-card`}>
             <div className="card-row name-row">{goblin.name}</div>
 
             <i className="card-type-icon" />
@@ -55,7 +55,14 @@ export default function GoblinCardComponent({ goblin }) {
                     }
                 }))}
                 <div className={`heart-score`}>{goblin.health}</div>
-                <div className={`defend-power`}>{goblin.defense}</div>
+                <div className={
+                    `defend-power` +
+                    `${gameState.fightPhase.number === 3 ? ' attack-animation' : ''}` +
+                    `${gameState.monsterShieldBroken ? ' broken' : ''}`
+                }>
+                    {gameState.fightPhase.number <= 3 && goblin.defense}
+                    {gameState.fightPhase.number >= 4 && goblin.defense}
+                </div>
             </div>
         </div>
         // <div className={`goblin-tooltip ${goblin.id}-tooltip` +

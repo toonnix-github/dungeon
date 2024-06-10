@@ -117,7 +117,7 @@ export const Goblins = [
         health: 1,
         rewards: [
             { get: "item", amount: 2 },
-            { get: "health", amount: 8 }
+            { get: "health", amount: 4 }
         ]
     },
     {

@@ -6,17 +6,13 @@
     box-sizing: content-box;
 
     &.portrait-card {
-        width: 44cqh;
         margin-left: -8px;
         margin-top: -8px;
-        aspect-ratio: 2/3;
     }
 
     &.square-card {
-        width: 22cqh;
         margin-left: -8px;
         margin-top: -8px;
-        aspect-ratio: 1/1;
     }
 
     &.square-half-card {
@@ -37,24 +33,40 @@
 
     &.hero-card {
         top: 3cqh;
-        right: 2cqh;
+        right: 19cqh;
     }
 
     &.pick-weapon-card {
         top: 10cqh;
-        right: 52cqh;
+        right: 56cqh;
+    }
+
+    &.armor-card {
+        top: 42cqh;
+        right: -1cqh;
+
+        &::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background-image: url(../Assets/images/armor-placeholder.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            opacity: 0.3;
+        }
     }
 
     &.weapon-left-card {
-        width: 20cqh;
-        top: 73cqh;
-        right: 26cqh;
+        width: 15cqh;
+        top: 57cqh;
+        right: 38cqh;
     }
 
     &.weapon-right-card {
-        width: 20cqh;
-        top: 73cqh;
-        right: 2cqh;
+        width: 15cqh;
+        top: 57cqh;
+        right: 19cqh;
     }
 
     .corner {
