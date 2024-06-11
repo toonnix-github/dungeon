@@ -54,10 +54,14 @@ export default function GoblinCardComponent({ goblin }) {
                         return _.times(reward.amount, (reward_index) => <i key={`bomb-${reward_index}`} className={`icon-in-detail icon-bomb`} />);
                     }
                 }))}
-                <div className={`heart-score`}>{goblin.health}</div>
+                <div className={
+                    `heart-score` +
+                    `${gameState.fightPhase.number === 6 ? ' attack-animation' : ''}` +
+                    `${gameState.monsterHeartBroken ? ' broken' : ''}`
+                }>{goblin.health}</div>
                 <div className={
                     `defend-power` +
-                    `${gameState.fightPhase.number === 3 ? ' attack-animation' : ''}` +
+                    `${gameState.fightPhase.number === 4 ? ' attack-animation' : ''}` +
                     `${gameState.monsterShieldBroken ? ' broken' : ''}`
                 }>
                     {gameState.fightPhase.number <= 3 && goblin.defense}

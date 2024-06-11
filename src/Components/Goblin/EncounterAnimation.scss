@@ -41,6 +41,17 @@
         filter: brightness(1.5);
     }
 
+    80% {
+        transform: scale(0.9);
+        filter: brightness(0.8);
+    }
+
+    90% {
+        transform: scale(1.2);
+        filter: brightness(1.2);
+    }
+
+
     100% {
         transform: scale(0);
         filter: brightness(0);
@@ -49,7 +60,7 @@
 
 .attack-animation {
     animation: attack 0.1s ease-out;
-    animation-iteration-count: 7;
+    animation-iteration-count: 3;
 }
 
 .broken {

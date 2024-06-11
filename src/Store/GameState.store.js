@@ -38,10 +38,13 @@ const GameStoreStore = create((set) => ({
     setNetAttackValue: (value) => set(() => ({ netAttackValue: value })),
     monsterShieldBroken: false,
     setMonsterShieldBroken: (value) => set(() => ({ monsterShieldBroken: value })),
+    monsterHeartBroken: false,
+    setMonsterHeartBroken: (value) => set(() => ({ monsterHeartBroken: value })),
     resetAll: () => set(() => ({
         fightPhase: FightPhaseEnum.INITIAL,
         netAttackValue: 0,
-        monsterShieldBroken: false
+        monsterShieldBroken: false,
+        monsterHeartBroken: false
     }))
 }));
 

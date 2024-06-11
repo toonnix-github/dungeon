@@ -120,17 +120,17 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
         if (gameState.fightPhase === FightPhaseEnum.ATTACK_HEALTH) {
             setTimeout(() => {
                 gameState.setAttackHealthEnd();
-            }, 700);
+            }, 1000);
         }
 
         if (gameState.fightPhase === FightPhaseEnum.ATTACK_HEALTH_END) {
             if ((gameState.netAttackValue - goblin.defense) >= goblin.health) {
+                gameState.setMonsterHeartBroken(true);
                 setTimeout(() => {
                     gameState.setMonsterDie();
-                }, 500);
+                }, 1000);
             }
         }
-
 
         if (diceStore.dicePhase === 'ATTACK_MONSTER_HEALTH') {
             setTimeout(() => {
@@ -159,9 +159,8 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
             <div onClick={() => gameState.fightPhase.number <= 1 && resetWeapon()}
                 className={`weapon-card card-item square-card item-image ${weapon?.id} selected-weapon` +
                     `${gameState.fightPhase.number > 1 ? ' already-rolled' : ''}` +
-                    `${gameState.fightPhase.number === 3 ? ' attack-animation' : ''}` +
-                    `${gameState.fightPhase.number > 4 ? ' take-damage-animation' : ''}` +
-                    `${gameState.fightPhase.number > 6 ? ' attack-animation' : ''}`}
+                    `${gameState.fightPhase.number === 4 ? ' attack-animation' : ''}` +
+                    `${gameState.fightPhase.number === 6 ? ' attack-animation' : ''}`}
             >
                 <div className='item-name'>{weapon?.name}</div>
                 <div className={`attack-type ${_.get(weapon, 'attack.type')}-type phase-${diceStore.dicePhase}`}>
