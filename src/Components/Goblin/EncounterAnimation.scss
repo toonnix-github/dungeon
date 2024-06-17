@@ -58,6 +58,31 @@
     }
 }
 
+@keyframes take-attack-right {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+
+    10% {
+        transform: scale(1);
+        opacity: 1;
+        transform: translate(10px, -10px);
+    }
+
+    90% {
+        transform: scale(3);
+        transform: translate(60px, -20px);
+    }
+
+    100% {
+        transform: scale(5);
+        opacity: 0;
+        transform: translate(70px, -25px);
+    }
+}
+
 .attack-animation {
     animation: attack 0.1s ease-out;
     animation-iteration-count: 3;
@@ -65,5 +90,10 @@
 
 .broken {
     animation: broken 0.2s ease-out forwards;
+    animation-iteration-count: 1;
+}
+
+.take-attack-right-animation {
+    animation: take-attack-right 3s ease-in-out forwards;
     animation-iteration-count: 1;
 }

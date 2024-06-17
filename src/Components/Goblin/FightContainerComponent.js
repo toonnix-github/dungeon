@@ -99,7 +99,7 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
         if (gameState.fightPhase === FightPhaseEnum.CONFIRM_DICE) {
             setTimeout(() => {
                 gameState.setAttackShield();
-            }, 1000);
+            }, 300);
         }
 
         if (gameState.fightPhase === FightPhaseEnum.ATTACK_SHIELD) {

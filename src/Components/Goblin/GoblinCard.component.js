@@ -10,6 +10,7 @@ export default function GoblinCardComponent({ goblin }) {
 
     return (
         <div className={`card-item goblin-card ${goblin.id}-card portrait-card`}>
+            <div className="cross-sign"></div>
             <div className="card-row name-row">{goblin.name}</div>
 
             <i className="card-type-icon" />
@@ -58,14 +59,27 @@ export default function GoblinCardComponent({ goblin }) {
                     `heart-score` +
                     `${gameState.fightPhase.number === 6 ? ' attack-animation' : ''}` +
                     `${gameState.monsterHeartBroken ? ' broken' : ''}`
-                }>{goblin.health}</div>
+                }>
+                    {gameState.fightPhase.number <= 5 && goblin.health}
+                    {gameState.fightPhase.number >= 6 && ((gameState.netAttackValue - goblin.defense < goblin.health) ? (goblin.health - gameState.netAttackValue - goblin.defense) : '0')}
+                    <div className={`damage-amount` +
+                        `${gameState.fightPhase.number === 6 ? ' take-attack-right-animation' : ''}`}
+                    >
+                        -{gameState.netAttackValue - goblin.defense}
+                    </div>
+                </div>
                 <div className={
                     `defend-power` +
                     `${gameState.fightPhase.number === 4 ? ' attack-animation' : ''}` +
                     `${gameState.monsterShieldBroken ? ' broken' : ''}`
                 }>
                     {gameState.fightPhase.number <= 3 && goblin.defense}
-                    {gameState.fightPhase.number >= 4 && goblin.defense}
+                    {gameState.fightPhase.number >= 4 && ((gameState.netAttackValue < goblin.defense) ? (goblin.defense - gameState.netAttackValue) : '0')}
+                    <div className={`damage-amount` +
+                        `${gameState.fightPhase.number === 4 ? ' take-attack-right-animation' : ''}`}
+                    >
+                        -{gameState.netAttackValue < goblin.defense ? gameState.netAttackValue : goblin.defense}
+                    </div>
                 </div>
             </div>
         </div>

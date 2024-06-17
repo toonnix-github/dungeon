@@ -38,6 +38,22 @@
         height: 12cqh;
         bottom: 0;
     }
+
+    .damage-amount {
+        color: black;
+        font-size: 10cqw;
+        font-weight: bold;
+        position: absolute;
+        right: 0;
+        top: 0;
+        opacity: 0;
+        background-image: url(../Assets/images/icon/starburst.png);
+        background-size: cover;
+        width: 20cqw;
+        aspect-ratio: 1 / 1;
+        text-align: center;
+        align-content: center;
+    }
 }
 
 .shooty-goblin-card::before {
@@ -75,12 +91,12 @@
     background-size: 100%;
 }
 
-.goblin-king-card {
+.goblin-king-card::before {
     background: url('./../Assets/images/goblin/goblin-king.webp') no-repeat center left;
     background-size: 100%;
 }
 
-.goblin-minion-card {
+.goblin-minion-card::before {
     background: url('./../Assets/images/goblin/goblin-minion.webp') no-repeat center left;
     background-size: 100%;
 }

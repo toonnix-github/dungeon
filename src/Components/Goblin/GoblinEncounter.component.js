@@ -106,7 +106,7 @@ function GoblinEncounterComponent({ index }) {
 
                 </div>
                 <FightContainerComponent weapon={weaponToAttack} setWeaponToAttack={() => setWeaponToAttack()} goblinIndex={index} />
-                <Button className='close-button' onClick={() => { setIsShowPopup(false); }}>Close</Button>
+                <Button className='close-button' onClick={() => { setIsShowPopup(false); gameState.resetAll() }}>Close</Button>
             </Modal>
         );
     }
