@@ -46,15 +46,9 @@ export default function GoblinCardComponent({ goblin }) {
             </div>
             <div className="card-row bottom-row">
                 <i className="icon-in-detail icon-defeat-goblin icon-badge" />
-                {(goblin.rewards.map((reward) => {
-                    if (reward.get === 'item') {
-                        return _.times(reward.amount, (reward_index) => <i key={`treasure-${reward_index}`} className={`icon-in-detail icon-treasure-bag`} />);
-                    } else if (reward.get === 'health') {
-                        return _.times(reward.amount, (reward_index) => <i key={`health-${reward_index}`} className={`icon-in-detail icon-reward-health icon-reward-${reward_index}`} />);
-                    } else if (reward.get === 'bomb') {
-                        return _.times(reward.amount, (reward_index) => <i key={`bomb-${reward_index}`} className={`icon-in-detail icon-bomb`} />);
-                    }
-                }))}
+                {goblin.rewards.map((reward, index) =>
+                    <i key={`treasure-${index}`} className={`icon-in-detail icon-reward-${reward}`} />
+                )}
                 <div className={
                     `heart-score` +
                     `${gameState.fightPhase.number === 6 ? ' attack-animation' : ''}` +

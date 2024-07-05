@@ -19,8 +19,7 @@ export const Goblins = [
         defense: 2,
         health: 1,
         rewards: [
-            { get: "item", amount: 1 },
-            { get: "health", amount: 1 }
+            "item", "health"
         ]
     },
     {
@@ -44,8 +43,7 @@ export const Goblins = [
         defense: 4,
         health: 1,
         rewards: [
-            { get: "item", amount: 1 },
-            { get: "health", amount: 1 }
+            "item", "health"
         ]
     },
     {
@@ -69,7 +67,7 @@ export const Goblins = [
         defense: 3,
         health: 1,
         rewards: [
-            { get: "item", amount: 1 },
+            "item"
         ]
     },
     {
@@ -91,8 +89,7 @@ export const Goblins = [
         defense: 6,
         health: 1,
         rewards: [
-            { get: "item", amount: 1 },
-            { get: "bomb", amount: 1 }
+            "item", "bomb"
         ]
     },
     {
@@ -116,8 +113,7 @@ export const Goblins = [
         defense: 8,
         health: 1,
         rewards: [
-            { get: "item", amount: 2 },
-            { get: "health", amount: 4 }
+            "item", "item", "health", "health"
         ]
     },
     {
@@ -142,7 +138,7 @@ export const Goblins = [
         defense: 2,
         health: 1,
         rewards: [
-            { get: "item", amount: 1 },
+            "item"
         ]
     },
     {
@@ -166,8 +162,7 @@ export const Goblins = [
         defense: 3,
         health: 1,
         rewards: [
-            { get: "spell", amount: 1 },
-            { get: "health", amount: 2 }
+            "spell", "health", "health"
         ]
     },
     {
@@ -190,8 +185,7 @@ export const Goblins = [
         defense: 10,
         health: 1,
         rewards: [
-            { get: "item", amount: 2 },
-            { get: "spell", amount: 2 },
+            "item", "item", "spell", "spell"
         ]
     }
 ];
@@ -215,6 +209,6 @@ export const GoblinMinion = {
     defense: 1,
     health: 1,
     rewards: [
-        { get: "health", amount: 1 }
+        "health"
     ]
 };
