@@ -4,8 +4,9 @@ import roomStore from '../Store/Room.store';
 import { useState } from 'react';
 import _ from 'lodash';
 import Modal from 'react-bootstrap/Modal';
+import LootPopupStore from './../Store/LootPopup.store';
 
-function LootPopup({ newFoundLoot, setIsShowLootPopup, isShowLootPopup }) {
+function LootPopup() {
     const vikingPosition = VikingStore((state) => state.position);
     const vikingWeapon = VikingStore((state) => state.weapon);
     const vikingRune = VikingStore((state) => state.rune);
@@ -14,13 +15,14 @@ function LootPopup({ newFoundLoot, setIsShowLootPopup, isShowLootPopup }) {
     const updateRune = VikingStore((state) => state.updateRune);
     const updateArmor = VikingStore((state) => state.updateArmor);
     const solveRoomStatus = roomStore((state) => state.solveRoomStatus);
+    const lootPopupStore = LootPopupStore((state) => state);
 
     const [removeIndex, setRemoveIndex] = useState(null);
 
     const confimrDecision = (removeIndex) => {
-        let updatedItemInHands = [...itemOnHand, newFoundLoot];
+        let updatedItemInHands = [...itemOnHand, lootPopupStore.newFoundLoot];
         updatedItemInHands.splice(removeIndex, 1);
-        switch (newFoundLoot.type) {
+        switch (lootPopupStore.newFoundLoot.type) {
             case 'weapon':
                 updateWeapon(updatedItemInHands);
                 break;
@@ -33,26 +35,29 @@ function LootPopup({ newFoundLoot, setIsShowLootPopup, isShowLootPopup }) {
         }
 
         setRemoveIndex(null);
-        setIsShowLootPopup(false);
+        lootPopupStore.closePopup();
+        lootPopupStore.resetNewFoundLoot();
         solveRoomStatus(vikingPosition[0], vikingPosition[1]);
     };
 
-    const lootIsWeapon = newFoundLoot.type === 'weapon';
-    const lootIsRune = newFoundLoot.type === 'rune';
-    const lootIsArmor = newFoundLoot.type === 'armor';
+    const lootIsWeapon = lootPopupStore.newFoundLoot.type === 'weapon';
+    const lootIsRune = lootPopupStore.newFoundLoot.type === 'rune';
+    const lootIsArmor = lootPopupStore.newFoundLoot.type === 'armor';
     const itemOnHand = lootIsWeapon ? [...vikingWeapon] : (lootIsRune ? [...vikingRune] : [...vikingArmor]);
     const itemLimit = lootIsWeapon ? 2 : (lootIsRune ? 3 : 1);
 
     const getNewItem = () => {
-        if (lootIsWeapon) updateWeapon([...vikingWeapon, newFoundLoot]);
-        if (lootIsRune) updateRune([...vikingRune, newFoundLoot]);
-        if (lootIsArmor) updateArmor([...vikingArmor, newFoundLoot]);
-        setIsShowLootPopup(false);
+        if (lootIsWeapon) updateWeapon([...vikingWeapon, lootPopupStore.newFoundLoot]);
+        if (lootIsRune) updateRune([...vikingRune, lootPopupStore.newFoundLoot]);
+        if (lootIsArmor) updateArmor([...vikingArmor, lootPopupStore.newFoundLoot]);
+        lootPopupStore.closePopup();
+        lootPopupStore.resetNewFoundLoot();
+        lootPopupStore.end();
         solveRoomStatus(vikingPosition[0], vikingPosition[1]);
     };
 
     return (
-        <Modal centered contentClassName='card-modal' show={isShowLootPopup} size="lg">
+        <Modal centered contentClassName='card-modal' show={lootPopupStore.isShowPopup} size="lg">
             <Modal.Body>
 
                 {(
@@ -64,10 +69,10 @@ function LootPopup({ newFoundLoot, setIsShowLootPopup, isShowLootPopup }) {
                 )
                     ?
                     <>
-                        <div className="popup-title">You got a new {(newFoundLoot.type).toUpperCase()}!!</div>
+                        <div className="popup-title">You got a new {(lootPopupStore.newFoundLoot.type).toUpperCase()}!!</div>
                         <div className="card-container new-card-container">
                             <i></i>
-                            <ItemCard weaponIndex={null} itemDetail={newFoundLoot} />
+                            <ItemCard weaponIndex={null} itemDetail={lootPopupStore.newFoundLoot} />
                             <i></i>
                         </div>
                         <div className="popup-button">
@@ -83,8 +88,8 @@ function LootPopup({ newFoundLoot, setIsShowLootPopup, isShowLootPopup }) {
                             {lootIsRune && <span>You got a new RUNE!!, BUT your storage is full now, pick only 3!</span>}
                             {lootIsArmor && <span>You got a new ARMOR!!, BUT you already have 1, pick only 1!</span>}
                         </div>
-                        <div className={`card-container ${newFoundLoot.type}-container`}>
-                            {[...itemOnHand, newFoundLoot].map((lootDetail, index) => (
+                        <div className={`card-container ${lootPopupStore.newFoundLoot.type}-container`}>
+                            {[...itemOnHand, lootPopupStore.newFoundLoot].map((lootDetail, index) => (
                                 <div className="relative-frame" key={index}>
                                     <ItemCard needToDiscard={true} weaponIndex={index} setRemoveIndex={setRemoveIndex} itemDetail={lootDetail} removeIndex={removeIndex} />
                                     {index === itemLimit && <i className="new-icon"></i>}

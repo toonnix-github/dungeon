@@ -13,6 +13,8 @@ import VikingComponent from './Components/Viking.component';
 import HeroDisplayComponent from './Components/HeroDisplay.component';
 import HeroActionComponent from './Components/HeroAction.component';
 import GoblinStore from './Store/Goblin.store';
+import WinRewardsComponent from './Components/WinRewards.component';
+import LootPopup from './Components/LootPopup.component';
 
 function App() {
   const [isRoomRotating, setIsRoomRotating] = useState(false);
@@ -41,6 +43,8 @@ function App() {
       {goblinGang.map((goblin, index) => (
         <GoblinComponent key={index} index={index} goblin={goblin} />
       ))}
+      <WinRewardsComponent />
+      <LootPopup />
     </div >
   );
 }

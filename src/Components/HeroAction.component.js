@@ -3,7 +3,6 @@ import _, { set } from "lodash";
 import roomStore from "../Store/Room.store";
 import VikingStore from "../Store/Viking.store";
 import treasureUtil from '../Util/Treasure.Util';
-import LootPopup from './LootPopup.component';
 import "./HeroAction.scss";
 import './ItemPopup.scss';
 import DiceStore from "../Store/Dice.store";
@@ -14,6 +13,7 @@ import Modal from 'react-bootstrap/Modal';
 import GoblinStore from "../Store/Goblin.store";
 import GoblinEncounterComponent from "./Goblin/GoblinEncounter.component";
 import { DiceItem } from "./DiceItem.component";
+import LootPopupStore from "../Store/LootPopup.store";
 
 function HeroActionComponent() {
     const vikingPosition = VikingStore((state) => state.position);
@@ -37,17 +37,13 @@ function HeroActionComponent() {
     const totalDiceScore = DiceStore((state) => state.diceScore.main + state.diceScore.add1 + state.diceScore.add2);
 
     const goblinGang = GoblinStore((state) => state.gang);
+    const lootPopupStore = LootPopupStore((state) => state);
 
-
-    const [isShowLootPopup, setIsShowLootPopup] = useState(false);
-    const [newFoundItem, setNewFoundItem] = useState();
     const [dicePower, setDicePower] = useState(0);
     const [rollResult, setRollResult] = useState([]);
     const [effectHeroGet, setEffectHeroGet] = useState({ action: 0, health: 0 });
     const [encounterGoblinIndex, setEncounterGoblinIndex] = useState();
     const [isShowGoblinEncounterPopup, setIsShowGoblinEncounterPopup] = useState(false);
-
-
 
     useEffect(() => {
         if (isShowDicePopup) {
@@ -109,8 +105,9 @@ function HeroActionComponent() {
     const getRandomItemAndOpenPopup = () => {
         endDicePhase();
         const itemFromTreasure = treasureUtil.getRandomTreasure();
-        setNewFoundItem(itemFromTreasure);
-        setIsShowLootPopup(true);
+        lootPopupStore.setNewFoundLoot(itemFromTreasure);
+        lootPopupStore.showPopup();
+        lootPopupStore.begin();
     };
 
     const getPunishment = () => {
@@ -196,13 +193,6 @@ function HeroActionComponent() {
                 {
             /* <button className="attack-action"></button>
             <button className="magic-action"></button> */}
-                {isShowLootPopup &&
-                    <LootPopup
-                        newFoundLoot={newFoundItem}
-                        setIsShowLootPopup={setIsShowLootPopup}
-                        isShowLootPopup={isShowLootPopup}
-                    />
-                }
             </div>
             <GoblinEncounterComponent show={isShowGoblinEncounterPopup} index={encounterGoblinIndex} />
         </>

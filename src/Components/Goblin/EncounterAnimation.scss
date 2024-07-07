@@ -83,6 +83,32 @@
     }
 }
 
+@keyframes card-die {
+    0% {
+        transform: scale(1.6);
+        opacity: 1;
+    }
+
+    20% {
+        transform: scale(0.8);
+    }
+
+    70% {
+        transform: scale(2);
+    }
+
+    99% {
+        transform: scale(0.9);
+    }
+
+    100% {
+        transform: scale(1);
+        background-size: cover;
+        filter: grayscale(0.7);
+        opacity: 0.7;
+    }
+}
+
 .attack-animation {
     animation: attack 0.1s ease-out;
     animation-iteration-count: 3;
@@ -95,5 +121,10 @@
 
 .take-attack-right-animation {
     animation: take-attack-right 3s ease-in-out forwards;
+    animation-iteration-count: 1;
+}
+
+.die-animation {
+    animation: card-die 0.3s ease-in-out forwards;
     animation-iteration-count: 1;
 }

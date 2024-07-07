@@ -8,6 +8,7 @@ import DiceStore from '../../Store/Dice.store';
 import DiceUtil from '../../Util/Dice.Util';
 import GameStateStore, { FightPhaseEnum } from '../../Store/GameState.store';
 import { MonsterDiceComponent } from './MonsterDiceComponent';
+import WinRewardsStore from '../../Store/WinRewards.store';
 
 export default function FightContainerComponent({ weapon, setWeaponToAttack, goblinIndex }) {
     const heroData = VikingStore((state) => state);
@@ -21,6 +22,7 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
     const goblinStore = GoblinStore((state) => state);
     const goblin = GoblinStore((state) => state.gang[goblinIndex]);
     const gameState = GameStateStore((state) => state);
+    const winRewards = WinRewardsStore((state) => state);
 
     const [dicePower, setDicePower] = useState(0);
     const [rollResult, setRollResult] = useState([0, 0, 0]);
@@ -131,13 +133,10 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
                 }, 1000);
             }
         }
-
-        if (diceStore.dicePhase === 'ATTACK_MONSTER_HEALTH') {
-            setTimeout(() => {
-                diceStore.setDicePhase('KILL_GOBLIN');
-                // goblinStore.killGoblinByIdx(goblinIndex);
-            }, 500);
+        if (gameState.fightPhase === FightPhaseEnum.MONSTER_DIE) {
+            winRewards.setRewards([...goblin.rewards]);
         }
+
     }, [gameState.fightPhase]);
 
     const resetWeapon = () => {
@@ -192,4 +191,3 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
     }
 
 };
-

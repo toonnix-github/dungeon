@@ -9,8 +9,12 @@ export default function GoblinCardComponent({ goblin }) {
     const gameState = GameStateStore((state) => state);
 
     return (
-        <div className={`card-item goblin-card ${goblin.id}-card portrait-card`}>
-            <div className="cross-sign"></div>
+        <div className={`card-item goblin-card ${goblin.id}-card portrait-card` +
+            `${gameState.monsterHeartBroken ? ' die' : ''}`
+        }>
+            <div className={`cross-sign` +
+                `${gameState.monsterHeartBroken ? ' die-animation' : ''}`
+            }></div>
             <div className="card-row name-row">{goblin.name}</div>
 
             <i className="card-type-icon" />
