@@ -39,3 +39,6 @@ gcloud app deploy src/app.yaml
 2. Run `npm test` to ensure your changes pass all tests.
 3. Open a pull request describing your changes.
 
+## License
+
+This project is licensed under the [MIT License](LICENSE).
