@@ -8,3 +8,4 @@ const RotateButtons = ({ confirmButtonState, rotateRoomExit, confirmRoom }) => (
 );
 
 export default RotateButtons;
+
