@@ -26,3 +26,4 @@ function GoblinDefeatedModal() {
 }
 
 export default GoblinDefeatedModal;
+

@@ -45,3 +45,4 @@ const TreasureDeck = [
 ]
 
 export default TreasureDeck;
+
