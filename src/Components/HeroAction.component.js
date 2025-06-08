@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import _, { set } from "lodash";
+import _ from "lodash";
 import roomStore from "../Store/Room.store";
 import VikingStore from "../Store/Viking.store";
 import treasureUtil from '../Util/Treasure.Util';
