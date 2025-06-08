@@ -20,6 +20,9 @@ const GoblinStore = create((set) => ({
     moveLeft: (index) => set((state) => ({
         gang: state.gang.map((goblin, i) => i === index ? { ...goblin, position: { x: goblin.position.x - 1, y: goblin.position.y } } : goblin)
     })),
+    isShowDefeatedPopup: false,
+    showDefeatedPopup: () => set(() => ({ isShowDefeatedPopup: true })),
+    closeDefeatedPopup: () => set(() => ({ isShowDefeatedPopup: false })),
 }));
 
 export default GoblinStore;

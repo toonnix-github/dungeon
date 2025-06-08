@@ -8,7 +8,8 @@ import DiceStore from '../../Store/Dice.store';
 import DiceUtil from '../../Util/Dice.Util';
 import GameStateStore, { FightPhaseEnum } from '../../Store/GameState.store';
 import { MonsterDiceComponent } from './MonsterDiceComponent';
-import WinRewardsStore from '../../Store/WinRewards.store';
+import WinRewardsStore, { WinRewardsStaeENUM } from '../../Store/WinRewards.store';
+import { logDOM } from '@testing-library/react';
 
 export default function FightContainerComponent({ weapon, setWeaponToAttack, goblinIndex }) {
     const heroData = VikingStore((state) => state);
@@ -98,6 +99,15 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
     };
 
     useEffect(() => {
+        console.log(gameState.fightPhase.name);
+        console.log(winRewards.state);
+        console.log(goblinStore.gang);
+
+        if (gameState.fightPhase === FightPhaseEnum.IDLE) {
+            resetDiceScore();
+            resetWeapon();
+        }
+
         if (gameState.fightPhase === FightPhaseEnum.CONFIRM_DICE) {
             setTimeout(() => {
                 gameState.setAttackShield();
@@ -133,11 +143,23 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
                 }, 1000);
             }
         }
+
         if (gameState.fightPhase === FightPhaseEnum.MONSTER_DIE) {
+            winRewards.setStart();
+        }
+
+        if (winRewards.state === WinRewardsStaeENUM.START) {
             winRewards.setRewards([...goblin.rewards]);
         }
 
-    }, [gameState.fightPhase]);
+        if (winRewards.state === WinRewardsStaeENUM.END) {
+            winRewards.resetAll();
+            gameState.resetAll();
+            goblinStore.showDefeatedPopup();
+            goblinStore.killGoblinByIdx(goblinIndex);
+        }
+
+    }, [gameState.fightPhase, winRewards.state]);
 
     const resetWeapon = () => {
         setWeaponToAttack(null);
@@ -183,7 +205,7 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
                 </div>
             </div>
             {(!_.isUndefined(weapon) && rollResult[0] === 0) && <Button size='sm' variant='success' onClick={() => { rollTheDice(); diceStore.setShaking(false); }} onMouseEnter={() => { diceStore.setShaking(true); }} onMouseLeave={() => { diceStore.setShaking(false); }} className='attack-button'><span>!! Attack !!</span></Button>}
-            {totalDiceScore !== 0 && !diceStore.isConfirm && <>
+            {totalDiceScore !== 0 && !diceStore.isConfirm && gameState.fightPhase.number < 3 && <>
                 <Button size='sm' variant='warning' onClick={() => { resetDice(); }} className='reset-button'>Reset</Button>
                 <Button size='sm' variant='success' onClick={() => { confirmDice(); }} className='confirm-button'>Confirm</Button>
             </>}

@@ -12,6 +12,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import GoblinStore from "../Store/Goblin.store";
 import GoblinEncounterComponent from "./Goblin/GoblinEncounter.component";
+import GameStateStore from '../Store/GameState.store';
 import { DiceItem } from "./DiceItem.component";
 import LootPopupStore from "../Store/LootPopup.store";
 
@@ -22,6 +23,7 @@ function HeroActionComponent() {
     const takeAction = VikingStore((state) => state.useAction);
     const takeMove = VikingStore((state) => state.useMove);
     const heroDicePower = VikingStore((state) => state.dicePower);
+    const gameState = GameStateStore((state) => state);
 
     const roomData = roomStore((state) => state.rooms[vikingPosition[0]][vikingPosition[1]]);
     const roomsData = roomStore((state) => state.rooms);
@@ -119,7 +121,7 @@ function HeroActionComponent() {
         goblinGang.map((goblin, index) => {
             if (_.isEqual(goblin.position.y, vikingPosition[0]) && _.isEqual(goblin.position.x, vikingPosition[1])) {
                 setEncounterGoblinIndex(index);
-                setIsShowGoblinEncounterPopup(true);
+                gameState.setGoblinEncounter(true);
             }
         });
     };
@@ -194,7 +196,7 @@ function HeroActionComponent() {
             /* <button className="attack-action"></button>
             <button className="magic-action"></button> */}
             </div>
-            <GoblinEncounterComponent show={isShowGoblinEncounterPopup} index={encounterGoblinIndex} />
+            <GoblinEncounterComponent index={encounterGoblinIndex} />
         </>
 
     );

@@ -32,17 +32,23 @@ function GoblinEncounterComponent({ index }) {
     const diceStore = DiceStore((state) => state);
     const gameState = GameStateStore((state) => state);
 
-
     useEffect(() => {
-        if (_.isNumber(index)) {
+        if (gameState.goblinEncounter) {
             setIsShowPopup(true);
+        } else {
+            setIsShowPopup(false);
         }
-    }, [index]);
+    }, [gameState.goblinEncounter]);
 
     const chooseWeapon = (weapon) => {
         setWeaponToAttack(weapon);
         gameState.setChooseWeapon();
     };
+
+    const endEncounterPhase = () => {
+        setIsShowPopup(false);
+        gameState.resetAll();
+    }
 
     if (isShowPopup) {
         return (
@@ -53,7 +59,6 @@ function GoblinEncounterComponent({ index }) {
                 <CardPlaceholderComponent size={'square'} className={'armor-card'} />
                 <CardPlaceholderComponent size={'square-half'} className={'weapon-left-card'} />
                 <CardPlaceholderComponent size={'square-half'} className={'weapon-right-card'} />
-                <div className='state-label'>{gameState.fightPhase.name}</div>
                 <GoblinCardComponent goblin={goblin} />
                 <div className='card-item hero-container hero-encounter-container portrait-card'>
                     <div className='description'>
@@ -106,7 +111,7 @@ function GoblinEncounterComponent({ index }) {
 
                 </div>
                 <FightContainerComponent weapon={weaponToAttack} setWeaponToAttack={() => setWeaponToAttack()} goblinIndex={index} />
-                <Button className='close-button' onClick={() => { setIsShowPopup(false); gameState.resetAll() }}>Close</Button>
+                <Button className='close-button' onClick={endEncounterPhase}>Close</Button>
             </Modal>
         );
     }

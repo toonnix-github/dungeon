@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 export const FightPhaseEnum = {
+    IDLE: { number: -1, name: 'IDLE' },
     INITIAL: { number: 0, name: 'INITIAL' },
     CHOOSE_WEAPON: { number: 1, name: 'CHOOSE_WEAPON' },
     ROLE_DICE: { number: 2, name: 'ROLE_DICE' },
@@ -14,11 +15,15 @@ export const FightPhaseEnum = {
     MONSTER_DIE_END: { number: 11, name: 'MONSTER_DIE_END' },
     HERO_DIE: { number: 12, name: 'HERO_DIE' },
     HERO_DIE_END: { number: 13, name: 'HERO_DIE_END' },
-    PHASE_END: { number: 14, name: 'PHASE_END' }
+    PHASE_END: { number: 14, name: 'PHASE_END' },
+    FIGHT_END: { number: 90, name: 'FIGHT_END' }
 };
 
-const GameStoreStore = create((set) => ({
-    fightPhase: FightPhaseEnum.INITIAL,
+const GameStoteStore = create((set) => ({
+    fightPhase: FightPhaseEnum.IDLE,
+    goblinEncounter: false,
+    setGoblinEncounter: (value) => set(() => ({ goblinEncounter: value })),
+    setIdle: () => set(() => ({ fightPhase: FightPhaseEnum.IDLE })),
     setInit: () => set(() => ({ fightPhase: FightPhaseEnum.INITIAL })),
     setChooseWeapon: () => set(() => ({ fightPhase: FightPhaseEnum.CHOOSE_WEAPON })),
     setRoleDice: () => set(() => ({ fightPhase: FightPhaseEnum.ROLE_DICE })),
@@ -34,6 +39,7 @@ const GameStoreStore = create((set) => ({
     setHeroDie: () => set(() => ({ fightPhase: FightPhaseEnum.HERO_DIE })),
     setHeroDieEnd: () => set(() => ({ fightPhase: FightPhaseEnum.HERO_DIE_END })),
     setPhaseEnd: () => set(() => ({ fightPhase: FightPhaseEnum.PHASE_END })),
+    setFightEnd: () => set(() => ({ fightPhase: FightPhaseEnum.FIGHT_END })),
     netAttackValue: 0,
     setNetAttackValue: (value) => set(() => ({ netAttackValue: value })),
     monsterShieldBroken: false,
@@ -41,11 +47,12 @@ const GameStoreStore = create((set) => ({
     monsterHeartBroken: false,
     setMonsterHeartBroken: (value) => set(() => ({ monsterHeartBroken: value })),
     resetAll: () => set(() => ({
-        fightPhase: FightPhaseEnum.INITIAL,
+        fightPhase: FightPhaseEnum.IDLE,
         netAttackValue: 0,
         monsterShieldBroken: false,
-        monsterHeartBroken: false
+        monsterHeartBroken: false,
+        goblinEncounter: false
     }))
 }));
 
-export default GameStoreStore;
+export default GameStoteStore;
