@@ -871,6 +871,14 @@
     right: 10px;
     height: 15%;
     width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .dice-number {
+        color: #fff;
+        font-size: 50cqw;
+    }
 
     &.hero-phase {
         visibility: hidden;

@@ -29,6 +29,7 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
     const [rollResult, setRollResult] = useState([0, 0, 0]);
     const [effectHeroGet, setEffectHeroGet] = useState({ action: 0, health: 0 });
     const [isConfirmDice, setIsConfirmDice] = useState(false);
+    const [monsterDiceResult, setMonsterDiceResult] = useState(0);
 
     const selectDice = (diceOrder, score) => {
         rollResult[diceOrder].selected = true;
@@ -126,6 +127,10 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
                 setTimeout(() => {
                     gameState.setAttackHealth();
                 }, 1000);
+            } else {
+                setTimeout(() => {
+                    gameState.setCounterAttack();
+                }, 1000);
             }
         }
 
@@ -154,13 +159,19 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
         }
 
         if (gameState.fightPhase === FightPhaseEnum.COUNTER_ATTACK) {
-            VikingStore.getState().takeDamage(goblin.counterAttack.damage);
+            const dice = DiceUtil.rollDice();
+            setMonsterDiceResult(dice.number);
+            gameState.setCounterAttackDice(dice.number);
+            const bonus = goblin.counterAttack.bonusPerGoblin ? goblin.counterAttack.bonusPerGoblin * (goblinStore.gang.length - 1) : 0;
+            const damage = dice.number + goblin.counterAttack.damage + bonus;
+            VikingStore.getState().takeDamage(damage);
             setTimeout(() => {
                 gameState.setCounterAttackEnd();
             }, 1000);
         }
 
         if (gameState.fightPhase === FightPhaseEnum.COUNTER_ATTACK_END) {
+            setMonsterDiceResult(0);
             gameState.resetAll();
         }
 

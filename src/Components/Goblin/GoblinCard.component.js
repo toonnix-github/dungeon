@@ -33,7 +33,11 @@ export default function GoblinCardComponent({ goblin }) {
                     {goblin.attack.range === 0 && <i className="icon-badge icon-in-detail same-location-icon" />}
                     <i className="icon-in-detail icon-skill icon-windwalk" />
                 </div>
-                {gameState.fightPhase.number === 1 && <MonsterDiceComponent isDiceShaking={diceStore.isShaking} />}
+                {(gameState.fightPhase.number === 1 || gameState.fightPhase === FightPhaseEnum.COUNTER_ATTACK) &&
+                    <MonsterDiceComponent
+                        isDiceShaking={diceStore.isShaking}
+                        diceNumber={gameState.fightPhase === FightPhaseEnum.COUNTER_ATTACK ? gameState.counterAttackDice : undefined}
+                    />}
                 <div className="card-row top-row">
                     <i className="icon-counter-attack icon-in-detail icon-badge" />
                     {goblin.counterAttack.damage > 0 ? <>
