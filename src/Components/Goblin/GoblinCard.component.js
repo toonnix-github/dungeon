@@ -33,7 +33,7 @@ export default function GoblinCardComponent({ goblin }) {
                     {goblin.attack.range === 0 && <i className="icon-badge icon-in-detail same-location-icon" />}
                     <i className="icon-in-detail icon-skill icon-windwalk" />
                 </div>
-                {gameState.fightPhase.number === 1 && <MonsterDiceComponent isDiceShaking={diceStore.isShaking} />}
+                {gameState.fightPhase === FightPhaseEnum.CHOOSE_WEAPON && <MonsterDiceComponent isDiceShaking={diceStore.isShaking} />}
                 <div className="card-row top-row">
                     <i className="icon-counter-attack icon-in-detail icon-badge" />
                     {goblin.counterAttack.damage > 0 ? <>
@@ -58,26 +58,26 @@ export default function GoblinCardComponent({ goblin }) {
                     )}
                     <div className={
                         `heart-score` +
-                        `${gameState.fightPhase.number === 6 ? ' attack-animation' : ''}` +
+                        `${gameState.fightPhase === FightPhaseEnum.APPLY_DAMAGE ? ' attack-animation' : ''}` +
                         `${gameState.monsterHeartBroken ? ' broken' : ''}`
                     }>
-                        {gameState.fightPhase.number <= 5 && goblin.health}
-                        {gameState.fightPhase.number >= 6 && ((gameState.netAttackValue - goblin.defense < goblin.health) ? (goblin.health - gameState.netAttackValue - goblin.defense) : '0')}
+                        {[FightPhaseEnum.CHOOSE_WEAPON, FightPhaseEnum.ROLL_DICE].includes(gameState.fightPhase) && goblin.health}
+                        {[FightPhaseEnum.APPLY_DAMAGE, FightPhaseEnum.COUNTER_ATTACK, FightPhaseEnum.VICTORY, FightPhaseEnum.DEFEAT].includes(gameState.fightPhase) && ((gameState.netAttackValue - goblin.defense < goblin.health) ? (goblin.health - gameState.netAttackValue - goblin.defense) : '0')}
                         <div className={`damage-amount` +
-                            `${gameState.fightPhase.number === 6 ? ' take-attack-right-animation' : ''}`}
+                            `${gameState.fightPhase === FightPhaseEnum.APPLY_DAMAGE ? ' take-attack-right-animation' : ''}`}
                         >
                             -{gameState.netAttackValue - goblin.defense}
                         </div>
                     </div>
                     <div className={
                         `defend-power` +
-                        `${gameState.fightPhase.number === 4 ? ' attack-animation' : ''}` +
+                        `${gameState.fightPhase === FightPhaseEnum.APPLY_DAMAGE ? ' attack-animation' : ''}` +
                         `${gameState.monsterShieldBroken ? ' broken' : ''}`
                     }>
-                        {gameState.fightPhase.number <= 3 && goblin.defense}
-                        {gameState.fightPhase.number >= 4 && ((gameState.netAttackValue < goblin.defense) ? (goblin.defense - gameState.netAttackValue) : '0')}
+                        {[FightPhaseEnum.CHOOSE_WEAPON, FightPhaseEnum.ROLL_DICE].includes(gameState.fightPhase) && goblin.defense}
+                        {[FightPhaseEnum.APPLY_DAMAGE, FightPhaseEnum.COUNTER_ATTACK, FightPhaseEnum.VICTORY, FightPhaseEnum.DEFEAT].includes(gameState.fightPhase) && ((gameState.netAttackValue < goblin.defense) ? (goblin.defense - gameState.netAttackValue) : '0')}
                         <div className={`damage-amount` +
-                            `${gameState.fightPhase.number === 4 ? ' take-attack-right-animation' : ''}`}
+                            `${gameState.fightPhase === FightPhaseEnum.APPLY_DAMAGE ? ' take-attack-right-animation' : ''}`}
                         >
                             -{gameState.netAttackValue < goblin.defense ? gameState.netAttackValue : goblin.defense}
                         </div>

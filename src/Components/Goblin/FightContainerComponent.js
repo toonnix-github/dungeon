@@ -46,7 +46,7 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
         if (!_.isUndefined(weapon)) {
             gameState.setNetAttackValue(totalDiceScore + weapon.attack.value);
         }
-    }, [totalDiceScore, gameState.fightPhase.number === 2]);
+    }, [totalDiceScore, gameState.fightPhase === FightPhaseEnum.ROLL_DICE]);
 
     const rollTheDice = () => {
         let diceResult = [];
@@ -54,7 +54,7 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
             diceResult.push({ ...DiceUtil.rollDice() });
         }
         setRollResult(diceResult);
-        gameState.setRoleDice();
+        gameState.setFightPhase(FightPhaseEnum.ROLL_DICE);
     };
 
     const checkEffectHeroGet = () => {
@@ -95,59 +95,44 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
     };
 
     const confirmDice = () => {
-        gameState.setConfirmDice();
+        gameState.setFightPhase(FightPhaseEnum.APPLY_DAMAGE);
     };
 
     useEffect(() => {
-        console.log(gameState.fightPhase.name);
-        console.log(winRewards.state);
-        console.log(goblinStore.gang);
-
         if (gameState.fightPhase === FightPhaseEnum.IDLE) {
             resetDiceScore();
             resetWeapon();
         }
 
-        if (gameState.fightPhase === FightPhaseEnum.CONFIRM_DICE) {
-            setTimeout(() => {
-                gameState.setAttackShield();
+        if (gameState.fightPhase === FightPhaseEnum.APPLY_DAMAGE) {
+            const shieldTimer = setTimeout(() => {
+                if (gameState.netAttackValue > goblin.defense) {
+                    gameState.setMonsterShieldBroken(true);
+                }
             }, 300);
+
+            const healthTimer = setTimeout(() => {
+                const damage = Math.max(0, gameState.netAttackValue - goblin.defense);
+                if (damage >= goblin.health) {
+                    gameState.setMonsterHeartBroken(true);
+                    gameState.setFightPhase(FightPhaseEnum.VICTORY);
+                } else {
+                    gameState.setFightPhase(FightPhaseEnum.COUNTER_ATTACK);
+                }
+            }, 1300);
+
+            return () => {
+                clearTimeout(shieldTimer);
+                clearTimeout(healthTimer);
+            };
         }
 
-        if (gameState.fightPhase === FightPhaseEnum.ATTACK_SHIELD) {
-            setTimeout(() => {
-                gameState.setAttackShieldEnd();
-            }, 1000);
-        }
-
-        if (gameState.fightPhase === FightPhaseEnum.ATTACK_SHIELD_END) {
-            if (gameState.netAttackValue > goblin.defense) {
-                gameState.setMonsterShieldBroken(true);
-                setTimeout(() => {
-                    gameState.setAttackHealth();
-                }, 1000);
-            }
-        }
-
-        if (gameState.fightPhase === FightPhaseEnum.ATTACK_HEALTH) {
-            setTimeout(() => {
-                gameState.setAttackHealthEnd();
-            }, 1000);
-        }
-
-        if (gameState.fightPhase === FightPhaseEnum.ATTACK_HEALTH_END) {
-            if ((gameState.netAttackValue - goblin.defense) >= goblin.health) {
-                gameState.setMonsterHeartBroken(true);
-                setTimeout(() => {
-                    gameState.setMonsterDie();
-                }, 1000);
-            }
-        }
-
-        if (gameState.fightPhase === FightPhaseEnum.MONSTER_DIE) {
+        if (gameState.fightPhase === FightPhaseEnum.VICTORY) {
             winRewards.setStart();
         }
+    }, [gameState.fightPhase]);
 
+    useEffect(() => {
         if (winRewards.state === WinRewardsStaeENUM.START) {
             winRewards.setRewards([...goblin.rewards]);
         }
@@ -158,12 +143,11 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
             goblinStore.showDefeatedPopup();
             goblinStore.killGoblinByIdx(goblinIndex);
         }
-
-    }, [gameState.fightPhase, winRewards.state]);
+    }, [winRewards.state]);
 
     const resetWeapon = () => {
         setWeaponToAttack(null);
-        gameState.setInit();
+        gameState.setFightPhase(FightPhaseEnum.CHOOSE_WEAPON);
     };
 
     const showAttackNumber = () => {
@@ -177,19 +161,18 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
                 {dicePower - 2 >= 0 ? <DiceItem isShaking={diceStore.isShaking} diceOrder={1} diceFace={rollResult[1]} selectDice={selectDice} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
                 {dicePower - 3 >= 0 ? <DiceItem isShaking={diceStore.isShaking} diceOrder={2} diceFace={rollResult[2]} selectDice={selectDice} totalDiceScore={totalDiceScore} /> : <div className="dice-frame"></div>}
             </div>
-            <div onClick={() => gameState.fightPhase.number <= 1 && resetWeapon()}
+            <div onClick={() => [FightPhaseEnum.IDLE, FightPhaseEnum.CHOOSE_WEAPON].includes(gameState.fightPhase) && resetWeapon()}
                 className={`weapon-card card-item square-card item-image ${weapon?.id} selected-weapon` +
-                    `${gameState.fightPhase.number > 1 ? ' already-rolled' : ''}` +
-                    `${gameState.fightPhase.number === 4 ? ' attack-animation' : ''}` +
-                    `${gameState.fightPhase.number === 6 ? ' attack-animation' : ''}`}
+                    `${![FightPhaseEnum.IDLE, FightPhaseEnum.CHOOSE_WEAPON].includes(gameState.fightPhase) ? ' already-rolled' : ''}` +
+                    `${gameState.fightPhase === FightPhaseEnum.APPLY_DAMAGE ? ' attack-animation' : ''}`}
             >
                 <div className='item-name'>{weapon?.name}</div>
                 <div className={`attack-type ${_.get(weapon, 'attack.type')}-type phase-${diceStore.dicePhase}`}>
-                    {gameState.fightPhase.number <= 1 ?
+                    {[FightPhaseEnum.IDLE, FightPhaseEnum.CHOOSE_WEAPON].includes(gameState.fightPhase) ?
                         <span>{_.get(weapon, 'attack.effect') === 'plus' ? '+' : '-'}{_.get(weapon, 'attack.value')}</span> : ''}
-                    {gameState.fightPhase.number > 1 && gameState.fightPhase.number <= 4 ?
+                    {gameState.fightPhase === FightPhaseEnum.ROLL_DICE ?
                         <><span className='total-score'>{gameState.netAttackValue}</span> <span className='total-score-description'>({totalDiceScore || 0} +{weapon.attack.value})</span></> : ''}
-                    {gameState.fightPhase.number >= 5 ?
+                    {[FightPhaseEnum.APPLY_DAMAGE, FightPhaseEnum.COUNTER_ATTACK, FightPhaseEnum.VICTORY, FightPhaseEnum.DEFEAT].includes(gameState.fightPhase) ?
                         <>
                             <span className='total-score-full'>{gameState.netAttackValue}</span>
                             ➧<span className='total-score'>{(gameState.netAttackValue <= goblin.defense) ? '0' : gameState.netAttackValue - goblin.defense}</span>
@@ -205,7 +188,7 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
                 </div>
             </div>
             {(!_.isUndefined(weapon) && rollResult[0] === 0) && <Button size='sm' variant='success' onClick={() => { rollTheDice(); diceStore.setShaking(false); }} onMouseEnter={() => { diceStore.setShaking(true); }} onMouseLeave={() => { diceStore.setShaking(false); }} className='attack-button'><span>!! Attack !!</span></Button>}
-            {totalDiceScore !== 0 && !diceStore.isConfirm && gameState.fightPhase.number < 3 && <>
+            {totalDiceScore !== 0 && !diceStore.isConfirm && gameState.fightPhase === FightPhaseEnum.ROLL_DICE && <>
                 <Button size='sm' variant='warning' onClick={() => { resetDice(); }} className='reset-button'>Reset</Button>
                 <Button size='sm' variant='success' onClick={() => { confirmDice(); }} className='confirm-button'>Confirm</Button>
             </>}
