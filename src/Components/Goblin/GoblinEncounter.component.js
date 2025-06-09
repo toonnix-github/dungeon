@@ -7,7 +7,7 @@ import GoblinCardComponent from './GoblinCard.component';
 import VikingStore from '../../Store/Viking.store';
 import DiceStore from '../../Store/Dice.store';
 import './EncounterAnimation.scss';
-import GameStateStore from '../../Store/GameState.store';
+import GameStateStore, { FightPhaseEnum } from '../../Store/GameState.store';
 import FightContainerComponent from './FightContainerComponent';
 
 const CardPlaceholderComponent = ({ size, className }) => {
@@ -42,7 +42,7 @@ function GoblinEncounterComponent({ index }) {
 
     const chooseWeapon = (weapon) => {
         setWeaponToAttack(weapon);
-        gameState.setChooseWeapon();
+        gameState.setFightPhase(FightPhaseEnum.CHOOSE_WEAPON);
     };
 
     const endEncounterPhase = () => {
