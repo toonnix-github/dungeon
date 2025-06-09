@@ -33,3 +33,4 @@ export const DiceItem = ({ isShaking, diceOrder, diceFace, totalDiceScore, selec
         </>
     );
 };
+

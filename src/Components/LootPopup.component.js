@@ -5,6 +5,8 @@ import { useState } from 'react';
 import _ from 'lodash';
 import Modal from 'react-bootstrap/Modal';
 import LootPopupStore from './../Store/LootPopup.store';
+import { CurrentItemStateENUM } from '../Store/WinRewards.store';
+import WinRewardsStore from '../Store/WinRewards.store';
 
 function LootPopup() {
     const vikingPosition = VikingStore((state) => state.position);
@@ -16,6 +18,7 @@ function LootPopup() {
     const updateArmor = VikingStore((state) => state.updateArmor);
     const solveRoomStatus = roomStore((state) => state.solveRoomStatus);
     const lootPopupStore = LootPopupStore((state) => state);
+    const winRewards = WinRewardsStore((state) => state);
 
     const [removeIndex, setRemoveIndex] = useState(null);
 
@@ -38,6 +41,7 @@ function LootPopup() {
         lootPopupStore.closePopup();
         lootPopupStore.resetNewFoundLoot();
         solveRoomStatus(vikingPosition[0], vikingPosition[1]);
+        if (winRewards.currentItemState === CurrentItemStateENUM.IS_ITEM) winRewards.setCurrentItemState(CurrentItemStateENUM.IS_DONE);
     };
 
     const lootIsWeapon = lootPopupStore.newFoundLoot.type === 'weapon';
@@ -54,6 +58,8 @@ function LootPopup() {
         lootPopupStore.resetNewFoundLoot();
         lootPopupStore.end();
         solveRoomStatus(vikingPosition[0], vikingPosition[1]);
+        if (winRewards.currentItemState === CurrentItemStateENUM.IS_ITEM) winRewards.setCurrentItemState(CurrentItemStateENUM.IS_DONE);
+
     };
 
     return (

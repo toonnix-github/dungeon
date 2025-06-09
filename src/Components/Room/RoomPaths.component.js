@@ -13,3 +13,4 @@ const RoomPaths = ({ roomData, comeFromPath, isShowPreviousPath }) => {
 };
 
 export default RoomPaths;
+

@@ -77,11 +77,30 @@ function ControllerComponent() {
 
     return (
         <div className='controller-container'>
-            <button className='top' disabled={!upButtonState} onClick={() => { moveUp() }}></button>
-            <button className='right' disabled={!rightButtonState} onClick={() => { moveRight() }}></button>
-            <button className='bottom' disabled={!bottomButtonState} onClick={() => { moveBottom() }}></button>
-            <button className='left' disabled={!leftButtonState} onClick={() => { moveLeft() }}></button>
-            <button className='reset-button' onClick={handleResetGame}>Reset</button>
+            <button
+                className='top'
+                aria-label='Move up'
+                disabled={!upButtonState}
+                onClick={() => { moveUp() }}
+            ></button>
+            <button
+                className='right'
+                aria-label='Move right'
+                disabled={!rightButtonState}
+                onClick={() => { moveRight() }}
+            ></button>
+            <button
+                className='bottom'
+                aria-label='Move down'
+                disabled={!bottomButtonState}
+                onClick={() => { moveBottom() }}
+            ></button>
+            <button
+                className='left'
+                aria-label='Move left'
+                disabled={!leftButtonState}
+                onClick={() => { moveLeft() }}
+            ></button>
         </div >
     )
 }
