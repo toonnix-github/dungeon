@@ -19,6 +19,14 @@ You may also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+## Game State Persistence
+
+The application automatically saves your progress to **localStorage**. When the
+app loads it restores the last saved state for all the Zustand stores, including
+rooms, the hero data and ongoing battles. Any change in the stores triggers a
+save so closing your browser will not lose progress. You can clear the persisted
+data by calling the exported `resetGameState` helper in `Storage.Util.js`.
+
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
