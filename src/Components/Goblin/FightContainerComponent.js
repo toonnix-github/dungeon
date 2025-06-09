@@ -30,6 +30,9 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
     const [effectHeroGet, setEffectHeroGet] = useState({ action: 0, health: 0 });
     const [isConfirmDice, setIsConfirmDice] = useState(false);
     const [monsterDiceResult, setMonsterDiceResult] = useState(0);
+    const [fightMessage, setFightMessage] = useState('');
+    const [panelType, setPanelType] = useState('attack-panel');
+    const [isMessageShaking, setIsMessageShaking] = useState(false);
 
     const selectDice = (diceOrder, score) => {
         rollResult[diceOrder].selected = true;
@@ -100,6 +103,14 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
     };
 
     useEffect(() => {
+        if (fightMessage) {
+            setIsMessageShaking(true);
+            const t = setTimeout(() => setIsMessageShaking(false), 300);
+            return () => clearTimeout(t);
+        }
+    }, [fightMessage]);
+
+    useEffect(() => {
         console.log(gameState.fightPhase.name);
         console.log(winRewards.state);
         console.log(goblinStore.gang);
@@ -107,15 +118,20 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
         if (gameState.fightPhase === FightPhaseEnum.IDLE) {
             resetDiceScore();
             resetWeapon();
+            setFightMessage('');
         }
 
         if (gameState.fightPhase === FightPhaseEnum.CONFIRM_DICE) {
+            setFightMessage('Prepare to strike');
+            setPanelType('attack-panel');
             setTimeout(() => {
                 gameState.setAttackShield();
             }, 300);
         }
 
         if (gameState.fightPhase === FightPhaseEnum.ATTACK_SHIELD) {
+            setFightMessage('Attack the shield');
+            setPanelType('attack-panel');
             setTimeout(() => {
                 gameState.setAttackShieldEnd();
             }, 1000);
@@ -123,11 +139,13 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
 
         if (gameState.fightPhase === FightPhaseEnum.ATTACK_SHIELD_END) {
             if (gameState.netAttackValue > goblin.defense) {
+                setFightMessage('Shield broken!');
                 gameState.setMonsterShieldBroken(true);
                 setTimeout(() => {
                     gameState.setAttackHealth();
                 }, 1000);
             } else {
+                setFightMessage('Shield holds');
                 setTimeout(() => {
                     gameState.setCounterAttack();
                 }, 1000);
@@ -135,6 +153,8 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
         }
 
         if (gameState.fightPhase === FightPhaseEnum.ATTACK_HEALTH) {
+            setFightMessage('Strike the goblin');
+            setPanelType('attack-panel');
             setTimeout(() => {
                 gameState.setAttackHealthEnd();
             }, 1000);
@@ -142,12 +162,14 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
 
         if (gameState.fightPhase === FightPhaseEnum.ATTACK_HEALTH_END) {
             if ((gameState.netAttackValue - goblin.defense) >= goblin.health) {
+                setFightMessage('Goblin defeated');
                 gameState.setMonsterHeartBroken(true);
                 setTimeout(() => {
                     gameState.setMonsterDie();
                 }, 1000);
             }
             else {
+                setFightMessage('Goblin survives');
                 setTimeout(() => {
                     gameState.setCounterAttack();
                 }, 1000);
@@ -155,6 +177,7 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
         }
 
         if (gameState.fightPhase === FightPhaseEnum.MONSTER_DIE) {
+            setFightMessage('You win!');
             winRewards.setStart();
         }
 
@@ -164,6 +187,8 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
             gameState.setCounterAttackDice(dice.number);
             const bonus = goblin.counterAttack.bonusPerGoblin ? goblin.counterAttack.bonusPerGoblin * (goblinStore.gang.length - 1) : 0;
             const damage = dice.number + goblin.counterAttack.damage + bonus;
+            setFightMessage(`Counter attack -${damage}`);
+            setPanelType('counter-attack-panel');
             VikingStore.getState().takeDamage(damage);
             setTimeout(() => {
                 gameState.setCounterAttackEnd();
@@ -172,6 +197,7 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
 
         if (gameState.fightPhase === FightPhaseEnum.COUNTER_ATTACK_END) {
             setMonsterDiceResult(0);
+            setFightMessage('');
             gameState.resetAll();
         }
 
@@ -236,6 +262,12 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
                 <Button size='sm' variant='warning' onClick={() => { resetDice(); }} className='reset-button'>Reset</Button>
                 <Button size='sm' variant='success' onClick={() => { confirmDice(); }} className='confirm-button'>Confirm</Button>
             </>}
+            {fightMessage &&
+                <div className={`action-panel ${panelType}${isMessageShaking ? ' shaking' : ''}`}>
+                    <span className={`action-sign ${panelType === 'attack-panel' ? 'icon-attack-action' : 'icon-counter-attack-action'}`}></span>
+                    <span className="arrow-right"></span>
+                    {fightMessage}
+                </div>}
         </div>;
     }
 

@@ -1,3 +1,15 @@
+@keyframes panel-shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(4deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-6deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.action-panel.shaking {
+    animation: panel-shake 0.18s ease-in-out 0s 2;
+}
+
 .avatar-goblin {
     position: absolute;
     width: 30px;
