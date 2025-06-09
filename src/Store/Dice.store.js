@@ -1,4 +1,3 @@
-import { clear } from '@testing-library/user-event/dist/clear';
 import { create } from 'zustand';
 
 const defaultDiceScore = {
