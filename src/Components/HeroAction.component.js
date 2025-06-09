@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PropTypes from 'prop-types';
 import _, { set } from "lodash";
 import roomStore from "../Store/Room.store";
 import VikingStore from "../Store/Viking.store";
@@ -200,6 +201,8 @@ function HeroActionComponent() {
     );
 }
 
+HeroActionComponent.propTypes = {};
+
 const DiceActionButton = ({ diceOrder, dice, totalDiceScore, selectDice }) => {
     if (!_.isUndefined(dice) && !dice.selected) {
         if (totalDiceScore === 0) {
@@ -212,6 +215,20 @@ const DiceActionButton = ({ diceOrder, dice, totalDiceScore, selectDice }) => {
     } else {
         return <div />;
     }
+};
+
+DiceActionButton.propTypes = {
+    diceOrder: PropTypes.number,
+    dice: PropTypes.object,
+    totalDiceScore: PropTypes.number,
+    selectDice: PropTypes.func,
+};
+
+DiceActionButton.defaultProps = {
+    diceOrder: 0,
+    dice: null,
+    totalDiceScore: 0,
+    selectDice: () => { },
 };
 
 export default HeroActionComponent;

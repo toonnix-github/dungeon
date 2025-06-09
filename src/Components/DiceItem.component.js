@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import PropTypes from 'prop-types';
 import _ from "lodash";
 import "./DiceItem.scss";
 
@@ -32,4 +33,20 @@ export const DiceItem = ({ isShaking, diceOrder, diceFace, totalDiceScore, selec
                 <div className={`dice-item ${isShaking ? 'shaking-' : ''}${diceOrder}`}></div>}
         </>
     );
+};
+
+DiceItem.propTypes = {
+    isShaking: PropTypes.bool,
+    diceOrder: PropTypes.number,
+    diceFace: PropTypes.object,
+    totalDiceScore: PropTypes.number,
+    selectDice: PropTypes.func,
+};
+
+DiceItem.defaultProps = {
+    isShaking: false,
+    diceOrder: 0,
+    diceFace: null,
+    totalDiceScore: 0,
+    selectDice: () => { },
 };

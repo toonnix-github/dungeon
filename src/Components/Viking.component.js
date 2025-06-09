@@ -1,4 +1,5 @@
 import VikingStore from '../Store/Viking.store';
+import PropTypes from 'prop-types';
 
 function VikingComponent() {
     const vikingOffset = VikingStore((state) => state.offset);
@@ -10,5 +11,7 @@ function VikingComponent() {
         </>
     )
 }
+
+VikingComponent.propTypes = {};
 
 export default VikingComponent;

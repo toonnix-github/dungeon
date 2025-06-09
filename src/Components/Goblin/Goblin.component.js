@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import PropTypes from 'prop-types';
 import roomStore from "../../Store/Room.store";
 import "./Goblin.scss";
 // import { GoblinDetailComponent } from "./GoblinDetail.component";
@@ -30,3 +31,8 @@ function GoblinComponent({ index, goblin }) {
         </div >
     );
 }
+
+GoblinComponent.propTypes = {
+    index: PropTypes.number.isRequired,
+    goblin: PropTypes.object.isRequired,
+};

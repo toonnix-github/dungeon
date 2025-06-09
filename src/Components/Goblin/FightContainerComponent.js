@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import GoblinStore from '../../Store/Goblin.store';
 import _ from 'lodash';
 import { Button } from 'react-bootstrap';
@@ -190,4 +191,14 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
         </div>;
     }
 
+};
+
+FightContainerComponent.propTypes = {
+    weapon: PropTypes.object,
+    setWeaponToAttack: PropTypes.func.isRequired,
+    goblinIndex: PropTypes.number.isRequired,
+};
+
+FightContainerComponent.defaultProps = {
+    weapon: null,
 };

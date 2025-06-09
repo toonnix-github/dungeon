@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PropTypes from 'prop-types';
 import WinRewardsStore from "../Store/WinRewards.store";
 import _ from "lodash";
 import './WinRewards.scss'
@@ -77,3 +78,5 @@ export default function WinRewardsComponent() {
     //     }
     // }
 }
+
+WinRewardsComponent.propTypes = {};

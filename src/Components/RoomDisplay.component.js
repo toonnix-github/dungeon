@@ -1,5 +1,6 @@
 import roomStore from '../Store/Room.store';
 import VikingStore from '../Store/Viking.store';
+import PropTypes from 'prop-types';
 import './RoomDisplay.scss';
 
 function RoomDisplayComponent({ diceScore }) {
@@ -31,5 +32,13 @@ function RoomDisplayComponent({ diceScore }) {
         </div>
     );
 }
+
+RoomDisplayComponent.propTypes = {
+    diceScore: PropTypes.number,
+};
+
+RoomDisplayComponent.defaultProps = {
+    diceScore: 0,
+};
 
 export default RoomDisplayComponent;

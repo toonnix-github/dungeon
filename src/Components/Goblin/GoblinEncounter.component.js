@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-bootstrap/Modal';
 import GoblinStore from '../../Store/Goblin.store';
 import _ from 'lodash';
@@ -19,6 +20,15 @@ const CardPlaceholderComponent = ({ size, className }) => {
             <div className='corner bottom-right'></div>
         </div>
     );
+};
+
+CardPlaceholderComponent.propTypes = {
+    size: PropTypes.string.isRequired,
+    className: PropTypes.string,
+};
+
+CardPlaceholderComponent.defaultProps = {
+    className: '',
 };
 
 export default GoblinEncounterComponent;
@@ -112,5 +122,9 @@ function GoblinEncounterComponent({ index }) {
     }
 
 }
+
+GoblinEncounterComponent.propTypes = {
+    index: PropTypes.number.isRequired,
+};
 
 

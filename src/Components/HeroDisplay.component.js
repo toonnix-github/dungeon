@@ -1,4 +1,5 @@
 import VikingStore from "../Store/Viking.store";
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Tooltip } from 'react-tooltip';
 
@@ -29,6 +30,18 @@ function ItemDisplay({ item, tooltipId, emptyClassName, itemType }) {
         </>
     );
 }
+
+ItemDisplay.propTypes = {
+    item: PropTypes.object,
+    tooltipId: PropTypes.string.isRequired,
+    emptyClassName: PropTypes.string.isRequired,
+    itemType: PropTypes.string,
+};
+
+ItemDisplay.defaultProps = {
+    item: null,
+    itemType: 'equipment',
+};
 
 function HeroDisplayComponent() {
     const vikingData = VikingStore((state) => state);
@@ -105,5 +118,7 @@ function HeroDisplayComponent() {
         </div>
     );
 }
+
+HeroDisplayComponent.propTypes = {};
 
 export default HeroDisplayComponent;

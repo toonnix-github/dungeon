@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { oppositeDirection } from '../../Util/Room.Util';
 
 const RoomPaths = ({ roomData, comeFromPath, isShowPreviousPath }) => {
@@ -10,6 +11,16 @@ const RoomPaths = ({ roomData, comeFromPath, isShowPreviousPath }) => {
             </div>
         )
     ));
+};
+
+RoomPaths.propTypes = {
+    roomData: PropTypes.object.isRequired,
+    comeFromPath: PropTypes.string,
+    isShowPreviousPath: PropTypes.func.isRequired,
+};
+
+RoomPaths.defaultProps = {
+    comeFromPath: '',
 };
 
 export default RoomPaths;

@@ -2,6 +2,7 @@ import ItemCard from './ItemCard.component';
 import VikingStore from '../Store/Viking.store';
 import roomStore from '../Store/Room.store';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Modal from 'react-bootstrap/Modal';
 import LootPopupStore from './../Store/LootPopup.store';
@@ -107,5 +108,7 @@ function LootPopup() {
         </Modal>
     );
 }
+
+LootPopup.propTypes = {};
 
 export default LootPopup;

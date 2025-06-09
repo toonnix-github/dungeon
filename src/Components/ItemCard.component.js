@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const ItemCard = ({ itemDetail, setRemoveIndex, removeIndex, weaponIndex, needToDiscard }) => {
     const { name, description, attack, defend, effect, rarity, id, type } = itemDetail;
@@ -32,6 +33,21 @@ const ItemCard = ({ itemDetail, setRemoveIndex, removeIndex, weaponIndex, needTo
             {(removeIndex === weaponIndex) && <div className="discard-mark"></div>}
         </div>
     );
+};
+
+ItemCard.propTypes = {
+    itemDetail: PropTypes.object.isRequired,
+    setRemoveIndex: PropTypes.func,
+    removeIndex: PropTypes.number,
+    weaponIndex: PropTypes.number,
+    needToDiscard: PropTypes.bool,
+};
+
+ItemCard.defaultProps = {
+    setRemoveIndex: () => { },
+    removeIndex: null,
+    weaponIndex: null,
+    needToDiscard: false,
 };
 
 export default ItemCard;

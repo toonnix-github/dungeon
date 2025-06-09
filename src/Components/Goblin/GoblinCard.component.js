@@ -1,4 +1,5 @@
 import _ from "lodash";
+import PropTypes from 'prop-types';
 import DiceStore from "../../Store/Dice.store";
 import GameStateStore, { FightPhaseEnum } from "../../Store/GameState.store";
 import { MonsterDiceComponent } from "./MonsterDiceComponent";
@@ -149,3 +150,7 @@ export default function GoblinCardComponent({ goblin }) {
         // </div>
     );
 }
+
+GoblinCardComponent.propTypes = {
+    goblin: PropTypes.object.isRequired,
+};

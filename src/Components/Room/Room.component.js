@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import roomStore from '../../Store/Room.store';
 import VikingStore from '../../Store/Viking.store';
 import RoomPaths from './RoomPaths.component';
@@ -189,5 +190,11 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
     return roomStatus === 'revealed' || isOperatingRoom || isEntranceRoom;
   }
 }
+
+RoomComponent.propTypes = {
+  roomNumber: PropTypes.arrayOf(PropTypes.number).isRequired,
+  isRoomRotating: PropTypes.bool.isRequired,
+  setIsRoomRotating: PropTypes.func.isRequired,
+};
 
 export default RoomComponent;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import VikingStore from '../Store/Viking.store';
 import roomStore from '../Store/Room.store';
 
@@ -77,5 +78,7 @@ function ControllerComponent() {
         </div >
     )
 }
+
+ControllerComponent.propTypes = {};
 
 export default ControllerComponent;
