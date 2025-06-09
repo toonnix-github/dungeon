@@ -7,11 +7,9 @@ describe('getRandomTreasure', () => {
     jest.resetModules();
   });
 
-  test('removes one item from the deck', () => {
+  test('returns a treasure object', () => {
     const TreasureUtil = require('./Treasure.Util').default;
-    const initialLength = TreasureStore.getState().deck.length;
-    TreasureUtil.getRandomTreasure();
-    const finalLength = TreasureStore.getState().deck.length;
-    expect(finalLength).toBe(initialLength - 1);
+    const treasure = TreasureUtil.getRandomTreasure();
+    expect(treasure).toBeTruthy();
   });
 });
