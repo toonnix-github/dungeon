@@ -76,6 +76,24 @@ const VikingStore = create((set, get) => ({
             max: state.health.max
         }
     })),
+    resetAll: () => set(() => ({
+        name: "Bjorn the Brave",
+        class: "Viking Warrior",
+        defend: 5,
+        dicePower: { attack: 3, magic: 1, speed: 2 },
+        health: { current: 10, max: 10 },
+        action: { current: 5, max: 5 },
+        move: { current: 6, max: 6 },
+        position: [3, 3],
+        previousPosition: [3, 3],
+        comeFromPath: '',
+        offset: [0, 0],
+        weapon: [VikingAxe],
+        armor: [],
+        rune: [],
+        spell: [],
+        isMoveDone: true
+    }))
 }));
 
 export default VikingStore;

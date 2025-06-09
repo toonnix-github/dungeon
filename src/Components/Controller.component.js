@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { resetGame } from '../Util/Storage.Util';
 import VikingStore from '../Store/Viking.store';
 import roomStore from '../Store/Room.store';
 
@@ -68,12 +69,19 @@ function ControllerComponent() {
         moveVikingLeft();
     }
 
+    const handleResetGame = () => {
+        if (window.confirm('Reset the game? This will clear all progress.')) {
+            resetGame();
+        }
+    }
+
     return (
         <div className='controller-container'>
             <button className='top' disabled={!upButtonState} onClick={() => { moveUp() }}></button>
             <button className='right' disabled={!rightButtonState} onClick={() => { moveRight() }}></button>
             <button className='bottom' disabled={!bottomButtonState} onClick={() => { moveBottom() }}></button>
             <button className='left' disabled={!leftButtonState} onClick={() => { moveLeft() }}></button>
+            <button className='reset-button' onClick={handleResetGame}>Reset</button>
         </div >
     )
 }

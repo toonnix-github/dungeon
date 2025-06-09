@@ -11,6 +11,12 @@ const LootPopupStore = create((set) => ({
     isEnd: false,
     begin: (isBegin) => set(() => ({ isBegin: true, isEnd: false })),
     end: (isEnd) => set(() => ({ isBegin: false, isEnd: true })),
+    resetAll: () => set(() => ({
+        isShowPopup: false,
+        newFoundLoot: {},
+        isBegin: false,
+        isEnd: false
+    }))
 }));
 
 export default LootPopupStore;

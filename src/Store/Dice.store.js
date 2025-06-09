@@ -22,7 +22,14 @@ const DiceStore = create((set) => ({
     resetDiceScore: () => set(() => ({ diceScore: defaultDiceScore })),
     confirmDiceScore: () => set(() => ({ isConfirm: true })),
     clearConfirmState: () => set(() => ({ isConfirm: false })),
-    setDicePhase: (phase) => set(() => ({ dicePhase: phase }))
+    setDicePhase: (phase) => set(() => ({ dicePhase: phase })),
+    resetAll: () => set(() => ({
+        isShowPopup: false,
+        diceScore: defaultDiceScore,
+        isConfirm: false,
+        dicePhase: 'INITIAL',
+        isShaking: false
+    }))
 }));
 
 export default DiceStore;

@@ -84,6 +84,7 @@ const roomStore = create((set) => ({
       }
     }
   })),
+  resetAll: () => set(() => ({ rooms: initialRoomData }))
 }));
 
 export default roomStore;
