@@ -190,7 +190,11 @@ function HeroActionComponent() {
 
             <div className="action-container">
                 {(roomData.isTreasureRoom && !roomData.solved) &&
-                    <button onClick={() => { showDicePopup(); }} className="open-chest-action action-button"></button>
+                    <button
+                        onClick={() => { showDicePopup(); }}
+                        className="open-chest-action action-button"
+                        aria-label="Open chest"
+                    ></button>
                 }
                 {
             /* <button className="attack-action"></button>
