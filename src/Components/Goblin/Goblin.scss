@@ -1,3 +1,15 @@
+@keyframes panel-shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(4deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-6deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.action-panel.shaking {
+    animation: panel-shake 0.18s ease-in-out 0s 2;
+}
+
 .avatar-goblin {
     position: absolute;
     width: 30px;
@@ -744,6 +756,12 @@
         width: 100%;
         height: 25%;
     }
+
+    .ack-button {
+        margin-left: 10px;
+        font-size: 1rem;
+        padding: 0 5px;
+    }
 }
 
 .dice-item,
@@ -871,6 +889,14 @@
     right: 10px;
     height: 15%;
     width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .dice-number {
+        color: #fff;
+        font-size: 50cqw;
+    }
 
     &.hero-phase {
         visibility: hidden;

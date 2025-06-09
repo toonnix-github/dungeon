@@ -46,11 +46,14 @@ const GameStoteStore = create((set) => ({
     setMonsterShieldBroken: (value) => set(() => ({ monsterShieldBroken: value })),
     monsterHeartBroken: false,
     setMonsterHeartBroken: (value) => set(() => ({ monsterHeartBroken: value })),
+    counterAttackDice: 0,
+    setCounterAttackDice: (value) => set(() => ({ counterAttackDice: value })),
     resetAll: () => set(() => ({
         fightPhase: FightPhaseEnum.IDLE,
         netAttackValue: 0,
         monsterShieldBroken: false,
         monsterHeartBroken: false,
+        counterAttackDice: 0,
         goblinEncounter: false
     }))
 }));

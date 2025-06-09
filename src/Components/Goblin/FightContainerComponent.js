@@ -29,6 +29,12 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
     const [rollResult, setRollResult] = useState([0, 0, 0]);
     const [effectHeroGet, setEffectHeroGet] = useState({ action: 0, health: 0 });
     const [isConfirmDice, setIsConfirmDice] = useState(false);
+    const [monsterDiceResult, setMonsterDiceResult] = useState(0);
+    const [fightMessage, setFightMessage] = useState('');
+    const [panelType, setPanelType] = useState('attack-panel');
+    const [isMessageShaking, setIsMessageShaking] = useState(false);
+    const [awaitAck, setAwaitAck] = useState(false);
+    const [ackCallback, setAckCallback] = useState(null);
 
     const selectDice = (diceOrder, score) => {
         rollResult[diceOrder].selected = true;
@@ -98,6 +104,22 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
         gameState.setConfirmDice();
     };
 
+    const acknowledgeMessage = () => {
+        if (ackCallback) {
+            ackCallback();
+        }
+        setAwaitAck(false);
+        setAckCallback(null);
+    };
+
+    useEffect(() => {
+        if (fightMessage) {
+            setIsMessageShaking(true);
+            const t = setTimeout(() => setIsMessageShaking(false), 300);
+            return () => clearTimeout(t);
+        }
+    }, [fightMessage]);
+
     useEffect(() => {
         console.log(gameState.fightPhase.name);
         console.log(winRewards.state);
@@ -106,46 +128,92 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
         if (gameState.fightPhase === FightPhaseEnum.IDLE) {
             resetDiceScore();
             resetWeapon();
+            setFightMessage('');
+            setAwaitAck(false);
+            setAckCallback(null);
         }
 
         if (gameState.fightPhase === FightPhaseEnum.CONFIRM_DICE) {
-            setTimeout(() => {
-                gameState.setAttackShield();
-            }, 300);
+            setFightMessage('Prepare to strike');
+            setPanelType('attack-panel');
+            setAckCallback(() => () => gameState.setAttackShield());
+            setAwaitAck(true);
         }
 
         if (gameState.fightPhase === FightPhaseEnum.ATTACK_SHIELD) {
-            setTimeout(() => {
-                gameState.setAttackShieldEnd();
-            }, 1000);
+            setFightMessage('Attack the shield');
+            setPanelType('attack-panel');
+            setAckCallback(() => () => gameState.setAttackShieldEnd());
+            setAwaitAck(true);
         }
 
         if (gameState.fightPhase === FightPhaseEnum.ATTACK_SHIELD_END) {
             if (gameState.netAttackValue > goblin.defense) {
-                gameState.setMonsterShieldBroken(true);
-                setTimeout(() => {
+                setFightMessage('Shield broken!');
+                setAckCallback(() => () => {
+                    gameState.setMonsterShieldBroken(true);
                     gameState.setAttackHealth();
-                }, 1000);
+                });
+            } else {
+                setFightMessage('Shield holds');
+                setAckCallback(() => () => gameState.setCounterAttack());
             }
+            setPanelType('attack-panel');
+            setAwaitAck(true);
         }
 
         if (gameState.fightPhase === FightPhaseEnum.ATTACK_HEALTH) {
-            setTimeout(() => {
-                gameState.setAttackHealthEnd();
-            }, 1000);
+            setFightMessage('Strike the goblin');
+            setPanelType('attack-panel');
+            setAckCallback(() => () => gameState.setAttackHealthEnd());
+            setAwaitAck(true);
         }
 
         if (gameState.fightPhase === FightPhaseEnum.ATTACK_HEALTH_END) {
             if ((gameState.netAttackValue - goblin.defense) >= goblin.health) {
-                gameState.setMonsterHeartBroken(true);
-                setTimeout(() => {
+                setFightMessage('Goblin defeated');
+                setAckCallback(() => () => {
+                    gameState.setMonsterHeartBroken(true);
                     gameState.setMonsterDie();
-                }, 1000);
+                });
             }
+            else {
+                setFightMessage('Goblin survives');
+                setAckCallback(() => () => gameState.setCounterAttack());
+            }
+            setPanelType('attack-panel');
+            setAwaitAck(true);
         }
 
         if (gameState.fightPhase === FightPhaseEnum.MONSTER_DIE) {
-            winRewards.setStart();
+            setFightMessage('You win!');
+            setPanelType('attack-panel');
+            setAckCallback(() => () => winRewards.setStart());
+            setAwaitAck(true);
+        }
+
+        if (gameState.fightPhase === FightPhaseEnum.COUNTER_ATTACK) {
+            const dice = DiceUtil.rollDice();
+            setMonsterDiceResult(dice.number);
+            gameState.setCounterAttackDice(dice.number);
+            const bonus = goblin.counterAttack.bonusPerGoblin ? goblin.counterAttack.bonusPerGoblin * (goblinStore.gang.length - 1) : 0;
+            const damage = dice.number + goblin.counterAttack.damage + bonus;
+            setFightMessage(`Counter attack -${damage}`);
+            setPanelType('counter-attack-panel');
+            VikingStore.getState().takeDamage(damage);
+            setAckCallback(() => () => gameState.setCounterAttackEnd());
+            setAwaitAck(true);
+        }
+
+        if (gameState.fightPhase === FightPhaseEnum.COUNTER_ATTACK_END) {
+            setMonsterDiceResult(0);
+            setFightMessage('End of battle');
+            setPanelType('attack-panel');
+            setAckCallback(() => () => {
+                setFightMessage('');
+                gameState.resetAll();
+            });
+            setAwaitAck(true);
         }
 
         if (winRewards.state === WinRewardsStaeENUM.START) {
@@ -209,6 +277,13 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
                 <Button size='sm' variant='warning' onClick={() => { resetDice(); }} className='reset-button'>Reset</Button>
                 <Button size='sm' variant='success' onClick={() => { confirmDice(); }} className='confirm-button'>Confirm</Button>
             </>}
+            {fightMessage &&
+                <div className={`action-panel ${panelType}${isMessageShaking ? ' shaking' : ''}`}>
+                    <span className={`action-sign ${panelType === 'attack-panel' ? 'icon-attack-action' : 'icon-counter-attack-action'}`}></span>
+                    <span className="arrow-right"></span>
+                    {fightMessage}
+                    {awaitAck && <button className='ack-button' onClick={acknowledgeMessage}>OK</button>}
+                </div>}
         </div>;
     }
 
