@@ -17,6 +17,7 @@ import GoblinStore from './Store/Goblin.store';
 import WinRewardsComponent from './Components/WinRewards.component';
 import LootPopup from './Components/LootPopup.component';
 import StorageUtil from './Util/Storage.Util';
+import GoblinDefeatedModal from './Components/Goblin/GoblinDefeatedModalComponent';
 
 function App() {
   const [isRoomRotating, setIsRoomRotating] = useState(false);
@@ -52,6 +53,7 @@ function App() {
       ))}
       <WinRewardsComponent />
       <LootPopup />
+      <GoblinDefeatedModal />
     </div >
   );
 }

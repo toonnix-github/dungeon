@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import roomStore from "../../Store/Room.store";
 import "./Goblin.scss";
 // import { GoblinDetailComponent } from "./GoblinDetail.component";
@@ -11,7 +10,10 @@ export default GoblinComponent;
 function GoblinComponent({ index, goblin }) {
     const [goblinOffset, setGoblinOffset] = useState({ top: 0, left: 0 });
     const roomData = roomStore(state => state.rooms[goblin.position.y][goblin.position.x]);
-    const popupId = `${goblin.id}-${[goblin.position.y]}-${[goblin.position.x]}-${crypto.randomUUID().substring(0, 8)}`;
+    const popupId = useMemo(
+        () => `${goblin.id}-${goblin.position.y}-${goblin.position.x}-${crypto.randomUUID().substring(0, 8)}`,
+        []
+    );
 
     useEffect(() => {
         setGoblinOffset({ top: roomData.offset.bottom, left: roomData.offset.right });
