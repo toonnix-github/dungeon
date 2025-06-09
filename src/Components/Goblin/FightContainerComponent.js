@@ -33,6 +33,8 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
     const [fightMessage, setFightMessage] = useState('');
     const [panelType, setPanelType] = useState('attack-panel');
     const [isMessageShaking, setIsMessageShaking] = useState(false);
+    const [awaitAck, setAwaitAck] = useState(false);
+    const [ackCallback, setAckCallback] = useState(null);
 
     const selectDice = (diceOrder, score) => {
         rollResult[diceOrder].selected = true;
@@ -102,6 +104,14 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
         gameState.setConfirmDice();
     };
 
+    const acknowledgeMessage = () => {
+        if (ackCallback) {
+            ackCallback();
+        }
+        setAwaitAck(false);
+        setAckCallback(null);
+    };
+
     useEffect(() => {
         if (fightMessage) {
             setIsMessageShaking(true);
@@ -119,66 +129,67 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
             resetDiceScore();
             resetWeapon();
             setFightMessage('');
+            setAwaitAck(false);
+            setAckCallback(null);
         }
 
         if (gameState.fightPhase === FightPhaseEnum.CONFIRM_DICE) {
             setFightMessage('Prepare to strike');
             setPanelType('attack-panel');
-            setTimeout(() => {
-                gameState.setAttackShield();
-            }, 300);
+            setAckCallback(() => () => gameState.setAttackShield());
+            setAwaitAck(true);
         }
 
         if (gameState.fightPhase === FightPhaseEnum.ATTACK_SHIELD) {
             setFightMessage('Attack the shield');
             setPanelType('attack-panel');
-            setTimeout(() => {
-                gameState.setAttackShieldEnd();
-            }, 1000);
+            setAckCallback(() => () => gameState.setAttackShieldEnd());
+            setAwaitAck(true);
         }
 
         if (gameState.fightPhase === FightPhaseEnum.ATTACK_SHIELD_END) {
             if (gameState.netAttackValue > goblin.defense) {
                 setFightMessage('Shield broken!');
-                gameState.setMonsterShieldBroken(true);
-                setTimeout(() => {
+                setAckCallback(() => () => {
+                    gameState.setMonsterShieldBroken(true);
                     gameState.setAttackHealth();
-                }, 1000);
+                });
             } else {
                 setFightMessage('Shield holds');
-                setTimeout(() => {
-                    gameState.setCounterAttack();
-                }, 1000);
+                setAckCallback(() => () => gameState.setCounterAttack());
             }
+            setPanelType('attack-panel');
+            setAwaitAck(true);
         }
 
         if (gameState.fightPhase === FightPhaseEnum.ATTACK_HEALTH) {
             setFightMessage('Strike the goblin');
             setPanelType('attack-panel');
-            setTimeout(() => {
-                gameState.setAttackHealthEnd();
-            }, 1000);
+            setAckCallback(() => () => gameState.setAttackHealthEnd());
+            setAwaitAck(true);
         }
 
         if (gameState.fightPhase === FightPhaseEnum.ATTACK_HEALTH_END) {
             if ((gameState.netAttackValue - goblin.defense) >= goblin.health) {
                 setFightMessage('Goblin defeated');
-                gameState.setMonsterHeartBroken(true);
-                setTimeout(() => {
+                setAckCallback(() => () => {
+                    gameState.setMonsterHeartBroken(true);
                     gameState.setMonsterDie();
-                }, 1000);
+                });
             }
             else {
                 setFightMessage('Goblin survives');
-                setTimeout(() => {
-                    gameState.setCounterAttack();
-                }, 1000);
+                setAckCallback(() => () => gameState.setCounterAttack());
             }
+            setPanelType('attack-panel');
+            setAwaitAck(true);
         }
 
         if (gameState.fightPhase === FightPhaseEnum.MONSTER_DIE) {
             setFightMessage('You win!');
-            winRewards.setStart();
+            setPanelType('attack-panel');
+            setAckCallback(() => () => winRewards.setStart());
+            setAwaitAck(true);
         }
 
         if (gameState.fightPhase === FightPhaseEnum.COUNTER_ATTACK) {
@@ -190,15 +201,19 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
             setFightMessage(`Counter attack -${damage}`);
             setPanelType('counter-attack-panel');
             VikingStore.getState().takeDamage(damage);
-            setTimeout(() => {
-                gameState.setCounterAttackEnd();
-            }, 1000);
+            setAckCallback(() => () => gameState.setCounterAttackEnd());
+            setAwaitAck(true);
         }
 
         if (gameState.fightPhase === FightPhaseEnum.COUNTER_ATTACK_END) {
             setMonsterDiceResult(0);
-            setFightMessage('');
-            gameState.resetAll();
+            setFightMessage('End of battle');
+            setPanelType('attack-panel');
+            setAckCallback(() => () => {
+                setFightMessage('');
+                gameState.resetAll();
+            });
+            setAwaitAck(true);
         }
 
         if (winRewards.state === WinRewardsStaeENUM.START) {
@@ -267,6 +282,7 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
                     <span className={`action-sign ${panelType === 'attack-panel' ? 'icon-attack-action' : 'icon-counter-attack-action'}`}></span>
                     <span className="arrow-right"></span>
                     {fightMessage}
+                    {awaitAck && <button className='ack-button' onClick={acknowledgeMessage}>OK</button>}
                 </div>}
         </div>;
     }
