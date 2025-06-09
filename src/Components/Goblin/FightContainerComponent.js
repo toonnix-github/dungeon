@@ -142,10 +142,26 @@ export default function FightContainerComponent({ weapon, setWeaponToAttack, gob
                     gameState.setMonsterDie();
                 }, 1000);
             }
+            else {
+                setTimeout(() => {
+                    gameState.setCounterAttack();
+                }, 1000);
+            }
         }
 
         if (gameState.fightPhase === FightPhaseEnum.MONSTER_DIE) {
             winRewards.setStart();
+        }
+
+        if (gameState.fightPhase === FightPhaseEnum.COUNTER_ATTACK) {
+            VikingStore.getState().takeDamage(goblin.counterAttack.damage);
+            setTimeout(() => {
+                gameState.setCounterAttackEnd();
+            }, 1000);
+        }
+
+        if (gameState.fightPhase === FightPhaseEnum.COUNTER_ATTACK_END) {
+            gameState.resetAll();
         }
 
         if (winRewards.state === WinRewardsStaeENUM.START) {
