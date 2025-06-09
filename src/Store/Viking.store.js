@@ -1,5 +1,9 @@
 import { range } from 'lodash';
 import { create } from 'zustand';
+import StorageUtil from '../Util/Storage.Util';
+
+const initialName = StorageUtil.get('heroName', 'Bjorn the Brave');
+const initialClass = StorageUtil.get('heroClass', 'Viking Warrior');
 
 const VikingAxe = {
     type: "weapon",
@@ -18,8 +22,8 @@ const VikingBow = {
 };
 
 const VikingStore = create((set, get) => ({
-    name: "Bjorn the Brave",
-    class: "Viking Warrior",
+    name: initialName,
+    class: initialClass,
     defend: 5,
     dicePower: { attack: 3, magic: 1, speed: 2 },
     health: { current: 10, max: 10 },
@@ -34,6 +38,8 @@ const VikingStore = create((set, get) => ({
     rune: [],
     spell: [],
     isMoveDone: true,
+    setName: (heroName) => set(() => ({ name: heroName })),
+    setClass: (heroClass) => set(() => ({ class: heroClass })),
     setPreviousPosition: (_previousPosition) => set(() => ({ previousPosition: _previousPosition })),
     setComeFromPath: (direction) => set(() => ({ comeFromPath: direction })),
     moveUp: () => set((state) => ({ position: [state.position[0] - 1, state.position[1]] })),

@@ -12,13 +12,20 @@ import React, { useState } from 'react';
 import VikingComponent from './Components/Viking.component';
 import HeroDisplayComponent from './Components/HeroDisplay.component';
 import HeroActionComponent from './Components/HeroAction.component';
+import HeroSetup from './Components/HeroSetup.component';
 import GoblinStore from './Store/Goblin.store';
 import WinRewardsComponent from './Components/WinRewards.component';
 import LootPopup from './Components/LootPopup.component';
+import StorageUtil from './Util/Storage.Util';
 
 function App() {
   const [isRoomRotating, setIsRoomRotating] = useState(false);
+  const [isSetupDone, setIsSetupDone] = useState(() => !!StorageUtil.get('heroName'));
   const goblinGang = GoblinStore((state) => state.gang);
+
+  if (!isSetupDone) {
+    return <HeroSetup onComplete={() => setIsSetupDone(true)} />;
+  }
 
   return (
     <div className="App">
