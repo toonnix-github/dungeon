@@ -163,9 +163,13 @@ function RoomComponent({ roomNumber, isRoomRotating, setIsRoomRotating }) {
       className={`grid-item ${getGridItemClasses()}`}
       id={`grid-item-${roomNumberString}`}
     >
-      {!isRoomRevealed() && isReadyToExplore && (
-        <button className='explore-button' onClick={() => !isRoomRotating && selectBlankRoom(RevealMethodENUM.VISION)}></button>
-      )}
+        {!isRoomRevealed() && isReadyToExplore && (
+          <button
+            className='explore-button'
+            aria-label='Explore room'
+            onClick={() => !isRoomRotating && selectBlankRoom(RevealMethodENUM.VISION)}
+          ></button>
+        )}
       <RoomPaths roomData={roomData} comeFromPath={comeFromPath} isShowPreviousPath={isShowPreviousPath} />
       {roomData.name && <div className='path middle'></div>}
       {isFoundGoblin && <span className='icon icon-goblin'></span>}
